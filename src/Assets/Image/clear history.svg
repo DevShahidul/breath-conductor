@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="166px" height="45px" viewBox="0 0 166 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Choose a time</title>
+    <desc>Created with Sketch.</desc>
+    <g id="scheduling" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Settings" transform="translate(-892.000000, -663.000000)">
+            <g id="Choose-a-time" transform="translate(892.000000, 663.000000)">
+                <g id="Button">
+                    <rect id="Rectangle-4-Copy-3" stroke="#29AAE3" stroke-width="2" x="1" y="1" width="164" height="43" rx="5"></rect>
+                    <text id="Clear-History" font-family="ProximaNova-Bold, Proxima Nova" font-size="16" font-weight="bold" line-spacing="17" fill="#29AAE3">
+                        <tspan x="33.5087761" y="27.456">Clear History</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

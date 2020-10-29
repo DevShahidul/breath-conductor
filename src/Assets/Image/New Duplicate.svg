@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="264px" height="45px" viewBox="0 0 264 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Group 10</title>
+    <desc>Created with Sketch.</desc>
+    <g id="scheduling" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="History-detail" transform="translate(-413.000000, -636.000000)">
+            <g id="Group-10" transform="translate(413.000000, 636.000000)">
+                <g id="Button-8">
+                    <g id="Button">
+                        <rect id="Rectangle-4-Copy-3" fill="#29AAE3" x="0" y="3.13474736e-15" width="264" height="45" rx="5"></rect>
+                        <text id="Log-In" font-family="ProximaNova-Bold, Proxima Nova" font-size="16" font-weight="bold" fill="#FFFFFF">
+                            <tspan x="79.3860299" y="28">New Duplicate</tspan>
+                        </text>
+                    </g>
+                </g>
+                <path d="M31.2736364,22.9411765 L31.273,25.588 L34,25.5882353 L34,27.3529412 L31.273,27.352 L31.2736364,30 L29.4554545,30 L29.455,27.352 L26.7272727,27.3529412 L26.7272727,25.5882353 L29.455,25.588 L29.4554545,22.9411765 L31.2736364,22.9411765 Z M23.0909091,25.5882353 L23.0909091,27.3529412 L14,27.3529412 L14,25.5882353 L23.0909091,25.5882353 Z M26.7272727,22.0588235 L26.7272727,23.8235294 L14,23.8235294 L14,22.0588235 L26.7272727,22.0588235 Z M26.7272727,18.5294118 L26.7272727,20.2941176 L14,20.2941176 L14,18.5294118 L26.7272727,18.5294118 Z M26.7272727,15 L26.7272727,16.7647059 L14,16.7647059 L14,15 L26.7272727,15 Z" id="New-duplicate" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

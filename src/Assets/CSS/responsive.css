@@ -1,0 +1,251 @@
+@media screen and (max-width: 660px){
+
+    /* Top Navigation Two style css */
+    .nagivationTwo {
+        min-height: 0px;
+        overflow: hidden;
+        transition: min-height 0.5s;
+    }
+    .menu-section {
+        display: block;
+        position: absolute;
+        right: 25px;
+        top: 25px;
+    }
+    .menu-section img{
+        width: 30px;
+        text-align: right;
+    }
+    .nav-containerTwo {
+        display: inherit;
+        height: auto;
+        padding: 15px 0px;
+    }
+    nav{
+        position: absolute;
+        top: 122px;
+        left: 0px;
+        background: #000103;
+        width: 100%;
+        display: inline-block;
+        transition: max-height 0.5s;
+        overflow: hidden;
+        margin-left: 0px;
+    }
+    nav ul{
+        display: inherit;
+        width: 90%;
+        margin: auto;
+    }
+    nav ul li {
+        width: 100%;
+        min-height: 48px;
+        border-bottom: 1px solid #fff;
+        margin-left: 0px;
+        height: 48px;
+    }
+    .user{
+        position: absolute;
+        top: 80px;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        margin-left: 2%;
+        width: 90%;
+        border-bottom: 1px solid #fff;
+
+    }
+    .user img {
+        width: 25px;
+        height: 25px;
+    }
+    .notification  {
+        position: absolute;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        top: 31px;
+        color: #fff !important;
+        right: 41px;
+        margin-right: 30px;
+    }
+
+    .downArrow {
+        display: none;
+    }
+    /* styles start form here */
+    .btn {
+        font-size: 16px;
+    }
+
+    .col-2 {
+        flex-basis: 100%;
+    }
+
+    .right-border {
+        border-right: none;
+    }
+    .terms, .support {
+        text-align: center;
+    }
+    .nav-container {
+        padding: 15px 10px;
+    }
+
+
+    /*  Login Page styles*/
+    .container {
+        position: relative;
+        top: 100px;
+        left: 0;
+        transform: none;
+        margin: auto;
+        width: 90%;
+        min-height: auto;
+    }
+    .login-box {
+        padding: 30px 35px;
+    }
+    .sign-in .title {
+        font-size: 20px;
+    }
+    .sign-in .details {
+        margin: 0px;
+    }
+    .form-field {
+        margin: 15px 0px;
+    }
+
+
+    /* Welcome page css here */
+    .welcome-container, .feel-container{
+        display: flex;
+        min-height: auto;
+        padding: 30px 35px;
+    }
+    .name-title {
+        font-size: 24px ;
+    }
+    .welcome-msg {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+
+    /* Home page css here */
+    .home-container {
+        display: inherit;
+        padding: 30px 35px;
+    }
+    .session-title {
+        font-size: 20px;
+    }
+    .task-list p {
+        font-size: 16px;
+    }
+    .radio-text p {
+        font-size: 14px;
+    }
+
+
+    /* feel page css here */
+    .feel-container {
+        min-height: 350px;
+        display: inherit;
+    }
+    .radio-item div {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* survey page css here */
+    .survey-container {
+        display: inherit;
+        padding: 30px 35px;
+    }
+    .survey-title {
+        font-size: 20px;
+    }
+    .survey-group p {
+        font-size: 14px;
+    }
+    .survey-group select {
+        font-size: 14px;
+    }
+    .age {
+        margin-bottom: 10px;
+    }
+
+    /* library page css here*/
+    .library {
+        position: relative;
+        top: 150px;
+        left: 0;
+        transform: none;
+        margin: auto;
+        width: 90%;
+        min-height: auto;
+    }
+    .tabs .nav-item {
+        font-size: 20px;
+    }
+    li.sc-dlnjPT.bqnhDN.nav-item.active {
+       font-size: 20px;
+    }
+    .favorites-info h2 {
+        font-size: 16px;
+    }
+    .details-top .section-title h2 {
+        font-size: 20px;
+    }
+    .details-items {
+        min-height: auto;
+    }
+    .details-items .row {
+        width: 100%;
+    }
+    .img-box img{
+        width: 40px;
+        height: auto;
+    }
+    .details-items .img-box p {
+        font-size: 14px;
+    }
+    .details-items h4 {
+        font-size: 16px;
+    }
+    .details-top {
+        min-height: 75px;
+    }
+    .details-action .col-3 {
+        flex-basis: 80%;
+        margin: auto;
+    }
+
+    /* setting page css here */
+
+    .setting {
+        position: relative;
+        top: 100px;
+        left: 0;
+        transform: none;
+        margin: auto;
+        width: 90%;
+        min-height: auto;
+    }
+    .setting-container {
+        padding: 0px;
+    }
+    .community {
+        margin-top: 50px;
+    }
+
+
+
+
+
+
+
+
+
+    }

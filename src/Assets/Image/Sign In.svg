@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="445px" height="45px" viewBox="0 0 445 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Sign In</title>
+    <desc>Created with Sketch.</desc>
+    <g id="scheduling" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Sign-In" transform="translate(-618.000000, -568.000000)">
+            <g id="Button-8" transform="translate(618.000000, 568.000000)">
+                <g id="Button">
+                    <rect id="Rectangle-4-Copy-3" fill="#29AAE3" x="0" y="3.13474736e-15" width="445" height="45" rx="5"></rect>
+                    <text id="Log-In" font-family="ProximaNova-Bold, Proxima Nova" font-size="16" font-weight="bold" fill="#FFFFFF">
+                        <tspan x="198.156179" y="28">Sign In</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
