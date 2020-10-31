@@ -1,11 +1,7 @@
 import React, {Component, Fragment} from 'react';
-import TopNavigation from "../Component/TopNavigation";
 import {Link, NavLink} from "react-router-dom";
-import FavoritesDetails from "../Component/FavoritesDetails";
-import History from "../Component/History";
 import HistoryDetails from "../Component/HistoryDetails"
 import TopNavigationTwo from "../Component/TopNavigationTwo";
-import BackIcon from "../Assets/Image/back.svg";
 
 class HistoryDetailsPage extends Component {
     render() {

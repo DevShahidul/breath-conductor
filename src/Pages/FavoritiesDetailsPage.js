@@ -1,6 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import TopNavigation from "../Component/TopNavigation";
-import Favorites from "../Component/Favorites";
 import FavoritesDetails from "../Component/FavoritesDetails";
 import {Link, NavLink} from "react-router-dom";
 import TopNavigationTwo from "../Component/TopNavigationTwo";

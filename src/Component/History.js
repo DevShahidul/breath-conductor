@@ -12,7 +12,7 @@ class History extends Component {
                             <p>Focus 4:30pm 2/22/2020</p>
                         </div>
                         <div className="favorites-arrow">
-                            <Link to="historydetails"><img src={NextPlay}/></Link>
+                            <Link to="historydetails"><img src={NextPlay} alt="Next play icon"/></Link>
                         </div>
                     </div>
                     <div className="favorites-list">
@@ -21,7 +21,7 @@ class History extends Component {
                             <p>Focus 4:30pm 2/22/2020</p>
                         </div>
                         <div className="favorites-arrow">
-                            <Link to="historydetails"><img src={NextPlay}/></Link>
+                            <Link to="historydetails"><img src={NextPlay} alt="Next play icon"/></Link>
                         </div>
                     </div>
                     <div className="favorites-list">
@@ -30,7 +30,7 @@ class History extends Component {
                             <p>Focus 4:30pm 2/22/2020</p>
                         </div>
                         <div className="favorites-arrow">
-                            <Link to="historydetails"><img src={NextPlay}/></Link>
+                            <Link to="historydetails"><img src={NextPlay} alt="Next play icon"/></Link>
                         </div>
                     </div>
                     <div className="favorites-list">
@@ -39,7 +39,7 @@ class History extends Component {
                             <p>Focus 4:30pm 2/22/2020</p>
                         </div>
                         <div className="favorites-arrow">
-                            <Link to="historydetails"><img src={NextPlay}/></Link>
+                            <Link to="historydetails"><img src={NextPlay} alt="Next play icon"/></Link>
                         </div>
                     </div>
                 </Fragment>

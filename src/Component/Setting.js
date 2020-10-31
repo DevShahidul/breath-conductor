@@ -2,7 +2,6 @@ import React, {Component, Fragment} from 'react';
 import Username from "../Assets/Image/username.svg";
 import Password from "../Assets/Image/password.svg";
 import {Link} from "react-router-dom";
-import Phone from "../Assets/Image/phone number.svg";
 import ShareIcon from "../Assets/Image/share.svg";
 import FacebookIcon from "../Assets/Image/facebookIcon.svg";
 import InstagramIcon from "../Assets/Image/instagram.svg";
@@ -28,21 +27,21 @@ class Setting extends Component {
                                         <p>User Name</p>
                                         <div className="form-field">
                                             <div className="form-icon">
-                                                <img src={Username}/>
+                                                <img src={Username} alt="User icon"/>
                                             </div>
                                             <input type="text" placeholder="User Name"/>
                                         </div>
                                         <p>Email Address</p>
                                         <div className="form-field">
                                             <div className="form-icon">
-                                                <img src={Username}/>
+                                                <img src={Username} alt="User icon"/>
                                             </div>
                                             <input type="email" placeholder="Email Address"/>
                                         </div>
                                         <p>Password</p>
                                         <div className="form-field">
                                             <div className="form-icon">
-                                                <img src={Password} />
+                                                <img src={Password} alt="Password icon"/>
                                             </div>
                                             <input type="password" placeholder="Password"/>
                                         </div>
@@ -56,31 +55,31 @@ class Setting extends Component {
                                     <div className="social-section">
                                         <h2 className="title">Community</h2>
                                         <div className="social">
-                                            <img src={ShareIcon}/>
+                                            <img src={ShareIcon} alt="Share icon"/>
                                             <p>Share</p>
                                         </div>
                                         <div className="social">
-                                            <img src={FacebookIcon}/>
+                                            <img src={FacebookIcon} alt="Facebook icon"/>
                                             <p>dennis_vladobinov</p>
                                         </div>
                                         <div className="social">
-                                            <img src={InstagramIcon}/>
+                                            <img src={InstagramIcon} alt="Instagram icon"/>
                                             <p>dennis_vladobinov</p>
                                         </div>
                                         <div className="social">
-                                            <img src={YoutubeIcon}/>
+                                            <img src={YoutubeIcon} alt="Youtube icon"/>
                                             <p>https://youtube.com/dennis_vladobinov</p>
                                         </div>
                                         <div className="social">
-                                            <img src={TiktokIcon}/>
+                                            <img src={TiktokIcon} alt="Tiktok icon"/>
                                             <p>dennis_vladobinov</p>
                                         </div>
                                     </div>
                                     <div className="mydata">
                                         <h2 className="title">My Data</h2>
                                             <div className="mydata-btn">
-                                                <img src={ClearHistory}/>
-                                                <img src={DelectIcon}/>
+                                                <img src={ClearHistory} alt="Clear history icon"/>
+                                                <img src={DelectIcon} alt="Delet icon"/>
                                             </div>
                                     </div>
                                 </div>

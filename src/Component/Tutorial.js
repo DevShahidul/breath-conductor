@@ -13,7 +13,7 @@ class Tutorial extends Component {
                         <div className="col-1">
                             <div className="tutorial-top">
                                 <div className="back-section">
-                                    <img src={BackIcon}/>
+                                    <img src={BackIcon} alt="Back arrow"/>
                                 </div>
                                 <div className="section-title">
                                     <h2>Tutorial</h2>

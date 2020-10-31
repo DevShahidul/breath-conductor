@@ -21,31 +21,31 @@ class Signup extends Component {
                                 <form>
                                     <div className="form-field">
                                         <div className="form-icon">
-                                            <img src={Username}/>
+                                            <img src={Username} alt="User icon"/>
                                         </div>
                                         <input type="text" placeholder="User Name"/>
                                     </div>
                                     <div className="form-field">
                                         <div className="form-icon">
-                                            <img src={Username}/>
+                                            <img src={Username} alt="User icon"/>
                                         </div>
                                         <input type="email" placeholder="Email Address"/>
                                     </div>
                                     <div className="form-field">
                                         <div className="form-icon">
-                                            <img src={Phone}/>
+                                            <img src={Phone} alt="Phone icon"/>
                                         </div>
                                         <input type="email" placeholder="Phone Number"/>
                                     </div>
                                     <div className="form-field">
                                         <div className="form-icon">
-                                            <img src={Password} />
+                                            <img src={Password} alt="Password icon"/>
                                         </div>
                                         <input type="password" placeholder="Password"/>
                                     </div>
                                     <div className="form-field">
                                         <div className="form-icon">
-                                            <img src={ConfirmPassword} />
+                                            <img src={ConfirmPassword} alt="Password icon"/>
                                         </div>
                                         <input type="password" placeholder="Confirm Password"/>
                                     </div>
@@ -57,15 +57,15 @@ class Signup extends Component {
                             <div className="social-login">
                                 <div className="col-3">
                                     <div className="social-img">
-                                        <img src={Facebook}/>
+                                        <img src={Facebook} alt="Facebook icon"/>
                                     </div>
                                 </div><div className="col-3">
                                 <div className="social-img">
-                                    <img src={Google}/>
+                                    <img src={Google} alt="Google icon"/>
                                 </div>
                             </div><div className="col-3">
                                 <div className="social-img">
-                                    <img src={Apple}/>
+                                    <img src={Apple} alt="Apple icon"/>
                                 </div>
                             </div>
                             </div>

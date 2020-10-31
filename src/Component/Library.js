@@ -1,7 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import TopNavigation from "./TopNavigation";
 import {Link} from "react-router-dom";
-import HistoryDetails from "./HistoryDetails";
 import { Tab, TabContent } from './tab';
 import NextPlay from "../Assets/Image/next.svg";
 
@@ -44,7 +42,7 @@ class Library extends Component {
                                             <p>15 Minutes</p>
                                         </div>
                                         <div className="favorites-arrow">
-                                            <img src={NextPlay}/>
+                                            <img src={NextPlay} alt="Next play icon"/>
                                         </div>
                                     </div>
                                     </Link>
@@ -55,7 +53,7 @@ class Library extends Component {
                                                 <p>15 Minutes</p>
                                             </div>
                                             <div className="favorites-arrow">
-                                                <img src={NextPlay}/>
+                                                <img src={NextPlay} alt="Next play icon"/>
                                             </div>
                                         </div>
                                     </Link>
@@ -66,7 +64,7 @@ class Library extends Component {
                                                 <p>15 Minutes</p>
                                             </div>
                                             <div className="favorites-arrow">
-                                                <img src={NextPlay}/>
+                                                <img src={NextPlay} alt="Next play icon"/>
                                             </div>
                                         </div>
                                     </Link>
@@ -77,7 +75,7 @@ class Library extends Component {
                                                 <p>15 Minutes</p>
                                             </div>
                                             <div className="favorites-arrow">
-                                                <img src={NextPlay}/>
+                                                <img src={NextPlay} alt="Next play icon"/>
                                             </div>
                                         </div>
                                     </Link>
@@ -88,7 +86,7 @@ class Library extends Component {
                                                 <p>15 Minutes</p>
                                             </div>
                                             <div className="favorites-arrow">
-                                                <img src={NextPlay}/>
+                                                <img src={NextPlay} alt="Next play icon"/>
                                             </div>
                                         </div>
                                     </Link>
@@ -102,7 +100,7 @@ class Library extends Component {
                                             <p>Focus 4:30pm 2/22/2020</p>
                                         </div>
                                         <div className="favorites-arrow">
-                                            <Link to="historydetails"><img src={NextPlay}/></Link>
+                                            <Link to="historydetails"><img src={NextPlay} alt="Next play icon"/></Link>
                                         </div>
                                     </div>
                                     </Link>
@@ -113,7 +111,7 @@ class Library extends Component {
                                             <p>Focus 4:30pm 2/22/2020</p>
                                         </div>
                                         <div className="favorites-arrow">
-                                            <img src={NextPlay}/>
+                                            <img src={NextPlay} alt="Next play icon"/>
                                              </div>
                                     </div>
                                     </Link>
@@ -124,7 +122,7 @@ class Library extends Component {
                                                 <p>Focus 4:30pm 2/22/2020</p>
                                             </div>
                                             <div className="favorites-arrow">
-                                                <Link to="historydetails"><img src={NextPlay}/></Link>
+                                                <Link to="historydetails"><img src={NextPlay} alt="Next play icon"/></Link>
                                             </div>
                                         </div>
                                     </Link>
@@ -135,7 +133,7 @@ class Library extends Component {
                                                 <p>Focus 4:30pm 2/22/2020</p>
                                             </div>
                                             <div className="favorites-arrow">
-                                                <img src={NextPlay}/>
+                                                <img src={NextPlay} alt="Next play icon"/>
                                             </div>
                                         </div>
                                     </Link>
@@ -146,7 +144,7 @@ class Library extends Component {
                                                 <p>Focus 4:30pm 2/22/2020</p>
                                             </div>
                                             <div className="favorites-arrow">
-                                                <img src={NextPlay}/>
+                                                <img src={NextPlay} alt="Next play icon"/>
                                             </div>
                                         </div>
                                     </Link>

@@ -12,7 +12,7 @@ class Favorites extends Component {
                         <p>15 Minutes</p>
                     </div>
                     <div className="favorites-arrow">
-                        <Link to="favoritesdetails"><img src={NextPlay}/></Link>
+                        <Link to="favoritesdetails"><img src={NextPlay} alt="Next play icon"/></Link>
                     </div>
                 </div>
                 <div className="favorites-list">
@@ -21,7 +21,7 @@ class Favorites extends Component {
                         <p>15 Minutes</p>
                     </div>
                     <div className="favorites-arrow">
-                        <Link to="favoritesdetails"><img src={NextPlay}/></Link>
+                        <Link to="favoritesdetails"><img src={NextPlay} alt="Next play icon"/></Link>
                     </div>
                 </div>
                 <div className="favorites-list">
@@ -30,7 +30,7 @@ class Favorites extends Component {
                         <p>15 Minutes</p>
                     </div>
                     <div className="favorites-arrow">
-                        <Link to="favoritesdetails"><img src={NextPlay}/></Link>
+                        <Link to="favoritesdetails"><img src={NextPlay} alt="Next play icon"/></Link>
                     </div>
                 </div>
                 <div className="favorites-list">
@@ -39,7 +39,7 @@ class Favorites extends Component {
                         <p>15 Minutes</p>
                     </div>
                     <div className="favorites-arrow">
-                        <Link to="favoritesdetails"><img src={NextPlay}/></Link>
+                        <Link to="favoritesdetails"><img src={NextPlay} alt="Next play icon"/></Link>
                     </div>
                 </div>
             </Fragment>

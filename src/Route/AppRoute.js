@@ -6,24 +6,21 @@ import WelcomePage from "../Pages/WelcomePage";
 import FeelControlPage from "../Pages/FeelControlPage";
 import HomePage from "../Pages/HomePage";
 import SurveyPage from "../Pages/SurveyPage";
-import FavoritesPage from "../Pages/FavoritesPage";
 import SettingPage from "../Pages/SettingPage";
 import TutorialPage from "../Pages/TutorialPage";
 import LibraryPage from "../Pages/LibraryPage";
 import FavoritiesDetailsPage from "../Pages/FavoritiesDetailsPage";
 import HistoryPage from "../Pages/HistoryPage";
-import HistoryDetails from "../Component/HistoryDetails";
 import HistoryDetailsPage from "../Pages/HistoryDetailsPage";
-import Library from "../Component/Library";
 
 class AppRoute extends Component {
     render() {
         return (
             <Fragment>
                 <Switch>
-                    <Route exact path="/" component={SignupPage}/>
-                    <Route exact path="/signup" component={SignupPage}/>
+                    <Route exact path="/" component={WelcomePage}/>
                     <Route exact path="/login" component={LoginPage}/>
+                    <Route exact path="/signup" component={SignupPage}/>
                     <Route exact path="/welcome" component={WelcomePage}/>
                     <Route exact path="/feel" component={FeelControlPage}/>
                     <Route exact path="/home" component={HomePage}/>

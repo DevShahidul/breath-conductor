@@ -9,7 +9,7 @@ class TopNavigation extends Component {
             <Fragment>
                 <div className="nagivation">
                     <div className="nav-container">
-                        <Link to="login"><img src={Logo}/></Link>
+                        <Link to="login"><img src={Logo} alt="Logo"/></Link>
                     </div>
                 </div>
             </Fragment>
