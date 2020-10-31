@@ -14,7 +14,9 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            redirect: false
+            redirect: false,
+            message: '',
+            warning: false
         }
         this.login = this.login.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -46,22 +48,37 @@ class Login extends Component {
             fetch(proxyurl + BaseUrl, requestOptions)
                 .then((response) => response.json())
                 .then((responsejson) => {
+                    this.setState({
+                        message: responsejson.message
+                    });
                     let userData = responsejson.data.user_details;
+                    console.log(responsejson)
                     if(userData){
                         sessionStorage.setItem('user_details', responsejson.data )
-                        this.setState({redirect: true})
+                        this.setState({
+                            redirect: true,
+                        })
                     }else{
+                        this.setState({
+                            message: responsejson.message
+                        })
                         console.log(responsejson.message)
                     }
                 })
                 .catch((error) => {
                    return error;
                 })
+        }else{
+            this.setState({
+                message: 'Please enter User name and Password!',
+                warning: true
+            })
         }
     }
 
     handleChange = (e) => {
         this.setState({
+            message: '',
             [e.target.name] : e.target.value
         })
         //console.log("coming here")
@@ -86,15 +103,17 @@ class Login extends Component {
                                 <form>
                                     <div className="form-field">
                                         <img src={Username} alt="User icon"/>
-                                        <input type="text" name="username" placeholder="User Name" onChange={this.handleChange}/>
+                                        <input required type="text" name="username" placeholder="User Name" onChange={this.handleChange}/>
                                     </div>
                                     <div className="form-field">
                                         <img src={Password} alt="Password icon"/>
-                                        <input type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
+                                        <input required type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
                                     </div>
                                 </form>
                                 <p className="forget">Forget Your Password?</p>
                                 <button className="btn btn-primary" onClick={() => this.login()}> Sign In</button>
+                                { this.state.message !== '' ?
+                                <p className={this.state.warning ? "message waring" : "message"}>{this.state.message}</p> : null}
                             </div>
                             <div className="text-divider">or</div>
                             <div className="social-login">

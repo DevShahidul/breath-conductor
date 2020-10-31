@@ -57,6 +57,11 @@ a:visited{
     cursor: pointer;
     margin-top: 20px;
 }
+.btn,
+.btn:active,
+.btn:focus{
+    outline: none;
+}
 .btn-primary {
     background: #29aae3;
     color: #fff;
@@ -133,6 +138,16 @@ a:visited{
     margin-bottom: 25px;
     text-align: center;
 }
+
+.message{
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.waring{
+    color: tomato;
+}
+
 .form-field {
     margin: 20px 0px;
     display: flex;
