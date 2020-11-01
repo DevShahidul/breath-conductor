@@ -1,13 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import BackIcon from "../Assets/Image/back.svg";
 import GoalIcon from "../Assets/Image/Goal.svg";
-import DuplicateIcon from "../Assets/Image/New Duplicate.svg";
-import RemoveIcon from "../Assets/Image/Remove from favorites.svg";
-import ShareIcon from "../Assets/Image/Share button.svg";
+import DuplicateIcon from "../Assets/Image/New-Duplicate-icon.svg";
 import TimeIcon from "../Assets/Image/Time.svg";
 import VoiceIcon from "../Assets/Image/Voice.svg";
 import ThemeIcon from "../Assets/Image/Theme.svg";
 import {Link} from "react-router-dom";
+import { IconicButton } from './IconicButton';
+import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
 
 class FavoritesDetails extends Component {
     render() {
@@ -60,13 +60,13 @@ class FavoritesDetails extends Component {
                 <div className="details-action">
                     <div className="row">
                         <div className="col-3">
-                            <img src={DuplicateIcon} alt="Duplicate icon"/>
+                            <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon}/>
                         </div>
                         <div className="col-3">
-                            <img src={ShareIcon} alt="Share icon"/>
+                            <IconicButton type="primary" text="Share" icon={RiShareLine}/>
                         </div>
                         <div className="col-3">
-                            <img src={RemoveIcon} alt="Remove icon"/>
+                            <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine}/>
                         </div>
                     </div>
                 </div>

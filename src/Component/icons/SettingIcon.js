@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export const SettingIcon = () => {
-    return (
-        <>
-           <svg width="22px" height="23px" viewBox="0 0 22 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+export default class SettingIcon extends Component {
+    render() {
+        return (
+            <svg width="22px" height="23px" viewBox="0 0 22 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 {/* Generator: Sketch 63.1 (92452) - https://sketch.com */}
                 <title>setting</title>
                 <desc>Created with Sketch.</desc>
-                <g id="scheduling" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Survey" transform="translate(-657.000000, -34.000000)" fill="#8A8A8A" stroke="#8A8A8A" stroke-width="0.5">
+                <g id="scheduling" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                    <g id="Survey" transform="translate(-657.000000, -34.000000)" fill="#8A8A8A" stroke="#8A8A8A" strokeWidth="0.5">
                         <g id="Group-4" transform="translate(382.000000, 35.000000)">
                             <g id="setting" transform="translate(275.650000, 0.000000)">
                                 <path d="M10.2694043,14.71911 C8.20754192,14.71911 6.53027559,13.0418437 6.53027559,10.9799812 C6.53027559,8.91811882 8.20754192,7.2408525 10.2694043,7.2408525 C12.3312668,7.2408525 14.0085331,8.91811882 14.0085331,10.9799812 C14.0085331,13.0418437 12.3312668,14.71911 10.2694043,14.71911 M10.2694043,6.17253 C7.61854011,6.17253 5.46195309,8.32911702 5.46195309,10.9799812 C5.46195309,13.6308455 7.61854011,15.7874325 10.2694043,15.7874325 C12.9202686,15.7874325 15.0768556,13.6308455 15.0768556,10.9799812 C15.0768556,8.32911702 12.9202686,6.17253 10.2694043,6.17253" id="Fill-1"></path>
@@ -20,6 +20,7 @@ export const SettingIcon = () => {
                     </g>
                 </g>
             </svg> 
-        </>
-    )
+        )
+    }
 }
+

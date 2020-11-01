@@ -7,8 +7,7 @@ import FacebookIcon from "../Assets/Image/facebookIcon.svg";
 import InstagramIcon from "../Assets/Image/instagram.svg";
 import YoutubeIcon from "../Assets/Image/youtube.svg";
 import TiktokIcon from "../Assets/Image/tik-tok.svg";
-import DelectIcon from "../Assets/Image/delete account.svg";
-import ClearHistory from "../Assets/Image/clear history.svg";
+import { Button } from './Button';
 
 
 
@@ -46,7 +45,7 @@ class Setting extends Component {
                                             <input type="password" placeholder="Password"/>
                                         </div>
                                     </form>
-                                    <Link to="/welcome"><button className="btn btn-primary">Save</button></Link>
+                                    <Link to="/welcome"><Button type="btn-primary" text="Save"/></Link>
                                 </div>
 
                             </div>
@@ -78,19 +77,19 @@ class Setting extends Component {
                                     <div className="mydata">
                                         <h2 className="title">My Data</h2>
                                             <div className="mydata-btn">
-                                                <img src={ClearHistory} alt="Clear history icon"/>
-                                                <img src={DelectIcon} alt="Delet icon"/>
+                                                <Button type="primary-outline" text="Clear History" />
+                                                <Button type="danger" text="Delet Account" />
                                             </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row help-links">
                             <div className="col-2">
-                                    <p className="terms">Terms of Use</p>
+                                <Link to="/terms" className="terms">Terms of Use</Link>
                             </div>
                             <div className="col-2">
-                                <p className="support">Support</p>
+                                <Link to="/support" className="support">Support</Link>
                             </div>
                         </div>
 

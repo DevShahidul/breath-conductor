@@ -1,8 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import Logo from "../Assets/Image/logo2.svg";
-import {HomeIcon}  from "./HomeIcon";
-import { LibraryIcon } from "./LibraryIcon";
-import {SettingIcon} from "./SettingIcon";
+import { HomeIcon, LibraryIcon, SettingIcon }  from "./icons";
 import Notification from "../Assets/Image/Notification.svg";
 import UserPlaceholder from "../Assets/Image/user_placeholder.png";
 import DownArrow from "../Assets/Image/down-arrow.svg";

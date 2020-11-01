@@ -4,9 +4,9 @@ import GoalIcon from "../Assets/Image/Goal.svg";
 import TimeIcon from "../Assets/Image/Time.svg";
 import VoiceIcon from "../Assets/Image/Voice.svg";
 import ThemeIcon from "../Assets/Image/Theme.svg";
-import DuplicateIcon from "../Assets/Image/New-Duplicate-icon.svg";
 import {Link} from "react-router-dom";
-import { Button } from './Button';
+import { IconicButton } from './IconicButton';
+import DuplicateIcon from "../Assets/Image/New-Duplicate-icon.svg";
 import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
 
 class HistoryDetails extends Component {
@@ -61,16 +61,13 @@ class HistoryDetails extends Component {
                 <div className="details-action">
                     <div className="row">
                         <div className="col-3">
-                            <Button type="primary" text="New Duplicate" imgIcon={DuplicateIcon}/>
-                            {/* <img src={DuplicateIcon} alt="Duplicate icon"/> */}
+                            <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon}/>
                         </div>
                         <div className="col-3">
-                            <Button type="primary" text="Share" icon={RiShareLine}/>
-                            {/* <img src={ShareIcon} alt="Share icon"/> */}
+                            <IconicButton type="primary" text="Share" icon={RiShareLine}/>
                         </div>
                         <div className="col-3">
-                            <Button type="danger" text="Remove from Favorites" icon={RiDeleteBinLine}/>
-                            {/* <img src={RemoveIcon} alt="Remove icon"/> */}
+                            <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine}/>
                         </div>
                     </div>
                 </div>
