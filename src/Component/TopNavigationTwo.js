@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import Logo from "../Assets/Image/logo2.svg";
-import {VscHome}  from "react-icons/vsc";
-import {GiBookCover} from "react-icons/gi";
-import {AiOutlineSetting} from "react-icons/ai";
+import {HomeIcon}  from "./HomeIcon";
+import { LibraryIcon } from "./LibraryIcon";
+import {SettingIcon} from "./SettingIcon";
 import Notification from "../Assets/Image/Notification.svg";
 import UserPlaceholder from "../Assets/Image/user_placeholder.png";
 import DownArrow from "../Assets/Image/down-arrow.svg";
@@ -18,17 +18,17 @@ class TopNavigationTwo extends Component {
                 home:{
                     text: 'home',
                     path: '/home',
-                    icon: <VscHome />
+                    icon: <HomeIcon />
                 },
                 library:{
                     text: 'library',
                     path: '/library',
-                    icon: <GiBookCover />
+                    icon: <LibraryIcon />
                 },
                 settings:{
                     text: 'settings',
                     path: '/setting',
-                    icon: <AiOutlineSetting />
+                    icon: <SettingIcon />
                 }
             },
             expanded: false
@@ -94,7 +94,6 @@ class TopNavigationTwo extends Component {
                     </div>
                 </div>
             </Fragment>
-
         );
     }
 }

@@ -758,11 +758,18 @@ nav ul li svg {
     width: 23px;
     height: 23px;
     margin-right: 10px;
-    color: #737374;
 }
-nav ul li a.active svg{
-    color: #29aae3;
+nav ul li svg g{
+    fill: #737374;
+    -webkit-text-stroke-color: #737374;
+    stroke: #737374;
 }
+nav ul li a.active svg g{
+    fill: #29aae3;
+    -webkit-text-stroke-color: #29aae3;
+    stroke: #29aae3;
+}
+
 nav ul li p {
     color: #fff;
     font-size: 12px;
