@@ -1,23 +1,36 @@
 import React, {Component, Fragment} from 'react';
 import Logo from "../Assets/Image/logo2.svg";
-import HomeTwo from "../Assets/Image/Home_2.svg";
-import LibraryOne from "../Assets/Image/Library_1.svg";
-import SettingTwo from "../Assets/Image/setting_2.svg";
+import {VscHome}  from "react-icons/vsc";
+import {GiBookCover} from "react-icons/gi";
+import {AiOutlineSetting} from "react-icons/ai";
 import Notification from "../Assets/Image/Notification.svg";
 import UserPlaceholder from "../Assets/Image/user_placeholder.png";
 import DownArrow from "../Assets/Image/down-arrow.svg";
 import MenuIcon from "../Assets/Image/menu.svg";
 import {Link, NavLink} from "react-router-dom";
 
-
 class TopNavigationTwo extends Component {
 
     constructor(){
         super();
         this.state = {
-            home: [HomeTwo],
-            library: [LibraryOne],
-            setting: [SettingTwo],
+            navItems: {
+                home:{
+                    text: 'home',
+                    path: '/home',
+                    icon: <VscHome />
+                },
+                library:{
+                    text: 'library',
+                    path: '/library',
+                    icon: <GiBookCover />
+                },
+                settings:{
+                    text: 'settings',
+                    path: '/setting',
+                    icon: <AiOutlineSetting />
+                }
+            },
             expanded: false
         }
     }
@@ -38,6 +51,7 @@ class TopNavigationTwo extends Component {
     }
 
     render() {
+        const {navItems} = this.state;
         return (
             <Fragment>
                 <div className="nagivationTwo">
@@ -45,26 +59,21 @@ class TopNavigationTwo extends Component {
                         <Link to="login"><img src={Logo} alt="logo"/></Link>
                         <nav>
                             <ul>
-                                <NavLink activeClassName="active" to="home">
-                                    <li>
-                                    <img src={this.state.home} alt="Home icon"/>
-                                    <p>Home</p>
-                                    </li>
-                                </NavLink>
-
-                                <NavLink activeClassName="active" to="library">
-                                    <li>
-                                    <img src={this.state.library} alt="Library icon"/>
-                                    <p>Library</p>
-                                    </li>
-                                </NavLink>
-
-                                <NavLink activeClassName="active" to="setting">
-                                    <li>
-                                    <img src={this.state.setting} alt="Setting icon"/>
-                                    <p>Settings</p>
-                                    </li>
-                                </NavLink>
+                                {Object.keys(navItems).map((keyName, index) => {
+                                    const path = navItems[keyName].path;
+                                    const icon = navItems[keyName].icon;
+                                    const navText = navItems[keyName].text;
+                                    return (
+                                        //console.log(navItem[keyName].path)
+                                        <li key={index}>
+                                            <NavLink 
+                                             activeClassName="active" to={path}>
+                                                {icon}
+                                                <p>{navText}</p>
+                                            </NavLink>
+                                        </li>
+                                    )
+                                })}
                             </ul>
                         </nav>
                             <img className="notification" src={Notification} alt="Notification icon"/>

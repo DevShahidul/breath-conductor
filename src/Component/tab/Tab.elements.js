@@ -10,18 +10,21 @@ export const TabNav = styled.ul`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 0 14px 15px;
-    border-bottom: 1px solid #333;
+    padding: 0 2px 15px;
 `;
 
 export const TabNavItem = styled.li`
     display: block;
-    font-size: 16px;
+    font-size: 26px;
     position: relative;
-    margin-right: 25px;
+    margin-right: 86px;
     cursor: pointer;
     &:last-child{
         margin-right: 0;
+    }
+    &.active{
+        font-weight: 700;
+        color: #ffffff;
     }
     &.active::after{
         content: "";

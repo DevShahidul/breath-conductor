@@ -15,10 +15,10 @@ class HistoryDetailsPage extends Component {
                                 <div className="tabs">
                                     <div className="sc-bdnylx hzxEwr">
                                         <ul className="sc-gtssRu jLtfL collapsed">
-                                            <li className="sc-dlnjPT bqnhDN nav-item ">
+                                            <li className="nav-item ">
                                                 <Link to="library">Favorites</Link>
                                             </li>
-                                            <li className="sc-dlnjPT bqnhDN nav-item ">
+                                            <li className="nav-item ">
                                                 <NavLink to="library"><p className="active">History</p></NavLink>
                                             </li>
                                         </ul>
