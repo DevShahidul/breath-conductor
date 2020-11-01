@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="17px" viewBox="0 0 19 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="scheduling" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Video" transform="translate(-1169.000000, -274.000000)">
+            <g id="Group-2" transform="translate(1169.000000, 274.000000)">
+                <path d="M15.2473189,0.351471863 L16.6085252,1.71267824 C17.0771544,2.18130739 17.0771544,2.94110536 16.6085252,3.40973451 L3.40702147,16.6112383 L-4.30055991e-12,16.9599971 L0.348758814,13.5529756 L11.421,2.48 L11.4204517,2.47900503 L12.4526236,1.44911087 L13.5502626,0.351471863 C14.0188917,-0.117157288 14.7786897,-0.117157288 15.2473189,0.351471863 Z M12.4526236,1.44911087 L11.421,2.48 L14.4794436,5.53770894 L15.5108862,4.50737352 L12.4526236,1.44911087 Z" id="Compose" fill="#FFFFFF"></path>
+                <line x1="9.6" y1="15.2" x2="16.9599971" y2="15.2" id="Line-Copy" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></line>
+                <line x1="14.4" y1="10.4" x2="16.9599971" y2="10.4" id="Line" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></line>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -12,6 +12,7 @@ import LibraryPage from "../Pages/LibraryPage";
 import FavoritiesDetailsPage from "../Pages/FavoritiesDetailsPage";
 import HistoryPage from "../Pages/HistoryPage";
 import HistoryDetailsPage from "../Pages/HistoryDetailsPage";
+import feedbackSubmit from "../Pages/feedbackSubmit";
 
 class AppRoute extends Component {
     render() {
@@ -24,6 +25,7 @@ class AppRoute extends Component {
                     <Route exact path="/welcome" component={WelcomePage}/>
                     <Route exact path="/feel" component={FeelControlPage}/>
                     <Route exact path="/home" component={HomePage}/>
+                    <Route exact path="/feedbacksubmit" component={feedbackSubmit}/>
                     <Route exact path="/survey" component={SurveyPage}/>
                     <Route exact path="/favorites" component={LibraryPage}/>
                     <Route exact path="/favoritesdetails" component={FavoritiesDetailsPage}/>

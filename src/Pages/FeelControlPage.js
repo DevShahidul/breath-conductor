@@ -7,7 +7,7 @@ class FeelControlPage extends Component {
         return (
             <Fragment>
                 <TopNavigationTwo/>
-                <FeelControl/>
+                <FeelControl buttonText="Continue"/>
             </Fragment>
         );
     }

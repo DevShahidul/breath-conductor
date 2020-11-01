@@ -22,8 +22,7 @@ class FeelControl extends Component {
                                         {[...Array(5)].map((rating, i) => {
                                             const ratingValue = i+1;
                                             return (
-                                                <Fragment>
-                                                <label className="item">
+                                                <label key={i} className="item">
                                                     <input 
                                                         type="checkbox" 
                                                         name="feeling" 
@@ -33,7 +32,6 @@ class FeelControl extends Component {
                                                     <div className="box" style={{background: ratingValue <= this.state.feeling ? '#29aae3' : '#fff'}}>
                                                     </div>
                                                 </label>
-                                                </Fragment>
                                             )
                                         })}
                                     </div>
@@ -42,7 +40,7 @@ class FeelControl extends Component {
                                         <p>Relaxed </p>
                                     </div>
                                 </div>
-                                <Link to="/tutorial"><button className="btn btn-primary">Continue</button></Link>
+                                <Link to="/tutorial"><button className="btn btn-primary">{this.props.buttonText}</button></Link>
                             </div>
                         </div>
                     </div>
