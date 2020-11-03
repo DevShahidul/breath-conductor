@@ -191,10 +191,22 @@ button:focus{
 .message{
     margin-top: 10px;
     font-size: 14px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
 }
 
-.waring{
-    color: tomato;
+.message img{
+    width: 15px;
+    margin-right: 10px;
+}
+
+.message.waring {
+    color: #eaa811;
+}
+
+.message.error{
+    color: #e61919;
 }
 
 .form-field {
@@ -288,6 +300,9 @@ input:focus {
 .form-icon {
     min-width: 20px;
     margin-right: 10px;
+    color:#7C7C7C;
+    display: flex;
+    align-items: center;
 }
 
 /* Welcome page style */

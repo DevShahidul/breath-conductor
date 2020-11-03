@@ -1,11 +1,11 @@
 import React, {Component, Fragment} from 'react';
+import {Link, Redirect} from "react-router-dom";
 import Password from '../Assets/Image/password.svg';
 import Username from '../Assets/Image/username.svg';
 import Facebook from '../Assets/Image/facebook.svg';
 import Google from '../Assets/Image/google.svg';
 import Apple from '../Assets/Image/apple.JPG';
-import {Link} from "react-router-dom";
-import { Redirect } from 'react-router-dom';
+import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 //import { PostData } from '../services/PostData';
 
 class Login extends Component {
@@ -16,7 +16,9 @@ class Login extends Component {
             password: '',
             redirect: false,
             message: '',
-            warning: false
+            error: false,
+            warning: false,
+            processing: false
         }
         this.login = this.login.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -39,17 +41,25 @@ class Login extends Component {
             urlencoded.append("firebase_token", "BD43813E-CFC5-4EEB-ABE2-94562A6E76CA");
 
             var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
             };
+
+            this.setState({
+                message: "processing your request please wait",
+                processing: true
+            })
 
             fetch(proxyurl + BaseUrl, requestOptions)
                 .then((response) => response.json())
                 .then((responsejson) => {
+                    let status = responsejson.status === "error" ? true : false;
                     this.setState({
-                        message: responsejson.message
+                        message: responsejson.message,
+                        error: status,
+                        processing: false
                     });
                     let userData = responsejson.data.user_details;
                     console.log(responsejson)
@@ -71,7 +81,8 @@ class Login extends Component {
         }else{
             this.setState({
                 message: 'Please enter User name and Password!',
-                warning: true
+                warning: true,
+                processing: false
             })
         }
     }
@@ -79,6 +90,9 @@ class Login extends Component {
     handleChange = (e) => {
         this.setState({
             message: '',
+            warning: false,
+            error: false,
+            processing: false,
             [e.target.name] : e.target.value
         })
         //console.log("coming here")
@@ -92,6 +106,9 @@ class Login extends Component {
         if(sessionStorage.getItem('user_details')){
             return (<Redirect to="/welcome" />)
         }
+
+        const statusClass = this.state.error !== false ? 'message error' : 'message' || this.state.warning ? "message waring" : "message";
+
         return (
             <Fragment>
                 <div className="container login-box">
@@ -113,7 +130,7 @@ class Login extends Component {
                                 <p className="forget">Forget Your Password?</p>
                                 <button className="btn btn-primary" onClick={() => this.login()}> Sign In</button>
                                 { this.state.message !== '' ?
-                                <p className={this.state.warning ? "message waring" : "message"}>{this.state.message}</p> : null}
+                                <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p> : null}
                             </div>
                             <div className="text-divider">or</div>
                             <div className="social-login">
