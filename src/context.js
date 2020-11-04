@@ -9,21 +9,13 @@ class BreathProvider extends Component {
         this.state = {
             username: '',
             welcomConfirmationMessage: 'When is the best time for you to practice self-care?',
-            reminders: false
+            reminders: false,
+            showWelcome: true,
+            sowoFeelOption: false,
         }
         this.handleConfirmation = this.handleConfirmation.bind(this);
         this.logOut = this.logOut.bind(this);
     }
-
-    // componentDidMount(){
-    //     axios.get('user').then(
-    //         res => {
-    //         console.log(res)
-    //     },
-    //     err => {
-    //         console.log(err)
-    //     })
-    // }
 
 
     // handle confirmation for welcome screen
@@ -31,7 +23,8 @@ class BreathProvider extends Component {
         let setRemainder = status === "Yes" ? true : false;
         //console.log(status);
         this.setState({
-            reminders: setRemainder
+            reminders: setRemainder,
+            showWelcome: false
         })
     }
 

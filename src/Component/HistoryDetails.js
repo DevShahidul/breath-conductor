@@ -13,17 +13,13 @@ class HistoryDetails extends Component {
     render() {
         return (
             <Fragment>
-                <div className="row">
-                    <div className="col-1">
-                        <div className="details-top">
-                            <div className="back-section">
-                                <Link to="library"><img src={BackIcon} alt="Back icon"/></Link>
-                            </div>
-                            <div className="section-title">
-                                <h2>Tranquil Golded Sun</h2>
-                                <p>Focus 4:30pm 2/22/2020</p>
-                            </div>
-                        </div>
+                <div className="details-top">
+                    <div className="back-section">
+                        <Link to="library"><img src={BackIcon} alt="Back icon"/></Link>
+                    </div>
+                    <div className="section-title">
+                        <h2>Tranquil Golded Sun</h2>
+                        <p>Focus 4:30pm 2/22/2020</p>
                     </div>
                 </div>
                 <div className="details-items">

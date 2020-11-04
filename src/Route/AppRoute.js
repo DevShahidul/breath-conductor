@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Route, Switch} from "react-router-dom";
 import LoginPage from "../Pages/LoginPage";
 import SignupPage from "../Pages/SignupPage";
-import WelcomePage from "../Pages/WelcomePage";
 import FeelControlPage from "../Pages/FeelControlPage";
 import HomePage from "../Pages/HomePage";
 import SurveyPage from "../Pages/SurveyPage";
@@ -21,9 +20,7 @@ class AppRoute extends Component {
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/login" component={LoginPage}/>
                 <Route exact path="/signup" component={SignupPage}/>
-                <Route exact path="/welcome" component={WelcomePage}/>
                 <Route exact path="/feel" component={FeelControlPage}/>
-                {/* <Route exact path="/home" component={HomePage}/> */}
                 <Route exact path="/feedbacksubmit" component={feedbackSubmit}/>
                 <Route exact path="/survey" component={SurveyPage}/>
                 <Route exact path="/favorites" component={LibraryPage}/>

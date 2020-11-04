@@ -17,8 +17,8 @@ class FeelControl extends Component {
                         <div className="col-1">
                             <div className="home-page">
                                 <h2 className="session-title ">How relaxed do you feel?</h2>
-                                <div className="radio-item-group">
-                                    <div className="radio-item">
+                                <div className="radio-items-group">
+                                    <div className="radio-items">
                                         {[...Array(5)].map((rating, i) => {
                                             const ratingValue = i+1;
                                             return (

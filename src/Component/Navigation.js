@@ -54,7 +54,7 @@ class Navigation extends Component {
                                 //console.log(navItem[keyName].path)
                                 <li key={index}>
                                     <NavLink 
-                                        activeClassName="active" to={path}>
+                                        activeClassName="active" exact to={path}>
                                         {icon}
                                         <p>{navText}</p>
                                     </NavLink>
