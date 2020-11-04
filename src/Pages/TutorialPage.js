@@ -1,12 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import Tutorial from "../Component/Tutorial";
-import TopNavigationTwo from "../Component/TopNavigationTwo";
+import Navigation from "../Component/Navigation";
 
 class TutorialPage extends Component {
     render() {
         return (
             <Fragment>
-                <TopNavigationTwo/>
+                <Navigation/>
                 <Tutorial/>
             </Fragment>
         );

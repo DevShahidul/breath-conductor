@@ -1,23 +1,21 @@
-import React, {Component, Fragment} from 'react';
-import {Link} from "react-router-dom";
+import React, {Component} from 'react';
+import { BreathContext } from '../context';
 
 class Welcome extends Component {
+    static contextType = BreathContext;
     render() {
+        const {username, welcomConfirmationMessage, handleConfirmation} = this.context;
+        
+        //const welcomeContainer = document.getElementsByClassName('welcome-container')
         return (
-            <Fragment>
-                    <div className="container welcome-container">
-                        <div className="row">
-                            <div className="col-1">
-                                <div className="intro">
-                                    <h2 className="name-title ">Hey Jemma,</h2>
-                                    <p className="welcome-msg">When is the best time for you to practice self-care?</p>
-                                    <Link to="/home"> <button className="btn btn-primary">Yes</button></Link>
-                                    <button className="btn btn-secondary">No</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </Fragment>
+            <div className="container welcome-container">
+                <div className="intro">
+                    <h2 className="name-title ">Hey {username},</h2>
+                    <p className="welcome-msg">{welcomConfirmationMessage}</p>
+                    <button onClick={() => handleConfirmation('Yes')} className="btn btn-primary">Yes</button>
+                    <button onClick={() => handleConfirmation('No')} className="btn btn-secondary">No</button>
+                </div>
+            </div>
         );
     }
 }

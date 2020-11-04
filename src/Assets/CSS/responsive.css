@@ -1,5 +1,10 @@
 @media screen and (max-width: 660px){
 
+    html,
+    body{
+        height: auto;
+    }
+
     /* Top Navigation Two style css */
     .nagivationTwo {
         min-height: 0px;
@@ -100,7 +105,7 @@
         left: 0;
         transform: none;
         margin: auto;
-        width: 90%;
+        width: 100%;
         min-height: auto;
     }
     .login-box {

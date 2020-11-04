@@ -1,13 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import FavoritesDetails from "../Component/FavoritesDetails";
 import {Link, NavLink} from "react-router-dom";
-import TopNavigationTwo from "../Component/TopNavigationTwo";
+import Navigation from "../Component/Navigation";
 
 class FavoritiesDetailsPage extends Component {
     render() {
         return (
             <Fragment>
-                <TopNavigationTwo/>
+                <Navigation/>
                 <div className="library">
                     <div className="row no-space">
                         <div className="col-1">

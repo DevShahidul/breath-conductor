@@ -1,12 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import Login from "../Component/Login";
-import TopNavigation from "../Component/TopNavigation";
+import RoundLogo from "../Component/RoundLogo";
 
 class LoginPage extends Component {
     render() {
         return (
             <Fragment>
-                <TopNavigation/>
+                <RoundLogo/>
                 <Login/>
             </Fragment>
         );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FeelControl from "../Component/FeelControl";
-import TopNavigationTwo from "../Component/TopNavigationTwo";
+import Navigation from "../Component/Navigation";
 import favoriteIcon from "../Assets/Image/like.svg";
 import editeIcon from "../Assets/Image/edit.svg";
 import { RiShareLine } from "react-icons/ri";
@@ -32,7 +32,7 @@ export default class feedbackSubmit extends Component {
     render() {
         return (
             <>
-                <TopNavigationTwo/>
+                <Navigation/>
                 <div className="feedbackWrap">
                     <div className="feedbackInner">
                         <div className="actionRow">

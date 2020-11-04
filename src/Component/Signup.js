@@ -1,5 +1,6 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component } from 'react';
 import {Link, Redirect} from "react-router-dom";
+import axios from 'axios';
 import Password from '../Assets/Image/password.svg';
 import ConfirmPassword from '../Assets/Image/confirm password.svg';
 import Username from '../Assets/Image/username.svg';
@@ -10,7 +11,7 @@ import Google from '../Assets/Image/google.svg';
 import Apple from '../Assets/Image/apple.JPG';
 import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 
-class Signup extends Component {
+export default class Signup extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -25,78 +26,75 @@ class Signup extends Component {
             warning: false,
             processing: false
         }
-        this.signUp = this.signUp.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    signUp = () =>{
-        if(this.state.username && this.state.password){
+    // Submit form
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        if(this.state.username && this.state.email && this.state.password && this.state.confirmPassword && this.state.phoneNumber){
             let proxyurl = "https://cors-anywhere.herokuapp.com/";
             let BaseUrl = 'https://www.breathconductor.com/api_v1/auth/signup';
-
-            var myHeaders = new Headers();
-            myHeaders.append("device-id", "1");
-            myHeaders.append("timezone", "UTC");
-            myHeaders.append("device-type", "1");
-            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-            var urlencoded = new URLSearchParams();
-            urlencoded.append("username", `${this.state.username}`);
-            urlencoded.append("email", `${this.state.email}`);
-            urlencoded.append("password", `${this.state.password}`);
-            urlencoded.append("confirm_password", `${this.state.confirmPassword}`);
-            urlencoded.append("country_code", "us");
-            urlencoded.append("phone_dial_code", "123456");
-            urlencoded.append("phone_number", `${this.state.phoneNumber}`);
-            urlencoded.append("firebase_token", "BD43813E-CFC5-4EEB-ABE2-94562A6E76CA");
-
-            var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
+            var qs = require('qs');
+            var data = qs.stringify({
+                'username': `${this.state.username}`,
+                'email': `${this.state.email}`,
+                'password': `${this.state.password}`,
+                'confirm_password': `${this.state.confirmPassword}`,
+                'country_code': 'us',
+                'phone_dial_code': '123456',
+                'phone_number': `${this.state.phoneNumber}`,
+                'firebase_token': 'BD43813E-CFC5-4EEB-ABE2-94562A6E76CA' 
+            });
+            var config = {
+                method: 'post',
+                url: proxyurl + BaseUrl,
+                headers: { 
+                    'device-id': '1', 
+                    'timezone': 'UTC', 
+                    'device-type': '1', 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data : data
             };
 
-            this.setState({
-                message: "processing your request please wait",
-                processing: true
-            })
+            axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                let status = response.data.status === "error" ? true : false;
+                this.setState({
+                    message: response.data.message,
+                    error: status,
+                    processing: false
+                });
 
-            fetch(proxyurl + BaseUrl, requestOptions)
-                .then((response) => response.json())
-                .then((responsejson) => {
-                    let status = responsejson.status === "error" ? true : false;
+                let userDetails = response.data.data.user_details;
+                if(userDetails){
+                    localStorage.setItem('user_details', userDetails );
                     this.setState({
-                        message: responsejson.message,
-                        error: status,
-                        processing: false
-                    });
-                    let userData = responsejson.data.user_details;
-                    console.log(responsejson)
-                    if(userData){
-                        sessionStorage.setItem('user_details', responsejson.data )
-                        this.setState({
-                            redirect: true,
-                        })
+                        redirect: true,
+                    })
                     }else{
-                        this.setState({
-                            message: responsejson.message
-                        })
-                        console.log(responsejson.message)
-                    }
-                })
-                .catch((error) => {
-                   return error;
-                })
+                    this.setState({
+                        message: response.data.message
+                    })
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         }else{
             this.setState({
-                message: 'Please enter User name and Password!',
+                message: 'Please fillup required fields!',
                 warning: true,
                 processing: false
             })
         }
     }
 
+    // Onchange field
     handleChange = (e) => {
         this.setState({
             message: '',
@@ -105,86 +103,75 @@ class Signup extends Component {
             processing: false,
             [e.target.name] : e.target.value
         })
-        //console.log("coming here")
     }
 
     render() {
         if(this.state.redirect){
             return (<Redirect to="/login" />)
         }
-        if(sessionStorage.getItem('user_details')){
-            return (<Redirect to="/login" />)
-        }
-
-        const statusClass = this.state.error !== false ? 'message error' : 'message' || this.state.warning ? "message waring" : "message";
-
         return (
-            <Fragment>
-                <div className="container login-box">
-                    <div className="row">
-                        <div className="col-1">
-                            <div className="sign-in sign-up">
-                                <h2 className="title">Sign Up to Breath Conductor</h2>
-                                <p className="details">Enter your details below</p>
-                                <form>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <img src={Username} alt="User icon"/>
-                                        </div>
-                                        <input onChange={this.handleChange} name="username" type="text" placeholder="User Name" value={this.state.username} />
+            <div className="container login-box">
+                <div className="container-inner">
+                    <div className="inner-wrapper">
+                        <div className="sign-in sign-up">
+                            <h2 className="title">Sign Up to Breath Conductor</h2>
+                            <p className="details">Enter your details below</p>
+                            <form onSubmit={this.handleSubmit}>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <img src={Username} alt="User icon"/>
                                     </div>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <FiAtSign />
-                                        </div>
-                                        <input onChange={this.handleChange} name="email" type="email" placeholder="Email Address" value={this.state.email} />
+                                    <input onChange={this.handleChange} name="username" type="text" placeholder="User Name" value={this.state.username} />
+                                </div>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <FiAtSign />
                                     </div>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <img src={Phone} alt="Phone icon"/>
-                                        </div>
-                                        <input onChange={this.handleChange} name="phoneNumber" type="number" placeholder="Phone Number" value={this.state.phoneNumber}/>
+                                    <input onChange={this.handleChange} name="email" type="email" placeholder="Email Address" value={this.state.email} />
+                                </div>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <img src={Phone} alt="Phone icon"/>
                                     </div>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <img src={Password} alt="Password icon"/>
-                                        </div>
-                                        <input onChange={this.handleChange} name="password" type="password" placeholder="Password" value={this.state.password} />
+                                    <input onChange={this.handleChange} name="phoneNumber" type="number" placeholder="Phone Number" value={this.state.phoneNumber}/>
+                                </div>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <img src={Password} alt="Password icon"/>
                                     </div>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <img src={ConfirmPassword} alt="Password icon"/>
-                                        </div>
-                                        <input onChange={this.handleChange} name="confirmPassword" type="password" placeholder="Confirm Password" value={this.state.ConfirmPassword} />
+                                    <input onChange={this.handleChange} name="password" type="password" placeholder="Password" value={this.state.password} />
+                                </div>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <img src={ConfirmPassword} alt="Password icon"/>
                                     </div>
-                                </form>
-                                <button onClick={() => this.signUp()} className="btn btn-primary">Sign Up</button>
-                                <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p> : null}
-                            </div>
-                            <div className="text-divider">or</div>
-                            <div className="social-login">
-                                <div className="col-3">
-                                    <div className="social-img">
-                                        <img src={Facebook} alt="Facebook icon"/>
-                                    </div>
-                                </div><div className="col-3">
+                                    <input onChange={this.handleChange} name="confirmPassword" type="password" placeholder="Confirm Password" value={this.state.ConfirmPassword} />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Sign Up</button>
+                            </form>
+                            <p>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
+                        </div>
+                        <div className="text-divider">or</div>
+                        <div className="social-login">
+                            <div className="col-3">
                                 <div className="social-img">
-                                    <img src={Google} alt="Google icon"/>
+                                    <img src={Facebook} alt="Facebook icon"/>
                                 </div>
                             </div><div className="col-3">
-                                <div className="social-img">
-                                    <img src={Apple} alt="Apple icon"/>
-                                </div>
+                            <div className="social-img">
+                                <img src={Google} alt="Google icon"/>
                             </div>
+                        </div><div className="col-3">
+                            <div className="social-img">
+                                <img src={Apple} alt="Apple icon"/>
                             </div>
-
-                            <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>
                         </div>
+                        </div>
+
+                        <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>
                     </div>
                 </div>
-            </Fragment>
-        );
+            </div>
+        )
     }
 }
-
-export default Signup;

@@ -1,12 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import Setting from "../Component/Setting";
-import TopNavigationTwo from "../Component/TopNavigationTwo";
+import Navigation from "../Component/Navigation";
 
 class SettingPage extends Component {
     render() {
         return (
             <Fragment>
-                <TopNavigationTwo/>
+                <Navigation/>
                 <Setting/>
             </Fragment>
         );

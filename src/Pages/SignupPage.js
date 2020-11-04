@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import Signup from "../Component/Signup";
-import TopNavigation from "../Component/TopNavigation";
+import TopNavigation from "../Component/RoundLogo";
 
 class SignupPage extends Component {
     render() {

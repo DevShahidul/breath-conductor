@@ -1,12 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import TopNavigationTwo from "../Component/TopNavigationTwo";
+import Navigation from "../Component/Navigation";
 import Library from "../Component/Library";
 
 class LibraryPage extends Component {
     render() {
         return (
             <Fragment>
-                <TopNavigationTwo/>
+                <Navigation/>
                 <Library/>
             </Fragment>
         );

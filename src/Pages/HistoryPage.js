@@ -1,13 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import {Link} from "react-router-dom";
 import History from "../Component/History";
-import TopNavigationTwo from "../Component/TopNavigationTwo";
+import Navigation from "../Component/Navigation";
 
 class HistoryPage extends Component {
     render() {
         return (
             <Fragment>
-                <TopNavigationTwo/>
+                <Navigation/>
                 <div className="library">
                     <div className="row">
                         <div className="col-1">

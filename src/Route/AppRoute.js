@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {Route, Switch} from "react-router-dom";
 import LoginPage from "../Pages/LoginPage";
 import SignupPage from "../Pages/SignupPage";
@@ -17,25 +17,23 @@ import feedbackSubmit from "../Pages/feedbackSubmit";
 class AppRoute extends Component {
     render() {
         return (
-            <Fragment>
-                <Switch>
-                    <Route exact path="/" component={WelcomePage}/>
-                    <Route exact path="/login" component={LoginPage}/>
-                    <Route exact path="/signup" component={SignupPage}/>
-                    <Route exact path="/welcome" component={WelcomePage}/>
-                    <Route exact path="/feel" component={FeelControlPage}/>
-                    <Route exact path="/home" component={HomePage}/>
-                    <Route exact path="/feedbacksubmit" component={feedbackSubmit}/>
-                    <Route exact path="/survey" component={SurveyPage}/>
-                    <Route exact path="/favorites" component={LibraryPage}/>
-                    <Route exact path="/favoritesdetails" component={FavoritiesDetailsPage}/>
-                    <Route exact path="/history" component={HistoryPage}/>
-                    <Route exact path="/historydetails" component={HistoryDetailsPage}/>
-                    <Route exact path="/setting" component={SettingPage}/>
-                    <Route exact path="/tutorial" component={TutorialPage}/>
-                    <Route exact path="/library" component={LibraryPage}/>
-                </Switch>
-            </Fragment>
+            <Switch>
+                <Route exact path="/" component={HomePage}/>
+                <Route exact path="/login" component={LoginPage}/>
+                <Route exact path="/signup" component={SignupPage}/>
+                <Route exact path="/welcome" component={WelcomePage}/>
+                <Route exact path="/feel" component={FeelControlPage}/>
+                {/* <Route exact path="/home" component={HomePage}/> */}
+                <Route exact path="/feedbacksubmit" component={feedbackSubmit}/>
+                <Route exact path="/survey" component={SurveyPage}/>
+                <Route exact path="/favorites" component={LibraryPage}/>
+                <Route exact path="/favoritesdetails" component={FavoritiesDetailsPage}/>
+                <Route exact path="/history" component={HistoryPage}/>
+                <Route exact path="/historydetails" component={HistoryDetailsPage}/>
+                <Route exact path="/setting" component={SettingPage}/>
+                <Route exact path="/tutorial" component={TutorialPage}/>
+                <Route exact path="/library" component={LibraryPage}/>
+            </Switch>
         );
     }
 }

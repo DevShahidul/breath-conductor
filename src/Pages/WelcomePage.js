@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
-import { Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
 import Welcome from "../Component/Welcome";
-import TopNavigation from "../Component/TopNavigation";
+import RoundLogo from "../Component/RoundLogo";
 
 class WelcomePage extends Component {
     constructor(props){
@@ -11,22 +11,13 @@ class WelcomePage extends Component {
         }
     }
 
-    componentDidMount(){
-        if(sessionStorage.getItem('user_details')){
-            console.log('call user feed')
-        }else{
-            this.setState({redirect: true})
-        }
-    }
-
-
     render() {
-        if(this.state.redirect){
-            return (<Redirect to="/login" />)
-        }
+        // if(this.state.redirect){
+        //     return (<Redirect to="/login" />)
+        // }
         return (
             <Fragment>
-                <TopNavigation/>
+                <RoundLogo/>
                 <Welcome/>
             </Fragment>
         );
