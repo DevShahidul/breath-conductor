@@ -121,65 +121,63 @@ class Signup extends Component {
         return (
             <Fragment>
                 <div className="container login-box">
-                    <div className="row">
-                        <div className="col-1">
-                            <div className="sign-in sign-up">
-                                <h2 className="title">Sign Up to Breath Conductor</h2>
-                                <p className="details">Enter your details below</p>
-                                <form>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <img src={Username} alt="User icon"/>
-                                        </div>
-                                        <input onChange={this.handleChange} name="username" type="text" placeholder="User Name" value={this.state.username} />
+                    <div className="container-inner">
+                        <div className="sign-in sign-up">
+                            <h2 className="title">Sign Up to Breath Conductor</h2>
+                            <p className="details">Enter your details below</p>
+                            <form>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <img src={Username} alt="User icon"/>
                                     </div>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <FiAtSign />
-                                        </div>
-                                        <input onChange={this.handleChange} name="email" type="email" placeholder="Email Address" value={this.state.email} />
+                                    <input onChange={this.handleChange} name="username" type="text" placeholder="User Name" value={this.state.username} />
+                                </div>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <FiAtSign />
                                     </div>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <img src={Phone} alt="Phone icon"/>
-                                        </div>
-                                        <input onChange={this.handleChange} name="phoneNumber" type="number" placeholder="Phone Number" value={this.state.phoneNumber}/>
+                                    <input onChange={this.handleChange} name="email" type="email" placeholder="Email Address" value={this.state.email} />
+                                </div>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <img src={Phone} alt="Phone icon"/>
                                     </div>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <img src={Password} alt="Password icon"/>
-                                        </div>
-                                        <input onChange={this.handleChange} name="password" type="password" placeholder="Password" value={this.state.password} />
+                                    <input onChange={this.handleChange} name="phoneNumber" type="number" placeholder="Phone Number" value={this.state.phoneNumber}/>
+                                </div>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <img src={Password} alt="Password icon"/>
                                     </div>
-                                    <div className="form-field">
-                                        <div className="form-icon">
-                                            <img src={ConfirmPassword} alt="Password icon"/>
-                                        </div>
-                                        <input onChange={this.handleChange} name="confirmPassword" type="password" placeholder="Confirm Password" value={this.state.ConfirmPassword} />
+                                    <input onChange={this.handleChange} name="password" type="password" placeholder="Password" value={this.state.password} />
+                                </div>
+                                <div className="form-field">
+                                    <div className="form-icon">
+                                        <img src={ConfirmPassword} alt="Password icon"/>
                                     </div>
-                                </form>
-                                <button onClick={() => this.signUp()} className="btn btn-primary">Sign Up</button>
-                                <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
-                            </div>
-                            <div className="text-divider">or</div>
-                            <div className="social-login">
-                                <div className="col-3">
-                                    <div className="social-img">
-                                        <img src={Facebook} alt="Facebook icon"/>
-                                    </div>
-                                </div><div className="col-3">
+                                    <input onChange={this.handleChange} name="confirmPassword" type="password" placeholder="Confirm Password" value={this.state.ConfirmPassword} />
+                                </div>
+                            </form>
+                            <button onClick={() => this.signUp()} className="btn btn-primary">Sign Up</button>
+                            <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
+                        </div>
+                        <div className="text-divider">or</div>
+                        <div className="social-login">
+                            <div className="col-3">
                                 <div className="social-img">
-                                    <img src={Google} alt="Google icon"/>
+                                    <img src={Facebook} alt="Facebook icon"/>
                                 </div>
                             </div><div className="col-3">
-                                <div className="social-img">
-                                    <img src={Apple} alt="Apple icon"/>
-                                </div>
+                            <div className="social-img">
+                                <img src={Google} alt="Google icon"/>
                             </div>
+                        </div><div className="col-3">
+                            <div className="social-img">
+                                <img src={Apple} alt="Apple icon"/>
                             </div>
-
-                            <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>
                         </div>
+                        </div>
+
+                        <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>
                     </div>
                 </div>
             </Fragment>
