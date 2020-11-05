@@ -7,7 +7,7 @@ import FacebookIcon from "../Assets/Image/facebookIcon.svg";
 import InstagramIcon from "../Assets/Image/instagram.svg";
 import YoutubeIcon from "../Assets/Image/youtube.svg";
 import TiktokIcon from "../Assets/Image/tik-tok.svg";
-import { Button } from './Button';
+import Button from './Button';
 
 
 

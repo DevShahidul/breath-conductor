@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
+import {BreathContext} from '../../context'
 import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
 import { PlayerWrap } from './VideoPlayer.elements';
@@ -21,6 +22,7 @@ const formate = (seconds) => {
 }
 
 export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
+    const { handleEndVideo } = useContext(BreathContext);
 
     const [state, setState] = useState({
         playing: false,
@@ -72,6 +74,10 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       })
       playerRef.current.seekTo(newValue / 100);
     }
+
+    // const handleEndVideo = () => {
+    //   console.log(" I'm working!!!!!")
+    // }
 
     // Handle progress time
     const handleProgress = (changeState) => {
@@ -153,6 +159,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           volume={volume}
           playbackRate={playbackRate}
           onProgress={handleProgress}
+          onEnded={handleEndVideo}
           config={{
             file:{
               attributes:{

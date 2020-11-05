@@ -69,16 +69,7 @@ const useStyles = makeStyles((theme, iconColor) => ({
             padding: '2px'
         }
     },
-    skipPreviousIcon: {
-        [theme.breakpoints.down('sm')]: {
-            display: 'none'
-        }
-    },
-    fastSkip: {
-        [theme.breakpoints.down('sm')]: {
-            display: 'none'
-        }
-    },
+    
     controlIconsPlay: {
         fontSize: '30px',
         background: '#ffffff !important',
@@ -98,7 +89,8 @@ const useStyles = makeStyles((theme, iconColor) => ({
         marginRight: '5px',
         transition: 'width .3s ease-in',
         [theme.breakpoints.down('sm')]: {
-            display: 'none'
+            display: 'block',
+            width: '60px'
         },
         '&:hover':{
             width: '60px'

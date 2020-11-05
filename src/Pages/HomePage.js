@@ -2,9 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { BreathContext } from '../context';
 //import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import Home from "../Component/Home";
-import Navigation from "../Component/Navigation";
-import Welcome from "../Component/Welcome";
+import {Home, Navigation, Welcome, FeelControl, Tutorial, FeedbackSubmit} from "../Component";
 
 class HomePage extends Component {
     static contextType = BreathContext;
@@ -13,7 +11,6 @@ class HomePage extends Component {
         super(props);
         this.state = {
             redirect: false,
-            showWelcome: true,
         }
         //this.logOut = this.logOut.bind(this);
     }
@@ -42,15 +39,15 @@ class HomePage extends Component {
     }
 
     render() {
-        const {showWelcome} = this.context;
+        const {showWelcome, sowoFeelOption, showTutorial, showReplay, setFeeling, handleOnChangFeel} = this.context;
         if(this.state.redirect){
             return (<Redirect to="/login" />)
         }
         return ( 
             <Fragment>
                 <Navigation/>
-                <div className="home-contents">
-                    {showWelcome ? <Welcome/> : <Home/> }
+                <div className="home-contents container">
+                    {showWelcome ? <Welcome/> : <Home/> && sowoFeelOption ? <FeelControl feeling={setFeeling} onChangFeel={handleOnChangFeel} /> : <Home/> && showTutorial ? <Tutorial /> : <Home/> && showReplay ? <FeedbackSubmit /> : <Home/> }
                 </div>
             </Fragment>
         );

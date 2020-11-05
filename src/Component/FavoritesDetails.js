@@ -6,7 +6,7 @@ import TimeIcon from "../Assets/Image/Time.svg";
 import VoiceIcon from "../Assets/Image/Voice.svg";
 import ThemeIcon from "../Assets/Image/Theme.svg";
 import {Link} from "react-router-dom";
-import { IconicButton } from './IconicButton';
+import IconicButton from './IconicButton';
 import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
 
 class FavoritesDetails extends Component {

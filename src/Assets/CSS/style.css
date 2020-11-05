@@ -165,6 +165,8 @@ button:focus {
 .intro {
     width: 560px;
     max-width: 100%;
+    margin: 0 auto;
+    clear: both;
     background: rgba(0, 0, 0, 0.65);
     border-radius: 15px;
     padding: 80px 60px 50px;
@@ -192,20 +194,16 @@ button:focus {
 }
 
 
-.feel-container {
-    display: inline-grid;
-    margin: 0 auto;
-    align-items: center;
-    max-width: 670px;
-    padding: 0px 115px;
-    min-height: 520px;
+.feel-control {
+    width: 670px;
+    padding: 125px 115px;
 }
 
-.feel-container .session-title {
+.feel-control .session-title {
     margin-bottom: 35px;
 }
 
-.feel-container button.btn {
+.feel-control button.btn {
     margin-top: 35px;
 }
 
@@ -564,7 +562,7 @@ input:focus {
 
 /*  Top navigation CSS        */
 .logo-small {
-    position: fixed;
+    position: absolute;
     top: 40px;
     left: 62px;
     width: 50px;
@@ -926,15 +924,10 @@ li.nav-item .active {
 }
 
 /* Tutorial Page Styles here */
-.tutorial {
-    max-width: 750px;
-    width: 95%;
+.tutorial-wrap {
+    position: relative;
+    width: 750px;
     height: 650px;
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border-radius: 10px;
 }
 
@@ -952,8 +945,16 @@ li.nav-item .active {
     position: absolute;
 }
 
+.back-section button {
+    background: transparent;
+    border: 0;
+    margin: 0 0 0 25px;
+    padding: 0;
+    width: auto;
+}
+
 .back-section img {
-    margin-left: 25px;
+    display: block;
 }
 
 .section-title {
@@ -1163,14 +1164,6 @@ a:visited,
 
 
 /* ************* FeedbackSubmit page ************ */
-.feedbackWrap {
-    width: 100%;
-    height: calc(100vh - 86px);
-    margin-top: 86px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .feedbackWrap button:not(.btn) {
     background: transparent;
@@ -1198,19 +1191,30 @@ a:visited,
     vertical-align: middle;
     margin-left: 35px;
     font-size: 22px;
+    background: transparent;
+    border: 0;
+    color: #ffffff;
 }
 
 .controlWrap {
     width: 100%;
-    padding: 40px 0;
+    padding: 110px 0 40px;
     background: #000;
 }
 
+.controlWrap .feel-control{
+    padding: 0 112px;
+}
+
 .controlWrap>button {
+    background: transparent;
+    border: 0;
     display: block;
     margin: 0 auto;
     font-size: 17px;
     font-weight: 600;
+    color: #ffffff;
+    margin-top: 40px;
 }
 
 .controlWrap>button svg {

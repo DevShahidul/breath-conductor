@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { BreathContext} from '../context';
 import Logo from "../Assets/Image/logo2.svg";
 import { HomeIcon, LibraryIcon, SettingIcon }  from "./icons";
 import Notification from "../Assets/Image/Notification.svg";
@@ -8,6 +9,7 @@ import MenuIcon from "../Assets/Image/menu.svg";
 import {Link, NavLink} from "react-router-dom";
 
 class Navigation extends Component {
+    static contextType = BreathContext;
 
     constructor(){
         super();
@@ -40,10 +42,11 @@ class Navigation extends Component {
     }
 
     render() {
+        const { logOut } = this.context;
         const {navItems} = this.state;
         return (
             <div className="nav-section">
-                <Link to="/"><img src={Logo} alt="logo"/></Link>
+                <Link className="main-logo" to="/"><img src={Logo} alt="logo"/></Link>
                 <nav>
                     <ul>
                         {Object.keys(navItems).map((keyName, index) => {
@@ -74,7 +77,7 @@ class Navigation extends Component {
                 </div>
                 <ul className={this.state.expanded ? 'userDropdown expanded' : 'userDropdown'} >
                     <li><Link to="setting">Setting profile</Link></li>
-                    <li><button onClick={this.props.onLogOut}>Log out</button></li>
+                    <li><button onClick={logOut}>Log out</button></li>
                 </ul>
                 <div className="navToggler">
                     <img onClick={this.toggleMenu} src={MenuIcon} alt="Toggle menu icon"/>

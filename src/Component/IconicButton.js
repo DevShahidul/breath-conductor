@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 
-export const IconicButton = (props) => {
+const IconicButton = (props) => {
     const {imgIcon, text, type, click} = props;
     const getIcon = imgIcon ? <img src={imgIcon} alt={`${text} icon`} /> : <props.icon />
     return (
@@ -13,6 +13,8 @@ export const IconicButton = (props) => {
         </>
     )
 }
+
+export default IconicButton;
 
 
 IconicButton.propTypes = {

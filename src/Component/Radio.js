@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Radio = (props) => {
+const Radio = (props) => {
     return (
         <label className="radio-item">
             <input type="radio" name={props.name} value={props.value} checked={props.checked} onChange={props.onChange} />
@@ -9,3 +9,5 @@ export const Radio = (props) => {
         </label>
     )
 }
+
+export default Radio;
