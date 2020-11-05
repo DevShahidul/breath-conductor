@@ -3,6 +3,7 @@
     html,
     body{
         height: auto;
+        background: #000000;
     }
 
     /* Top Navigation Two style css */
@@ -18,7 +19,7 @@
         right: 20px;
         left: 20px;
         width: auto;
-        background: #121212;
+        background: transparent;
     }
 
     .main-logo{
@@ -146,8 +147,18 @@
     .sign-in .details {
         margin: 0px;
     }
-    .form-field {
+    .form-field,
+    .task-list {
         margin: 15px 0px;
+        border-bottom: 1px solid #777;
+        border-radius: 0;
+        padding: 5px 0;
+    }
+
+    .form-field,
+    .form-field input,
+    .task-list {
+        background: transparent;
     }
 
     .pop-up {
@@ -233,10 +244,17 @@
     }
     .details-items {
         min-height: auto;
+        border-bottom: 0;
     }
     .details-items .row {
         width: 100%;
     }
+
+    .details-items .row > div{
+        border-bottom: 1px solid #b9b9bb6b;
+        padding-bottom: 10px;
+    }
+
     .img-box img{
         width: 40px;
         height: auto;
@@ -249,10 +267,26 @@
     }
     .details-top {
         min-height: 75px;
+        margin-top: 0;
     }
     .details-action .col-3 {
-        flex-basis: 80%;
+        flex-basis: 100%;
         margin: auto;
+    }
+
+    .details-action .row button{
+        background: transparent;
+        justify-content: left;
+    }
+
+    .details-action img,
+    .details-action .btn svg {
+        width: 30px;
+        position: relative;
+        left: auto;
+        top: auto;
+        margin-right: 15px;
+        font-size: 23px;
     }
 
     /* setting page css here */
@@ -298,11 +332,18 @@
         overflow: hidden;
     }
 
-    .setting-container{
+    .setting-container,
+    .library-content {
         background: transparent;
     }
 
-    .col-2{
+    .library-content{
+        min-height: 10px;
+    }
+
+    .col-2,
+    .library-content,
+    .details-items .row{
         padding: 0;
     }
 
@@ -310,6 +351,18 @@
         width: 50%;
         flex-basis: 50%;
         text-align: left !important;
+    }
+
+    .details-items .col-4{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 25px;
+    }
+
+    .details-items .img-box{
+        margin-bottom: 0;
     }
 
 }

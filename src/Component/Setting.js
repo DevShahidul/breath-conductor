@@ -59,19 +59,19 @@ class Setting extends Component {
                                             </div>
                                             <div className="social">
                                                 <img src={FacebookIcon} alt="Facebook icon"/>
-                                                <p>dennis_vladobinov</p>
+                                                <Link to="http://facebook.com/dennis_vladobinov"> <p>dennis_vladobinov</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={InstagramIcon} alt="Instagram icon"/>
-                                                <p>dennis_vladobinov</p>
+                                                <Link to="https://www.instagram.com/dennis_vladobinov/"><p>dennis_vladobinov</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={YoutubeIcon} alt="Youtube icon"/>
-                                                <p>https://youtube.com/dennis_vladobinov</p>
+                                                <Link to="https://youtube.com/dennis_vladobinov"><p>https://youtube.com/dennis_vladobinov</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={TiktokIcon} alt="Tiktok icon"/>
-                                                <p>dennis_vladobinov</p>
+                                                <Link to="https://www.tiktok.com/dennis_vladobinov"><p>dennis_vladobinov</p></Link>
                                             </div>
                                         </div>
                                         <div className="mydata">
