@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { BreathContext } from '../context';
-//import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
 import {Home, Navigation, Welcome, FeelControl, Tutorial, FeedbackSubmit} from "../Component";
 
 class HomePage extends Component {
@@ -17,11 +16,11 @@ class HomePage extends Component {
 
 
     componentDidMount(){
-        if(sessionStorage.getItem('user_details')){
-            console.log('call user feed')
-        }else{
-            this.setState({redirect: true})
-        }
+        // if(sessionStorage.getItem('user_details')){
+        //     console.log('call user feed')
+        // }else{
+        //     this.setState({redirect: true})
+        // }
 
         // var config = {
         //     headers: { 
@@ -40,9 +39,9 @@ class HomePage extends Component {
 
     render() {
         const {showWelcome, sowoFeelOption, showTutorial, showReplay, setFeeling, handleOnChangFeel} = this.context;
-        if(this.state.redirect){
-            return (<Redirect to="/login" />)
-        }
+        // if(this.state.redirect){
+        //     return (<Redirect to="/login" />)
+        // }
         return ( 
             <Fragment>
                 <Navigation/>

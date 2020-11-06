@@ -51,10 +51,10 @@ class Signup extends Component {
             urlencoded.append("firebase_token", "BD43813E-CFC5-4EEB-ABE2-94562A6E76CA");
 
             var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
             };
 
             this.setState({
@@ -72,9 +72,9 @@ class Signup extends Component {
                         processing: false
                     });
                     let userData = responsejson.data.user_details;
-                    console.log(responsejson)
+                    //console.log(responsejson)
                     if(userData){
-                        sessionStorage.setItem('user_details', responsejson.data )
+                        sessionStorage.setItem('token', userData.auth_token);
                         this.setState({
                             redirect: true,
                         })
@@ -82,7 +82,7 @@ class Signup extends Component {
                         this.setState({
                             message: responsejson.message
                         })
-                        console.log(responsejson.message)
+                        //console.log(responsejson.message)
                     }
                 })
                 .catch((error) => {

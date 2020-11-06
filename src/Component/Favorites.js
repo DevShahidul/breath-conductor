@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import NextPlay from "../Assets/Image/next.svg";
-import {Link} from "react-router-dom";
+//import {Link} from "react-router-dom";
 
 class Favorites extends Component {
     render() {
@@ -12,7 +12,7 @@ class Favorites extends Component {
                         <p>15 Minutes</p>
                     </div>
                     <div className="favorites-arrow">
-                        <Link to="favoritesdetails"><img src={NextPlay} alt="Next play icon"/></Link>
+                        <img src={NextPlay} alt="Next play icon"/>
                     </div>
                 </div>
                 <div className="favorites-list">
@@ -21,7 +21,7 @@ class Favorites extends Component {
                         <p>15 Minutes</p>
                     </div>
                     <div className="favorites-arrow">
-                        <Link to="favoritesdetails"><img src={NextPlay} alt="Next play icon"/></Link>
+                        <img src={NextPlay} alt="Next play icon"/>
                     </div>
                 </div>
                 <div className="favorites-list">
@@ -30,7 +30,7 @@ class Favorites extends Component {
                         <p>15 Minutes</p>
                     </div>
                     <div className="favorites-arrow">
-                        <Link to="favoritesdetails"><img src={NextPlay} alt="Next play icon"/></Link>
+                        <img src={NextPlay} alt="Next play icon"/>
                     </div>
                 </div>
                 <div className="favorites-list">
@@ -39,7 +39,7 @@ class Favorites extends Component {
                         <p>15 Minutes</p>
                     </div>
                     <div className="favorites-arrow">
-                        <Link to="favoritesdetails"><img src={NextPlay} alt="Next play icon"/></Link>
+                        <img src={NextPlay} alt="Next play icon"/>
                     </div>
                 </div>
             </Fragment>

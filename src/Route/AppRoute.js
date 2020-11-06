@@ -9,6 +9,7 @@ import LibraryPage from "../Pages/LibraryPage";
 import FavoritiesDetailsPage from "../Pages/FavoritiesDetailsPage";
 import HistoryPage from "../Pages/HistoryPage";
 import HistoryDetailsPage from "../Pages/HistoryDetailsPage";
+import { ErrorPage } from "../Pages/ErrorPage";
 
 class AppRoute extends Component {
     render() {
@@ -18,12 +19,12 @@ class AppRoute extends Component {
                 <Route exact path="/login" component={LoginPage}/>
                 <Route exact path="/signup" component={SignupPage}/>
                 <Route exact path="/survey" component={SurveyPage}/>
-                <Route exact path="/favorites" component={LibraryPage}/>
-                <Route exact path="/favoritesdetails" component={FavoritiesDetailsPage}/>
-                <Route exact path="/history" component={HistoryPage}/>
-                <Route exact path="/historydetails" component={HistoryDetailsPage}/>
+                <Route exact path="/library/history" component={HistoryPage}/>
+                <Route exact path="/library/history/:id" component={HistoryDetailsPage}/>
                 <Route exact path="/setting" component={SettingPage}/>
                 <Route exact path="/library" component={LibraryPage}/>
+                <Route exact path="/library/:id" component={FavoritiesDetailsPage}/>
+                <Route component={ErrorPage} />
             </Switch>
         );
     }

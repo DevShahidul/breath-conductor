@@ -55,24 +55,28 @@ class Login extends Component {
             fetch(proxyurl + BaseUrl, requestOptions)
                 .then((response) => response.json())
                 .then((responsejson) => {
-                    let status = responsejson.status === "error" ? true : false;
+                    let errorStatus = responsejson.status === "error" ? true : false;
                     this.setState({
                         message: responsejson.message,
-                        error: status,
+                        error: errorStatus,
                         processing: false
                     });
+
+                    // Get user data from responsejson
                     let userData = responsejson.data.user_details;
-                    console.log(responsejson)
                     if(userData){
-                        sessionStorage.setItem('user_details', responsejson.data )
-                        this.setState({
-                            redirect: true,
-                        })
+                        sessionStorage.setItem('token', userData.auth_token);
+                        // sessionStorage.setItem('email', userData.email);
+                        // sessionStorage.setItem('username', userData.username);
+                        // sessionStorage.setItem('userID', userData.userID);
+                        // this.setState({
+                        //     redirect: true,
+                        // })
                     }else{
                         this.setState({
                             message: responsejson.message
                         })
-                        console.log(responsejson.message)
+                        //console.log(responsejson.message)
                     }
                 })
                 .catch((error) => {
@@ -103,7 +107,7 @@ class Login extends Component {
         if(this.state.redirect){
             return (<Redirect to="/" />)
         }
-        if(sessionStorage.getItem('user_details')){
+        if(sessionStorage.getItem('token')){
             return (<Redirect to="/" />)
         }
 

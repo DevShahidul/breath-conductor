@@ -18,7 +18,7 @@ export default IconicButton;
 
 
 IconicButton.propTypes = {
-  imgIcon: PropTypes.object,
+  imgIcon: PropTypes.string,
   text: PropTypes.string.isRequired,
   type: PropTypes.string,
   click: PropTypes.func

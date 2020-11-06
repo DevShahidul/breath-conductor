@@ -1,31 +1,44 @@
 import React, {Component, Fragment} from 'react';
+import {BreathContext} from '../context';
+import { Navigation } from "../Component";
 import {Link} from "react-router-dom";
-import History from "../Component/History";
-import Navigation from "../Component/Navigation";
+import NextPlay from "../Assets/Image/next.svg";
 
 class HistoryPage extends Component {
+    static contextType = BreathContext;
     render() {
+        const { HistoryContents, setSingleHistoryData, deletHistoryData, deletFavoriteData } = this.context;
         return (
             <Fragment>
                 <Navigation/>
-                <div className="library">
-                    <div className="row">
-                        <div className="col-1">
-                            <div className="library-top">
-                                <div className="tabs">
-                                    <Link to="library"><h2>Favorites</h2></Link>
-                                </div>
-                                <div className="tabs">
-                                    <Link to="history"><h2>History</h2></Link>
-                                </div>
-                            </div>
+                <div className="container">
+                    <div className="library-inner">
+                        <div className="library-top">
+                            <ul className="tabs">
+                                <li className="nav-item">
+                                    <Link onClick={deletHistoryData} to="/library">Favorites</Link>
+                                </li>
+                                <li className="nav-item active">
+                                    <Link onClick={deletFavoriteData} to="/library/history">History</Link>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                    <div className="row no-space">
-                        <div className="col-1">
-                            <div className="library-content">
-                                <History/>
-                            </div>
+                        <div className="library-content">
+                            {HistoryContents.map((item, index) => {
+                                return (
+                                    <div key={index} className="favorites-list">
+                                        <Link onClick={() => setSingleHistoryData(item.id)} to={`/library/history/${item.id}`} >
+                                            <div className="favorites-info">
+                                                <h2>{item.title}</h2>
+                                                <p>{item.time}</p>
+                                            </div>
+                                            <div className="favorites-arrow">
+                                                <img src={NextPlay} alt="Next play icon"/>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

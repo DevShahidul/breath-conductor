@@ -683,21 +683,29 @@ input:focus {
     font-size: 26px;
 }
 
-li.nav-item .active {
-    color: #ffffff;
-    font-size: 22px;
-    letter-spacing: 2px;
+.tabs .nav-item:last-child{
+    margin-right: 0;
+}
+
+li.nav-item.active a{
+    color: #ffffff !important;
     font-weight: 700;
 }
 
 .library-content {
     width: 100%;
     min-height: 600px;
+    margin-top: 15px;
     background: rgba(0, 0, 0, 0.65);
     border-radius: 15px;
     padding: 0px 30px 30px 30px;
     align-content: center;
     align-items: center;
+}
+
+.library-single .library-content{
+    min-height: 100px;
+    padding-bottom: 80px;
 }
 
 .library .no-space {
@@ -730,6 +738,7 @@ li.nav-item .active {
     font-weight: 600;
     letter-spacing: 1px;
     margin-bottom: 8px;
+    text-transform: capitalize;
 }
 
 .favorites-info p {
@@ -746,17 +755,22 @@ li.nav-item .active {
 
 /************************* Favorites details page ******************/
 .details-top {
-    margin-top: -25px;
     display: flex;
     flex-wrap: wrap;
-    min-height: 100px;
+    padding: 35px 0 25px;
     align-items: center;
     border-bottom: 1px solid #b9b9bb6b;
+    position: relative;
+}
+
+.details-top .back-section button {
+    margin-left: 0;
 }
 
 .fav-details {
     min-height: 520px;
 }
+
 
 .details-top .back-section img {
     margin-left: 0px;
@@ -765,11 +779,12 @@ li.nav-item .active {
 .details-top .section-title h2 {
     font-size: 30px;
     font-weight: 500;
+    text-transform: capitalize;
+    font-weight: 600;
 }
 
 .details-items {
     border-bottom: 1px solid #b9b9bb6b;
-    min-height: 220px;
 }
 
 .details-items .row {
@@ -778,7 +793,7 @@ li.nav-item .active {
     flex-wrap: wrap;
     width: 80%;
     margin: auto;
-    padding: 30px 20px;
+    padding: 55px 20px;
 }
 
 .details-items .col-4 {
@@ -800,14 +815,14 @@ li.nav-item .active {
     font-weight: 500;
 }
 
-.details-action .row {
+.details-action {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 15px 0px;
 }
 
-.details-action .col-3 {
+.details-action button {
     flex-basis: 30%;
 }
 
@@ -945,15 +960,24 @@ li.nav-item .active {
     position: absolute;
 }
 
-.back-section button {
+.details-top button {
     background: transparent;
     border: 0;
-    margin: 0 0 0 25px;
+    margin: 0;
     padding: 0;
     width: auto;
 }
 
-.back-section img {
+.faborite-button {
+    position: absolute;
+    right: 0;
+}
+
+.faborite-button button {
+    padding: 10px;
+}
+
+.details-top img {
     display: block;
 }
 
@@ -1300,4 +1324,8 @@ a:visited,
 
 .home-contents{
     position: relative;
+}
+
+.error-page-inner a{
+    color: #ffffff;
 }
