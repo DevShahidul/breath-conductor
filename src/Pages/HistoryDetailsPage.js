@@ -13,13 +13,22 @@ import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
 
 class HistoryDetailsPage extends Component {
     static contextType = BreathContext;
+
+    constructor(props){
+        super(props);
+        this.handleGoback = this.handleGoback.bind(this);
+    }
+
+    handleGoback = () => {
+        this.props.history.goBack()
+    }
+   
     render() {
-        const { handleBacktoParent, loading, deletHistoryData, deletFavoriteData } = this.context;
+        const { loading, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } = this.context;
 
         const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
 
-        const { title, date, goal, theme, voice, duration_minutes, handleAddFavorite} = dataFromLocalstorage;
-
+        const {id, title, date, goal, theme, voice, duration_minutes} = dataFromLocalstorage;
 
         return (
             <Fragment>
@@ -40,14 +49,14 @@ class HistoryDetailsPage extends Component {
                             <div className="library-content library-inner">
                                 <div className="details-top">
                                     <div className="back-section">
-                                        <button onClick={handleBacktoParent}><img src={BackIcon} alt="Back icon"/></button>
+                                        <button onClick={this.handleGoback}><img src={BackIcon} alt="Back icon"/></button>
                                     </div>
                                     <div className="section-title">
                                         <h2>{title}</h2>
                                         <p>{date}</p>
                                     </div>
                                     <div className="faborite-button">
-                                        <button onClick={handleAddFavorite}><img src={favoriteIcon} alt="Favorite icon"/></button>
+                                        <button onClick={ () => handleAddFavorite(id)}><img src={favoriteIcon} alt="Favorite icon"/></button>
                                     </div>
                                 </div>
                                 <div className="details-items">
@@ -59,9 +68,9 @@ class HistoryDetailsPage extends Component {
                                     </div>
                                 </div>
                                 <div className="details-action">
-                                    <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon}/>
+                                    <IconicButton  type="primary" text="New Duplicate" imgIcon={DuplicateIcon}  click={ () => handleAddFavorite(id)}/>
                                     <IconicButton type="primary" text="Share" icon={RiShareLine}/>
-                                    <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine}/>
+                                    <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => removeFromFavorite(id) }/>
                                 </div>
                             </div>
                         </div>

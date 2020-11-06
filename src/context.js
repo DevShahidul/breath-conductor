@@ -1,4 +1,5 @@
 import React, { Component, createContext } from 'react';
+import {  v4 as uuidv4  } from 'uuid';
 import { HistoryData } from './data/HistoryData';
 import { FavoriteData } from './data/FavoriteData';
 
@@ -8,7 +9,7 @@ class BreathProvider extends Component {
     constructor(props){
         super(props);
         this.state = {
-            username: 'user',
+            userName: 'User name',
             welcomConfirmationMessage: 'When is the best time for you to practice self-care?',
             reminders: false,
             showWelcome: true,
@@ -16,8 +17,10 @@ class BreathProvider extends Component {
             showTutorial: false,
             showReplay: false,
             setFeeling: 3,
+            // History
             HistoryContents: [],
             singleHistory: {},
+            // Favorite
             FavoriteContents: [],
             singleFavorite: {},
             loading: false,
@@ -29,6 +32,8 @@ class BreathProvider extends Component {
         this.handleEndVideo = this.handleEndVideo.bind(this);
         this.handleReplayFromFeedback = this.handleReplayFromFeedback.bind(this);
         this.backToPrev = this.backToPrev.bind(this);
+        this.removeFromFavorite = this.removeFromFavorite.bind(this);
+        this.handleAddFavorite = this.handleAddFavorite.bind(this);
     }
 
     componentDidMount(){
@@ -115,11 +120,6 @@ class BreathProvider extends Component {
         return localStorage.removeItem('singleFavoriteData');
     }
 
-    // Get conent from ligrary
-    handleBacktoParent = () => {
-        return {}
-    }
-
     // Share from library
     shareFromLibrary = (id) => {
         console.log(`Share from library ${id}`);
@@ -127,7 +127,34 @@ class BreathProvider extends Component {
 
     // Remove from favorite
     removeFromFavorite = (id) => {
-        console.log(`remove from favorite ${id}`);
+        const {FavoriteContents} = this.state;
+        const newContents = FavoriteContents.filter(item => item.id !== id);
+        this.setState({
+            FavoriteContents: newContents
+        });
+    }
+
+    // Add Favorite
+    handleAddFavorite = (id) => {
+        const {FavoriteContents} = this.state;
+        const fromLocalStorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {} || localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
+        const {title, goal, date, duration_minutes, voice, theme} = fromLocalStorage;
+        const newContents = {
+            id,
+            title,
+            goal,
+            exerciseID: uuidv4(),
+            date,
+            theme,
+            duration_minutes,
+            voice
+        }
+        this.setState({
+            FavoriteContents: [...FavoriteContents, newContents]
+        })
+
+        console.log(fromLocalStorage);
+
     }
 
     // Sync library
@@ -196,16 +223,16 @@ class BreathProvider extends Component {
                 handleEndVideo: this.handleEndVideo,
                 handleReplayFromFeedback: this.handleReplayFromFeedback,
                 backToPrev: this.backToPrev,
-                addToFavorite: this.addToFavorite,
+                //addToFavorite: this.addToFavorite,
                 removeFromFavorite: this.removeFromFavorite,
                 shareFromLibrary: this.shareFromLibrary,
                 setSingleHistoryData: this.setSingleHistoryData,
                 setSingleFavoriteData: this.setSingleFavoriteData,
-                handleBacktoParent: this.handleBacktoParent,
                 getHistoryData: this.getHistoryData,
                 deletHistoryData: this.deletHistoryData,
                 getFavoriteData: this.getFavoriteData,
                 deletFavoriteData: this.deletFavoriteData,
+                handleAddFavorite: this.handleAddFavorite,
             }}>
                 {this.props.children}
             </BreathContext.Provider>

@@ -960,12 +960,17 @@ li.nav-item.active a{
     position: absolute;
 }
 
+.back-section button,
 .details-top button {
     background: transparent;
     border: 0;
     margin: 0;
     padding: 0;
     width: auto;
+}
+
+.back-section button{
+    margin-left: 25px;
 }
 
 .faborite-button {
@@ -975,6 +980,18 @@ li.nav-item.active a{
 
 .faborite-button button {
     padding: 10px;
+    border-radius: 50%;
+    -webkit-transition: all .3s ease-in;
+    -moz-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+}
+
+.faborite-button button:hover{
+    background-color: rgb(26 33 44);
+}
+
+.faborite-button button:active {
+    background-color: rgb(26 33 66);
 }
 
 .details-top img {

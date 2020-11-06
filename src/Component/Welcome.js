@@ -4,10 +4,10 @@ import { BreathContext } from '../context';
 class Welcome extends Component {
     static contextType = BreathContext;
     render() {
-        const {username, welcomConfirmationMessage, handleConfirmation} = this.context;
+        const {userName, welcomConfirmationMessage, handleConfirmation} = this.context;
         return (
             <div className="intro">
-                <h2 className="name-title ">Hey {username},</h2>
+                <h2 className="name-title ">Hey {userName},</h2>
                 <p className="welcome-msg">{welcomConfirmationMessage}</p>
                 <button onClick={() => handleConfirmation('Yes')} className="btn btn-primary">Yes</button>
                 <button onClick={() => handleConfirmation('No')} className="btn btn-secondary">No</button>

@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {BreathContext} from '../context';
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import BackIcon from "../Assets/Image/back.svg";
 import GoalIcon from "../Assets/Image/Goal.svg";
 import DuplicateIcon from "../Assets/Image/New-Duplicate-icon.svg";
@@ -12,12 +12,21 @@ import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
 
 class FavoritiesDetailsPage extends Component {
     static contextType = BreathContext;
+    constructor(props){
+        super(props);
+        this.handleGoback = this.handleGoback.bind(this);
+    }
+
+    handleGoback = () => {
+        this.props.history.goBack()
+    }
+    
     render() {
-        const { handleBacktoParent, loading, deletHistoryData, deletFavoriteData } = this.context;
+        const { handleBacktoParent, loading, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } = this.context;
 
         const dataFromLocalstorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {};
 
-        const { title, goal, theme, duration_minutes, voice} = dataFromLocalstorage;
+        const {id, title, goal, theme, duration_minutes, voice} = dataFromLocalstorage;
 
 
         return (
@@ -39,7 +48,7 @@ class FavoritiesDetailsPage extends Component {
                             <div className="library-content library-inner">
                                 <div className="details-top">
                                     <div className="back-section">
-                                        <button onClick={handleBacktoParent}><img src={BackIcon} alt="Back icon"/></button>
+                                        <button onClick={this.handleGoback}><img src={BackIcon} alt="Back icon"/></button>
                                     </div>
                                     <div className="section-title">
                                         <h2>{title}</h2>
@@ -54,9 +63,9 @@ class FavoritiesDetailsPage extends Component {
                                     </div>
                                 </div>
                                 <div className="details-action">
-                                    <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon}/>
+                                    <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => handleAddFavorite(id)}/>
                                     <IconicButton type="primary" text="Share" icon={RiShareLine}/>
-                                    <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine}/>
+                                    <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => removeFromFavorite(id) }/>
                                 </div>
                             </div>
                         </div>
