@@ -18,7 +18,7 @@ const FavoritiesDetailsPage = () => {
     
     const { loading, singleFavorite, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } =  useContext(BreathContext);
 
-    const dataFromLocalstorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {};
+    // const dataFromLocalstorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {};
 
     const {id, title, goal, theme, duration_minutes, voice} = singleFavorite;
 

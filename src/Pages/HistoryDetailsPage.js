@@ -18,7 +18,7 @@ const HistoryDetailsPage = () => {
 
     const { loading, singleHistory, deletHistoryData, deletFavoriteData, removeFromHistory, handleAddFavorite } =  useContext(BreathContext);
 
-    const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
+    // const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
 
     const {id, title, date, goal, theme, voice, duration_minutes} = singleHistory;
 
