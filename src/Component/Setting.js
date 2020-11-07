@@ -1,6 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import Username from "../Assets/Image/username.svg";
-import Password from "../Assets/Image/password.svg";
 import {Link} from "react-router-dom";
 import ShareIcon from "../Assets/Image/share.svg";
 import FacebookIcon from "../Assets/Image/facebookIcon.svg";
@@ -8,11 +6,32 @@ import InstagramIcon from "../Assets/Image/instagram.svg";
 import YoutubeIcon from "../Assets/Image/youtube.svg";
 import TiktokIcon from "../Assets/Image/tik-tok.svg";
 import Button from './Button';
-
+import { FormField } from '../Component';
 
 
 class Setting extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            userName: 'user',
+            passWord: '1234',
+            email: 'email@mail.com'
+        }
+    }
+
+    // componentDidMount(){
+
+    // }
+
+    handleInputField = (e) => {
+        const value = e.target.value;
+        this.setState({
+            [e.target.name] : value
+        })
+    }
+
     render() {
+        const {userName, passWord, email} = this.state;
         return (
             <Fragment>
                 <div className="container">
@@ -24,27 +43,9 @@ class Setting extends Component {
                                     <div className="account">
                                         <h2 className="title">Account</h2>
                                         <form>
-                                            <p>User Name</p>
-                                            <div className="form-field">
-                                                <div className="form-icon">
-                                                    <img src={Username} alt="User icon"/>
-                                                </div>
-                                                <input type="text" placeholder="User Name"/>
-                                            </div>
-                                            <p>Email Address</p>
-                                            <div className="form-field">
-                                                <div className="form-icon">
-                                                    <img src={Username} alt="User icon"/>
-                                                </div>
-                                                <input type="email" placeholder="Email Address"/>
-                                            </div>
-                                            <p>Password</p>
-                                            <div className="form-field">
-                                                <div className="form-icon">
-                                                    <img src={Password} alt="Password icon"/>
-                                                </div>
-                                                <input type="password" placeholder="Password"/>
-                                            </div>
+                                            <FormField type="text" label="User Name" placeholder="User Name" name="userName" onChange={this.handleInputField} value={userName}/>
+                                            <FormField type="email" label="Email Address" placeholder="Email Address" name="email" onChange={this.handleInputField} value={email}/>
+                                            <FormField type="password" label="Password" placeholder="Password Address" name="passWord" onChange={this.handleInputField} value={passWord}/>
                                         </form>
                                         <Button type="btn-primary" text="Save"/>
                                     </div>
@@ -76,10 +77,10 @@ class Setting extends Component {
                                         </div>
                                         <div className="mydata">
                                             <h2 className="title">My Data</h2>
-                                                <div className="mydata-btn">
-                                                    <Button type="primary-outline" text="Clear History" />
-                                                    <Button type="danger" text="Delet Account" />
-                                                </div>
+                                            <div className="mydata-btn">
+                                                <Button type="primary-outline" text="Clear History" />
+                                                <Button type="danger" text="Delet Account" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

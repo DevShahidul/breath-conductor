@@ -372,8 +372,16 @@
         margin-bottom: 25px;
     }
 
+    .faborite-button {
+        top: 35px;
+    }
+
     .library-single .library-content{
         padding-bottom: 30px;
+    }
+
+    .social img{
+        margin-right: 15px;
     }
 
 

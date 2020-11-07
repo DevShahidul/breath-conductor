@@ -9,6 +9,7 @@ import Facebook from '../Assets/Image/facebook.svg';
 import Google from '../Assets/Image/google.svg';
 import Apple from '../Assets/Image/apple.JPG';
 import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
+import FormField from './FormField';
 
 class Signup extends Component {
     constructor(props){
@@ -118,6 +119,8 @@ class Signup extends Component {
 
         const statusClass = this.state.error !== false ? 'message error' : 'message' || this.state.warning ? "message waring" : "message";
 
+        const {username, email, password,confirmPassword, phoneNumber} = this.state;
+
         return (
             <Fragment>
                 <div className="container login-box">
@@ -126,36 +129,11 @@ class Signup extends Component {
                             <h2 className="title">Sign Up to Breath Conductor</h2>
                             <p className="details">Enter your details below</p>
                             <form>
-                                <div className="form-field">
-                                    <div className="form-icon">
-                                        <img src={Username} alt="User icon"/>
-                                    </div>
-                                    <input onChange={this.handleChange} name="username" type="text" placeholder="User Name" value={this.state.username} />
-                                </div>
-                                <div className="form-field">
-                                    <div className="form-icon">
-                                        <FiAtSign />
-                                    </div>
-                                    <input onChange={this.handleChange} name="email" type="email" placeholder="Email Address" value={this.state.email} />
-                                </div>
-                                <div className="form-field">
-                                    <div className="form-icon">
-                                        <img src={Phone} alt="Phone icon"/>
-                                    </div>
-                                    <input onChange={this.handleChange} name="phoneNumber" type="number" placeholder="Phone Number" value={this.state.phoneNumber}/>
-                                </div>
-                                <div className="form-field">
-                                    <div className="form-icon">
-                                        <img src={Password} alt="Password icon"/>
-                                    </div>
-                                    <input onChange={this.handleChange} name="password" type="password" placeholder="Password" value={this.state.password} />
-                                </div>
-                                <div className="form-field">
-                                    <div className="form-icon">
-                                        <img src={ConfirmPassword} alt="Password icon"/>
-                                    </div>
-                                    <input onChange={this.handleChange} name="confirmPassword" type="password" placeholder="Confirm Password" value={this.state.ConfirmPassword} />
-                                </div>
+                                <FormField type="text" placeholder="User Name" name="username" required={true} onChange={this.handleChange} value={username} icon={Username}/>
+                                <FormField type="email" placeholder="Email Address" name="email" required={true} onChange={this.handleChange} value={email} reactIcon={FiAtSign}/>
+                                <FormField type="number" placeholder="Phone Number" name="phoneNumber" required={true} onChange={this.handleChange} value={phoneNumber} icon={Phone}/>
+                                <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
+                                <FormField type="password" placeholder="Confirm Password" name="confirmPassword" required={true} onChange={this.handleChange} value={confirmPassword} icon={ConfirmPassword}/>
                             </form>
                             <button onClick={() => this.signUp()} className="btn btn-primary">Sign Up</button>
                             <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>

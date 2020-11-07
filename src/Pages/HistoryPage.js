@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {BreathContext} from '../context';
-import { Navigation } from "../Component";
+import { Navigation, LibraryLinks } from "../Component";
 import {Link} from "react-router-dom";
 import NextPlay from "../Assets/Image/next.svg";
 
@@ -13,16 +13,14 @@ class HistoryPage extends Component {
                 <Navigation/>
                 <div className="container">
                     <div className="library-inner">
-                        <div className="library-top">
-                            <ul className="tabs">
-                                <li className="nav-item">
-                                    <Link onClick={deletHistoryData} to="/library">Favorites</Link>
-                                </li>
-                                <li className="nav-item active">
-                                    <Link onClick={deletFavoriteData} to="/library/history">History</Link>
-                                </li>
-                            </ul>
-                        </div>
+                        <LibraryLinks>
+                            <li className="nav-item">
+                                <Link onClick={deletHistoryData} to="/library">Favorites</Link>
+                            </li>
+                            <li className="nav-item active">
+                                <Link onClick={deletFavoriteData} to="/library/history">History</Link>
+                            </li>
+                        </LibraryLinks>
                         <div className="library-content">
                             {HistoryContents.map((item, index) => {
                                 return (
@@ -30,7 +28,7 @@ class HistoryPage extends Component {
                                         <Link onClick={() => setSingleHistoryData(item.id)} to={`/library/history/${item.id}`} >
                                             <div className="favorites-info">
                                                 <h2>{item.title}</h2>
-                                                <p>{item.time}</p>
+                                                <p>Focus - {item.date}</p>
                                             </div>
                                             <div className="favorites-arrow">
                                                 <img src={NextPlay} alt="Next play icon"/>

@@ -10,7 +10,6 @@ class BreathProvider extends Component {
         super(props);
         this.state = {
             userName: 'User name',
-            welcomConfirmationMessage: 'When is the best time for you to practice self-care?',
             reminders: false,
             showWelcome: true,
             sowoFeelOption: false,
@@ -34,6 +33,7 @@ class BreathProvider extends Component {
         this.backToPrev = this.backToPrev.bind(this);
         this.removeFromFavorite = this.removeFromFavorite.bind(this);
         this.handleAddFavorite = this.handleAddFavorite.bind(this);
+        this.handleGoBack = this.handleGoBack.bind(this);
     }
 
     componentDidMount(){
@@ -59,7 +59,7 @@ class BreathProvider extends Component {
             HistoryContents,
             loading: false
         })
-        //console.log(HistoryContents);
+        console.log(HistoryContents);
     }
 
     // Get conent from library
@@ -84,6 +84,10 @@ class BreathProvider extends Component {
         return localStorage.removeItem('singleHistoryData');
     }
 
+    handleGoBack = () => {
+        this.props.history.goBack()
+    }
+
     // Get Favorite Data 
     setFavoriteContents = (data) => {
         let FavoriteContents = data.map(item => {
@@ -95,7 +99,7 @@ class BreathProvider extends Component {
             FavoriteContents,
             loading: false
         })
-        //console.log(FavoriteContents);
+        console.log(FavoriteContents);
     }
 
     // Get conent from library
@@ -223,16 +227,18 @@ class BreathProvider extends Component {
                 handleEndVideo: this.handleEndVideo,
                 handleReplayFromFeedback: this.handleReplayFromFeedback,
                 backToPrev: this.backToPrev,
-                //addToFavorite: this.addToFavorite,
+                //Favorite function method
                 removeFromFavorite: this.removeFromFavorite,
                 shareFromLibrary: this.shareFromLibrary,
-                setSingleHistoryData: this.setSingleHistoryData,
                 setSingleFavoriteData: this.setSingleFavoriteData,
-                getHistoryData: this.getHistoryData,
-                deletHistoryData: this.deletHistoryData,
                 getFavoriteData: this.getFavoriteData,
                 deletFavoriteData: this.deletFavoriteData,
                 handleAddFavorite: this.handleAddFavorite,
+                // History function method
+                setSingleHistoryData: this.setSingleHistoryData,
+                getHistoryData: this.getHistoryData,
+                deletHistoryData: this.deletHistoryData,
+                handleGoBack: this.handleGoBack,
             }}>
                 {this.props.children}
             </BreathContext.Provider>

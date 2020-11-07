@@ -6,6 +6,7 @@ import Facebook from '../Assets/Image/facebook.svg';
 import Google from '../Assets/Image/google.svg';
 import Apple from '../Assets/Image/apple.JPG';
 import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
+import FormField from './FormField';
 //import { PostData } from '../services/PostData';
 
 class Login extends Component {
@@ -66,12 +67,12 @@ class Login extends Component {
                     let userData = responsejson.data.user_details;
                     if(userData){
                         sessionStorage.setItem('token', userData.auth_token);
-                        // sessionStorage.setItem('email', userData.email);
-                        // sessionStorage.setItem('username', userData.username);
-                        // sessionStorage.setItem('userID', userData.userID);
-                        // this.setState({
-                        //     redirect: true,
-                        // })
+                        sessionStorage.setItem('email', userData.email);
+                        sessionStorage.setItem('username', userData.username);
+                        sessionStorage.setItem('userID', userData.userID);
+                        this.setState({
+                            redirect: true,
+                        })
                     }else{
                         this.setState({
                             message: responsejson.message
@@ -113,6 +114,7 @@ class Login extends Component {
 
         const statusClass = this.state.error !== false ? 'message error' : 'message' || this.state.warning ? "message waring" : "message";
 
+        const {username, password} = this.state;
         return (
             <div className="container login-box">
                 <div className="container-inner">
@@ -120,14 +122,8 @@ class Login extends Component {
                         <h2 className="title">Sign In to Breath Conductor</h2>
                         <p className="details">Enter your details below</p>
                         <form>
-                            <div className="form-field">
-                                <img src={Username} alt="User icon"/>
-                                <input required type="text" name="username" placeholder="User Name" onChange={this.handleChange}/>
-                            </div>
-                            <div className="form-field">
-                                <img src={Password} alt="Password icon"/>
-                                <input required type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
-                            </div>
+                            <FormField type="text" placeholder="User Name" name="username"  required={true} onChange={this.handleChange} value={username} icon={Username}/>
+                            <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
                         </form>
                         <p className="forget">Forget Your Password?</p>
                         <button className="btn btn-primary" onClick={() => this.login()}> Sign In</button>

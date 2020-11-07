@@ -10,20 +10,35 @@ import FavoritiesDetailsPage from "../Pages/FavoritiesDetailsPage";
 import HistoryPage from "../Pages/HistoryPage";
 import HistoryDetailsPage from "../Pages/HistoryDetailsPage";
 import { ErrorPage } from "../Pages/ErrorPage";
+import { Protected } from '../Component';
 
 class AppRoute extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path="/" component={HomePage}/>
+                <Route exact path="/"> 
+                    <Protected page={HomePage} />
+                </Route>
                 <Route exact path="/login" component={LoginPage}/>
                 <Route exact path="/signup" component={SignupPage}/>
-                <Route exact path="/survey" component={SurveyPage}/>
-                <Route exact path="/library/history" component={HistoryPage}/>
-                <Route exact path="/library/history/:id" component={HistoryDetailsPage}/>
-                <Route exact path="/setting" component={SettingPage}/>
-                <Route exact path="/library" component={LibraryPage}/>
-                <Route exact path="/library/:id" component={FavoritiesDetailsPage}/>
+                <Route exact path="/survey">
+                    <Protected page={SurveyPage} />
+                </Route>
+                <Route exact path="/library/history">
+                    <Protected page={HistoryPage} />
+                </Route>
+                <Route exact path="/library/history/:id">
+                    <Protected page={HistoryDetailsPage} />
+                </Route>
+                <Route exact path="/setting">
+                    <Protected page={SettingPage} />
+                </Route>
+                <Route exact path="/library">
+                    <Protected page={LibraryPage} />
+                </Route>
+                <Route exact path="/library/:id" component={FavoritiesDetailsPage}>
+                    <Protected page={FavoritiesDetailsPage} />
+                </Route>
                 <Route component={ErrorPage} />
             </Switch>
         );

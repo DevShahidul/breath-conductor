@@ -1,6 +1,6 @@
-import React, {useState, useContext} from 'react';
-import {Link, NavLink, useLocation} from "react-router-dom";
-import { BreathContext} from '../context';
+import React, {useState} from 'react';
+import {Link, NavLink, useLocation, Redirect} from "react-router-dom";
+//import { BreathContext} from '../context';
 import Logo from "../Assets/Image/logo2.svg";
 import { HomeIcon, LibraryIcon, SettingIcon }  from "./icons";
 import Notification from "../Assets/Image/Notification.svg";
@@ -17,11 +17,12 @@ const Navigation = () => {
     // }   
 
     const geSingleHistoryData = localStorage.getItem('singleHistoryData') ? localStorage.getItem('singleHistoryData') : 1;
-    const geSingleFavoriteData = localStorage.getItem('singleHistoryData') ? localStorage.getItem('singleHistoryData') : 1;
+    const geSingleFavoriteData = localStorage.getItem('singleFavoriteData') ? localStorage.getItem('singleFavoriteData') : 1;
     const historyId = JSON.parse(geSingleHistoryData).id;
     const FavoriteId = JSON.parse(geSingleFavoriteData).id;
 
-    const [expanded, setExpanded] = useState(false)
+    const [expanded, setExpanded] = useState(false);
+    
     const [state, setState] = useState({
         navItems: {
             home:{
@@ -44,17 +45,23 @@ const Navigation = () => {
             }
         },
         redirect: false,
-    })
-    
-    const { logOut } = useContext(BreathContext);
-    const {navItems} = state;
+    });
+
+    const {navItems, redirect} = state;
+
+    const logOut = () => {
+        let token = sessionStorage.getItem('token');
+        if(token){
+            sessionStorage.clear();
+            localStorage.clear();
+            setState({
+                redirect: true
+            })
+        }
+    }
 
     const handleClick = () => {
         setExpanded(!expanded)
-        console.log("I'm clicked");
-        // setState({
-        //     expanded: !expanded
-        // })
     }
 
     // componentDidMount(){
@@ -68,9 +75,9 @@ const Navigation = () => {
 
     const { pathname } = useLocation();
         
-    // if(this.state.redirect){
-    //     return (<Redirect to="/login" />)
-    // }
+    if(redirect){
+        return (<Redirect to="/login" />)
+    }
 
     return (
         <div className="nav-section">

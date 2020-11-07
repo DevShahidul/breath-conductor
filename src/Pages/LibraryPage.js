@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {BreathContext} from '../context';
-import { Navigation } from "../Component";
+import { Navigation, LibraryLinks } from "../Component";
 import {Link} from "react-router-dom";
 import NextPlay from "../Assets/Image/next.svg";
 
@@ -28,16 +28,14 @@ class LibraryPage extends Component {
                 {/* Library page elements */}
                 <div className="container">
                     <div className="library-inner">
-                        <div className="library-top">
-                            <ul className="tabs">
-                                <li className="nav-item active">
-                                    <Link onClick={deletHistoryData} to="/library">Favorites</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link onClick={deletFavoriteData} to="/library/history">History</Link>
-                                </li>
-                            </ul>
-                        </div>
+                        <LibraryLinks>
+                            <li className="nav-item active">
+                                <Link onClick={deletHistoryData} to="/library">Favorites</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link onClick={deletFavoriteData} to="/library/history">History</Link>
+                            </li>
+                        </LibraryLinks>
                         <div className="library-content">
                             {FavoriteContents.map((item, index) => {
                                 return (
@@ -45,7 +43,7 @@ class LibraryPage extends Component {
                                         <Link onClick={() => setSingleFavoriteData(item.id)} to={`/library/${item.id}`} >
                                             <div className="favorites-info">
                                                 <h2>{item.title}</h2>
-                                                <p>{item.time}</p>
+                                                <p>{item.duration_minutes} Minutes</p>
                                             </div>
                                             <div className="favorites-arrow">
                                                 <img src={NextPlay} alt="Next play icon"/>
