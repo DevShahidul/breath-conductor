@@ -7,7 +7,7 @@ import NextPlay from "../Assets/Image/next.svg";
 class HistoryPage extends Component {
     static contextType = BreathContext;
     render() {
-        const { HistoryContents, setSingleHistoryData, deletHistoryData, deletFavoriteData } = this.context;
+        const { isHistory, HistoryContents, setSingleHistoryData, deletHistoryData, deletFavoriteData } = this.context;
         return (
             <Fragment>
                 <Navigation/>
@@ -22,7 +22,8 @@ class HistoryPage extends Component {
                             </li>
                         </LibraryLinks>
                         <div className="library-content">
-                            {HistoryContents.map((item, index) => {
+                            { isHistory ?
+                            HistoryContents.map((item, index) => {
                                 return (
                                     <div key={index} className="favorites-list">
                                         <Link onClick={() => setSingleHistoryData(item.id)} to={`/library/history/${item.id}`} >
@@ -36,7 +37,8 @@ class HistoryPage extends Component {
                                         </Link>
                                     </div>
                                 )
-                            })}
+                            }) : <p className="emptyMessage">Not found any history</p>
+                            }
                         </div>
                     </div>
                 </div>

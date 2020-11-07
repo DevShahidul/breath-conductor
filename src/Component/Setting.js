@@ -7,9 +7,11 @@ import YoutubeIcon from "../Assets/Image/youtube.svg";
 import TiktokIcon from "../Assets/Image/tik-tok.svg";
 import Button from './Button';
 import { FormField } from '../Component';
+import { BreathContext } from '../context';
 
 
 class Setting extends Component {
+    static contextType  = BreathContext;
     constructor(props){
         super(props);
         this.state = {
@@ -31,6 +33,7 @@ class Setting extends Component {
     }
 
     render() {
+        const { clearHistory } = this.context;
         const {userName, passWord, email} = this.state;
         return (
             <Fragment>
@@ -78,7 +81,7 @@ class Setting extends Component {
                                         <div className="mydata">
                                             <h2 className="title">My Data</h2>
                                             <div className="mydata-btn">
-                                                <Button type="primary-outline" text="Clear History" />
+                                                <Button onClick={clearHistory} type="primary-outline" text="Clear History" />
                                                 <Button type="danger" text="Delet Account" />
                                             </div>
                                         </div>

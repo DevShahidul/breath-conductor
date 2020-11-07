@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
 import {BreathContext} from '../context';
 import {Link, useHistory} from "react-router-dom";
 import GoalIcon from "../Assets/Image/Goal.svg";
@@ -16,15 +16,15 @@ const HistoryDetailsPage = () => {
         history.goBack();
     }
 
-    const { loading, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } = BreathContext;
+    const { loading, singleHistory, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } =  useContext(BreathContext);
 
     const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
 
-    const {id, title, date, goal, theme, voice, duration_minutes} = dataFromLocalstorage;
+    const {id, title, date, goal, theme, voice, duration_minutes} = singleHistory;
 
-    const handleOnAddFavorite = () => {
-        handleAddFavorite(id)
-    }
+    // const handleOnAddFavorite = () => {
+    //     handleAddFavorite(id)
+    // }
    
     return (
         <Fragment>
@@ -41,7 +41,7 @@ const HistoryDetailsPage = () => {
                             </li>
                         </LibraryLinks>
                         <div className="library-content library-inner">
-                            <LibraryDetailTop title={title} date={date} onClick={HandleGoback} onAddFavorite={handleOnAddFavorite} />
+                            <LibraryDetailTop title={title} date={date} onClick={HandleGoback} onAddFavorite={() => handleAddFavorite(id) } />
                             <div className="details-items">
                                 <div className="row"> 
                                     {goal ? <LibraryOptionsItem icon={GoalIcon} title="Goal" text={goal} /> : ''}

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
 import {BreathContext} from '../context';
 import {Link, useHistory} from "react-router-dom";
 import GoalIcon from "../Assets/Image/Goal.svg";
@@ -16,11 +16,11 @@ const FavoritiesDetailsPage = () => {
         history.goBack();
     }
     
-    const { loading, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } = BreathContext;
+    const { loading, singleFavorite, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } =  useContext(BreathContext);
 
     const dataFromLocalstorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {};
 
-    const {id, title, goal, theme, duration_minutes, voice} = dataFromLocalstorage;
+    const {id, title, goal, theme, duration_minutes, voice} = singleFavorite;
 
 
     return (

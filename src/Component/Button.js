@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
-    const {type, text, click} = props;
+    const {type, text, onClick} = props;
     return (
         <>
-          <button onClick={click} className={"btn " + type}>{text}</button>
+          <button onClick={onClick} className={"btn " + type}>{text}</button>
         </>
     )
 }
@@ -22,8 +22,8 @@ Button.propTypes = {
 Button.defaultProps = {
     text: "Add button text",
     type: "primary",
-    click: function(e){
+    onClick: function(e){
         e.preventDefault();
-        console.log("I'm clicked");
+        console.log("I'm clicked from default props");
     }
 }

@@ -21,7 +21,7 @@ class LibraryPage extends Component {
     
 
     render() {
-        const { FavoriteContents, setSingleFavoriteData, deletHistoryData, deletFavoriteData } = this.context;
+        const { isFavorite, FavoriteContents, setSingleFavoriteData, deletHistoryData, deletFavoriteData } = this.context;
         return (
             <Fragment>
                 <Navigation/>
@@ -37,21 +37,23 @@ class LibraryPage extends Component {
                             </li>
                         </LibraryLinks>
                         <div className="library-content">
-                            {FavoriteContents.map((item, index) => {
-                                return (
-                                    <div key={index} className="favorites-list">
-                                        <Link onClick={() => setSingleFavoriteData(item.id)} to={`/library/${item.id}`} >
-                                            <div className="favorites-info">
-                                                <h2>{item.title}</h2>
-                                                <p>{item.duration_minutes} Minutes</p>
-                                            </div>
-                                            <div className="favorites-arrow">
-                                                <img src={NextPlay} alt="Next play icon"/>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                )
-                            })}
+                            { isFavorite ? 
+                                FavoriteContents.map((item, index) => {
+                                    return (
+                                        <div key={index} className="favorites-list">
+                                            <Link onClick={() => setSingleFavoriteData(item.id)} to={`/library/${item.id}`} >
+                                                <div className="favorites-info">
+                                                    <h2>{item.title}</h2>
+                                                    <p>{item.duration_minutes} Minutes</p>
+                                                </div>
+                                                <div className="favorites-arrow">
+                                                    <img src={NextPlay} alt="Next play icon"/>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    )
+                                }) : <p className="emptyMessage">Favorite not added yet</p>
+                            }
                         </div>
                     </div>
                 </div>
