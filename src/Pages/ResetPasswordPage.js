@@ -1,16 +1,16 @@
 import React, {Component, Fragment} from 'react';
-import { Login } from "../Component";
+import { ResetPassword } from "../Component";
 import RoundLogo from "../Component/RoundLogo";
 
-class LoginPage extends Component {
+class ResetPasswordPage extends Component {
     render() {
         return (
             <Fragment>
                 <RoundLogo/>
-                <Login/>
+                <ResetPassword/>
             </Fragment>
         );
     }
 }
 
-export default LoginPage;
+export default ResetPasswordPage;

@@ -25,7 +25,7 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    login = () =>{
+    login = () => {
         if(this.state.username && this.state.password){
             let proxyurl = "https://cors-anywhere.herokuapp.com/";
             let BaseUrl = 'https://www.breathconductor.com/api_v1/auth/login';
@@ -125,7 +125,7 @@ class Login extends Component {
                             <FormField type="text" placeholder="User Name" name="username"  required={true} onChange={this.handleChange} value={username} icon={Username}/>
                             <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
                         </form>
-                        <p className="forget">Forget Your Password?</p>
+                        <p className="forget"><Link to="/resetpassword">Forget Your Password?</Link></p>
                         <button className="btn btn-primary" onClick={() => this.login()}> Sign In</button>
                         { this.state.message !== '' ?
                         <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p> : null}

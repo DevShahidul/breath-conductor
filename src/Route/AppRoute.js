@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Route, Switch} from "react-router-dom";
+import ResetPasswordPage from "../Pages/ResetPasswordPage";
 import LoginPage from "../Pages/LoginPage";
 import SignupPage from "../Pages/SignupPage";
 import HomePage from "../Pages/HomePage";
@@ -20,6 +21,7 @@ class AppRoute extends Component {
                     <Protected page={HomePage} />
                 </Route>
                 <Route exact path="/login" component={LoginPage}/>
+                <Route exact path="/resetpassword" component={ResetPasswordPage}/>
                 <Route exact path="/signup" component={SignupPage}/>
                 <Route exact path="/survey">
                     <Protected page={SurveyPage} />

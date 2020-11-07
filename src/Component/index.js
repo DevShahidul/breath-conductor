@@ -3,6 +3,7 @@ export {default as Home } from './Home';
 export {default as Tutorial } from './Tutorial';
 export {default as FeelControl } from './FeelControl';
 export {default as HistoryDetails } from './HistoryDetails';
+export {default as ResetPassword } from './ForgetPassword';
 export {default as Login } from './Login';
 export {default as Signup } from './Signup';
 export {default as Setting } from './Setting';

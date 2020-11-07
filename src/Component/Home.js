@@ -41,7 +41,7 @@ class Home extends Component {
     render() {
         const {handleHomeStart} = this.context;
         return (
-            <div className="container-inner">
+            <div className="container-inner session-container">
                 <h2 className="session-title ">Session Design</h2>
                 <div className="task-list">
                     <p className="task">Goal</p>

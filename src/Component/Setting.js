@@ -16,14 +16,22 @@ class Setting extends Component {
         super(props);
         this.state = {
             userName: 'user',
-            passWord: '1234',
+            passWord: '123456478',
             email: 'email@mail.com'
         }
     }
 
-    // componentDidMount(){
-
-    // }
+    componentDidMount(){
+        let token = sessionStorage.getItem('token');
+        let userName = sessionStorage.getItem('username');
+        let email = sessionStorage.getItem('email');
+        if(token){
+            this.setState({
+                userName,
+                email,
+            })
+        }
+    }
 
     handleInputField = (e) => {
         const value = e.target.value;

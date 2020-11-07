@@ -23,6 +23,7 @@ class BreathProvider extends Component {
             isFavorite: true,
             FavoriteContents: [],
             singleFavorite: {},
+            deleteMessage: '',
             loading: false,
 
         }
@@ -32,10 +33,11 @@ class BreathProvider extends Component {
         this.handleEndVideo = this.handleEndVideo.bind(this);
         this.handleReplayFromFeedback = this.handleReplayFromFeedback.bind(this);
         this.backToPrev = this.backToPrev.bind(this);
-        this.removeFromFavorite = this.removeFromFavorite.bind(this);
-        this.handleAddFavorite = this.handleAddFavorite.bind(this);
-        this.handleGoBack = this.handleGoBack.bind(this);
-        this.clearHistory = this.clearHistory.bind(this);
+        this.removeFromFavorite = this.removeFromFavorite.bind(this); // Remove data from favorite
+        this.handleAddFavorite = this.handleAddFavorite.bind(this); // Add data favorite
+        this.handleGoBack = this.handleGoBack.bind(this); // Go back previous
+        this.removeFromHistory = this.removeFromHistory.bind(this); // Remove data from history 
+        this.clearHistory = this.clearHistory.bind(this); // Clear all history
     }
 
     componentDidMount(){
@@ -81,7 +83,7 @@ class BreathProvider extends Component {
                 }
                 console.log(result)
             })
-            .catch(error => console.log('error', error));
+            .catch(error => console.log('error', error)); // End favorite Exercise
 
             // Exercise history
             let ExersizeHistoryUrl = 'https://www.breathconductor.com/api_v1/library/exerciseHistory';
@@ -106,7 +108,7 @@ class BreathProvider extends Component {
                 console.log(datajson)
 
             })
-            .catch(error => console.log('error', error));
+            .catch(error => console.log('error', error)); // End exercise history function
 
         }
 
@@ -204,6 +206,15 @@ class BreathProvider extends Component {
         });
     }
 
+    // Remove from favorite
+    removeFromHistory = (id) => {
+        const {HistoryContents} = this.state;
+        const newContents = HistoryContents.filter(item => item.id !== id);
+        this.setState({
+            HistoryContents: newContents
+        });
+    }
+
     // Add Favorite
     handleAddFavorite = (id) => {
         const {FavoriteContents} = this.state;
@@ -231,11 +242,55 @@ class BreathProvider extends Component {
 
     // Clear history
     clearHistory = () => {
-        this.setState({
-            HistoryContents: [],
-        });
 
-        console.log(" I'  clicked clearHistory")
+        let token = sessionStorage.getItem('token');
+        let userId = sessionStorage.getItem('userID');
+
+        if(token){
+            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            let clearHistoryUrl = "https://www.breathconductor.com/api_v1/library/exerciseHistoryClear";
+
+            var myHeaders = new Headers();
+            myHeaders.append("userID", userId);
+            myHeaders.append("device-id", "1");
+            myHeaders.append("timezone", "UTC");
+            myHeaders.append("device-type", "1");
+            myHeaders.append("Authorization", `Bearer ${token}`);
+
+            var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch(proxyurl + clearHistoryUrl, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                const datajson = JSON.parse(result);
+                const status = datajson.data.data_found;
+                //const historyData = datajson.data.exercise_history_list;
+                this.setState({
+                    deleteMessage: "Request processing"
+                })
+
+                alert(datajson.message);
+                if(status){
+
+                    this.setHistoryContents([]);
+                    this.setState({
+                        HistoryContents: [],
+                        deleteMessage: datajson.message
+                    });
+                }else{
+                    this.setState({
+                        isHistory: false
+                    })
+                }
+            })
+            .catch(error => console.log('error', error));
+
+            console.log(" I'  clicked clearHistory")
+        }
     }
 
     // Sync library
@@ -306,6 +361,7 @@ class BreathProvider extends Component {
                 backToPrev: this.backToPrev,
                 //Favorite function method
                 removeFromFavorite: this.removeFromFavorite,
+                removeFromHistory: this.removeFromHistory,
                 shareFromLibrary: this.shareFromLibrary,
                 setSingleFavoriteData: this.setSingleFavoriteData,
                 getFavoriteData: this.getFavoriteData,

@@ -16,7 +16,7 @@ const HistoryDetailsPage = () => {
         history.goBack();
     }
 
-    const { loading, singleHistory, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } =  useContext(BreathContext);
+    const { loading, singleHistory, deletHistoryData, deletFavoriteData, removeFromHistory, handleAddFavorite } =  useContext(BreathContext);
 
     const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
 
@@ -53,7 +53,7 @@ const HistoryDetailsPage = () => {
                             <div className="details-action">
                                 <IconicButton  type="primary" text="New Duplicate" imgIcon={DuplicateIcon}  click={ () => handleAddFavorite(id)}/>
                                 <IconicButton type="primary" text="Share" icon={RiShareLine}/>
-                                <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => removeFromFavorite(id) }/>
+                                <IconicButton type="danger" text="Remove from History" icon={RiDeleteBinLine} click={ () => removeFromHistory(id) }/>
                             </div>
                         </div>
                     </div>
