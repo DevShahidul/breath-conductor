@@ -117,36 +117,40 @@ class Login extends Component {
         const {username, password} = this.state;
         return (
             <div className="container login-box">
-                <div className="container-inner">
-                    <div className="sign-in">
-                        <h2 className="title">Sign In to Breath Conductor</h2>
-                        <p className="details">Enter your details below</p>
-                        <form>
-                            <FormField type="text" placeholder="User Name" name="username"  required={true} onChange={this.handleChange} value={username} icon={Username}/>
-                            <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
-                        </form>
-                        <p className="forget"><Link to="/resetpassword">Forget Your Password?</Link></p>
-                        <button className="btn btn-primary" onClick={() => this.login()}> Sign In</button>
-                        { this.state.message !== '' ?
-                        <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p> : null}
-                    </div>
-                    <div className="text-divider">or</div>
-                    <div className="social-login">
-                        <div className="col-3">
-                            <div className="social-img">
-                                <img src={Facebook} alt="Facebook icon"/>
+                <div className="container-inner small">
+                    <div className="contents-wrap">
+                        <div className="sign-in">
+                            <h2 className="title">Sign In to Breath Conductor</h2>
+                            <p className="details">Enter your details below</p>
+                            <form>
+                                <FormField type="text" placeholder="User Name" name="username"  required={true} onChange={this.handleChange} value={username} icon={Username}/>
+                                <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
+                            </form>
+                            <p className="forget"><Link to="/resetpassword">Forget Your Password?</Link></p>
+                            <button className="btn btn-primary" onClick={() => this.login()}> Sign In</button>
+                            { this.state.message !== '' ?
+                            <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p> : null}
+                        </div>
+                        <div className="text-divider">or</div>
+                        <div className="social-login">
+                            <div className="col-3">
+                                <div className="social-img">
+                                    <img src={Facebook} alt="Facebook icon"/>
+                                </div>
                             </div>
-                        </div><div className="col-3">
-                            <div className="social-img">
-                                <img src={Google} alt="Google icon"/>
+                            <div className="col-3">
+                                <div className="social-img">
+                                    <img src={Google} alt="Google icon"/>
+                                </div>
                             </div>
-                        </div><div className="col-3">
-                            <div className="social-img">
-                                <img src={Apple} alt="Apple icon"/>
+                            <div className="col-3">
+                                <div className="social-img">
+                                    <img src={Apple} alt="Apple icon"/>
+                                </div>
                             </div>
                         </div>
+                        <p className="signup-text">Don't have an account?<Link to="signup"> <span className="text-primary"> Sign Up </span> </Link></p>
                     </div>
-                    <p className="signup-text">Don't have an account?<Link to="signup"> <span className="text-primary"> Sign Up </span> </Link></p>
                 </div>
             </div>
         );

@@ -7,7 +7,6 @@ class Survey extends Component {
             <Fragment>
                 <div className="container survey-container">
                     <div className="row">
-                        <div className="col-1">
                             <div className="survey-page">
                                 <h2 className="survey-title ">Personalize Your Practice</h2>
                                     <div className="survey-group">
@@ -33,7 +32,6 @@ class Survey extends Component {
                                     </div>
                                 <Link to="/library"><button className="btn btn-primary">Submit</button></Link>
                             </div>
-                        </div>
                     </div>
                 </div>
             </Fragment>

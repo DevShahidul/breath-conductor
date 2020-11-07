@@ -123,39 +123,41 @@ class Signup extends Component {
 
         return (
             <Fragment>
-                <div className="container login-box">
-                    <div className="container-inner">
-                        <div className="sign-in sign-up">
-                            <h2 className="title">Sign Up to Breath Conductor</h2>
-                            <p className="details">Enter your details below</p>
-                            <form>
-                                <FormField type="text" placeholder="User Name" name="username" required={true} onChange={this.handleChange} value={username} icon={Username}/>
-                                <FormField type="email" placeholder="Email Address" name="email" required={true} onChange={this.handleChange} value={email} reactIcon={FiAtSign}/>
-                                <FormField type="number" placeholder="Phone Number" name="phoneNumber" required={true} onChange={this.handleChange} value={phoneNumber} icon={Phone}/>
-                                <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
-                                <FormField type="password" placeholder="Confirm Password" name="confirmPassword" required={true} onChange={this.handleChange} value={confirmPassword} icon={ConfirmPassword}/>
-                            </form>
-                            <button onClick={() => this.signUp()} className="btn btn-primary">Sign Up</button>
-                            <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
-                        </div>
-                        <div className="text-divider">or</div>
-                        <div className="social-login">
-                            <div className="col-3">
+                <div className="container signup-box">
+                    <div className="container-inner small">
+                        <div className="contents-wrap">
+                            <div className="sign-in sign-up">
+                                <h2 className="title">Sign Up to Breath Conductor</h2>
+                                <p className="details">Enter your details below</p>
+                                <form>
+                                    <FormField type="text" placeholder="User Name" name="username" required={true} onChange={this.handleChange} value={username} icon={Username}/>
+                                    <FormField type="email" placeholder="Email Address" name="email" required={true} onChange={this.handleChange} value={email} reactIcon={FiAtSign}/>
+                                    <FormField type="number" placeholder="Phone Number" name="phoneNumber" required={true} onChange={this.handleChange} value={phoneNumber} icon={Phone}/>
+                                    <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
+                                    <FormField type="password" placeholder="Confirm Password" name="confirmPassword" required={true} onChange={this.handleChange} value={confirmPassword} icon={ConfirmPassword}/>
+                                </form>
+                                <button onClick={() => this.signUp()} className="btn btn-primary">Sign Up</button>
+                                <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
+                            </div>
+                            <div className="text-divider">or</div>
+                            <div className="social-login">
+                                <div className="col-3">
+                                    <div className="social-img">
+                                        <img src={Facebook} alt="Facebook icon"/>
+                                    </div>
+                                </div><div className="col-3">
                                 <div className="social-img">
-                                    <img src={Facebook} alt="Facebook icon"/>
+                                    <img src={Google} alt="Google icon"/>
                                 </div>
                             </div><div className="col-3">
-                            <div className="social-img">
-                                <img src={Google} alt="Google icon"/>
+                                <div className="social-img">
+                                    <img src={Apple} alt="Apple icon"/>
+                                </div>
                             </div>
-                        </div><div className="col-3">
-                            <div className="social-img">
-                                <img src={Apple} alt="Apple icon"/>
                             </div>
-                        </div>
-                        </div>
 
-                        <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>
+                            <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>
+                        </div>
                     </div>
                 </div>
             </Fragment>

@@ -24,10 +24,12 @@ class Welcome extends Component {
         
         return (
             <div className="intro">
-                <h2 className="name-title ">Hey {this.state.userName},</h2>
-                <p className="welcome-msg">{this.state.welcomeText}</p>
-                <button onClick={() => handleConfirmation('Yes')} className="btn btn-primary">Yes</button>
-                <button onClick={() => handleConfirmation('No')} className="btn btn-secondary">No</button>
+                <div className="contents-wrap">
+                    <h2 className="name-title ">Hey {this.state.userName},</h2>
+                    <p className="welcome-msg">{this.state.welcomeText}</p>
+                    <button onClick={() => handleConfirmation('Yes')} className="btn btn-primary">Yes</button>
+                    <button onClick={() => handleConfirmation('No')} className="btn btn-secondary">No</button>
+                </div>
             </div>
         );
     }

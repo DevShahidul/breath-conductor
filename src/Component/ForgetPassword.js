@@ -97,17 +97,19 @@ class ResetPassword extends Component {
         return (
             <div className="container login-box">
                 <div className="container-inner">
-                    <div className="sign-in">
-                        <h2 className="title">Reset your password</h2>
-                        <p className="details">Enter your email below</p>
-                        <form>
-                            <FormField type="email" placeholder="Email Address" name="email"  required={true} onChange={this.handleChange} value={email} icon={Username}/>
-                        </form>
-                        <button className="btn btn-primary" onClick={() => this.Reset()}> Reset</button>
-                        { message !== '' ?
-                        <p className={statusClass}>{processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {message}</p> : null}
+                    <div className="contents-wrap">
+                        <div className="sign-in">
+                            <h2 className="title">Reset your password</h2>
+                            <p className="details">Enter your email below</p>
+                            <form>
+                                <FormField type="email" placeholder="Email Address" name="email"  required={true} onChange={this.handleChange} value={email} icon={Username}/>
+                            </form>
+                            <button className="btn btn-primary" onClick={() => this.Reset()}> Reset</button>
+                            { message !== '' ?
+                            <p className={statusClass}>{processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {message}</p> : null}
+                        </div>
+                        <p className="signup-text">Don't have an account?<Link to="/signup"> <span className="text-primary"> Sign Up </span> </Link></p>
                     </div>
-                    <p className="signup-text">Don't have an account?<Link to="/signup"> <span className="text-primary"> Sign Up </span> </Link></p>
                 </div>
             </div>
         );

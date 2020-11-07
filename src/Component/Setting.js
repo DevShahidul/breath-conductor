@@ -46,7 +46,7 @@ class Setting extends Component {
         return (
             <Fragment>
                 <div className="container">
-                    <div className="setting-inner">
+                    <div className="setting-inner large">
                         <h2 className="section-title">Settings</h2>
                         <div className="setting-container">
                             <div className="row">

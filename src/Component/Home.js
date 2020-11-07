@@ -42,42 +42,44 @@ class Home extends Component {
         const {handleHomeStart} = this.context;
         return (
             <div className="container-inner session-container">
-                <h2 className="session-title ">Session Design</h2>
-                <div className="task-list">
-                    <p className="task">Goal</p>
-                    <button onClick={this.handlePopUp} className="task-des">Relax</button>
-                </div>
-                <div className="task-list">
-                    <p className="task">Time</p>
-                    <button onClick={this.handlePopUp} className="task-des">2 min</button>
-                </div>
-                <div className="task-list">
-                    <p className="task">Narattion</p>
-                    <button onClick={this.handlePopUp} className="task-des">Normal</button>
-                </div>
-                <div className="task-list">
-                    <p className="task">Theme</p>
-                    <button onClick={this.handlePopUp} className="task-des">Nature</button>
-                </div>
-                {this.state.showPopup ? (
-                    <div className="pop-up">
-                        <h4>Select theme</h4>
-                        <ul>
-                            {this.state.themeOptions.map((option, index) => (
-                                <li key={index}>
-                                    <Radio className={this.state.theme === option ? 'box checked' : 'box'} name="theme" value={option} checked={this.state.theme === option} onChange={this.handleChange} lableText={option} />
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="button-row">
-                            <button onClick={() => this.handlePopUpAction('Cencel')}>Cencel</button>
-                            <button onClick={() => this.handlePopUpAction('Done')}>Done</button>
-                        </div>
+                <div className="contents-wrap">
+                    <h2 className="session-title ">Session Design</h2>
+                    <div className="task-list">
+                        <p className="task">Goal</p>
+                        <button onClick={this.handlePopUp} className="task-des">Relax</button>
                     </div>
-                ) : null}
-                
-                {/* <Link to="/feel"></Link> */}
-                <button onClick={handleHomeStart} className="btn btn-primary">Start</button>
+                    <div className="task-list">
+                        <p className="task">Time</p>
+                        <button onClick={this.handlePopUp} className="task-des">2 min</button>
+                    </div>
+                    <div className="task-list">
+                        <p className="task">Narattion</p>
+                        <button onClick={this.handlePopUp} className="task-des">Normal</button>
+                    </div>
+                    <div className="task-list">
+                        <p className="task">Theme</p>
+                        <button onClick={this.handlePopUp} className="task-des">Nature</button>
+                    </div>
+                    {this.state.showPopup ? (
+                        <div className="pop-up">
+                            <h4>Select theme</h4>
+                            <ul>
+                                {this.state.themeOptions.map((option, index) => (
+                                    <li key={index}>
+                                        <Radio className={this.state.theme === option ? 'box checked' : 'box'} name="theme" value={option} checked={this.state.theme === option} onChange={this.handleChange} lableText={option} />
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="button-row">
+                                <button onClick={() => this.handlePopUpAction('Cencel')}>Cencel</button>
+                                <button onClick={() => this.handlePopUpAction('Done')}>Done</button>
+                            </div>
+                        </div>
+                    ) : null}
+                    
+                    {/* <Link to="/feel"></Link> */}
+                    <button onClick={handleHomeStart} className="btn btn-primary">Start</button>
+                </div>
             </div>
         );
     }
