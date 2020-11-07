@@ -48,13 +48,12 @@ class BreathProvider extends Component {
         if(token){
             let proxyurl = "https://cors-anywhere.herokuapp.com/";
             
-
             var myHeaders = new Headers();
             myHeaders.append("userID", userId);
             myHeaders.append("device-id", "1");
             myHeaders.append("timezone", "UTC");
             myHeaders.append("device-type", "1");
-            myHeaders.append("Authorization", `Bearer ${token}` );
+            myHeaders.append("Authorization", `Bearer ${token}`);
 
             var requestOptions = {
                 method: 'GET',
@@ -66,13 +65,14 @@ class BreathProvider extends Component {
             let FavoriteExersizeUrl = 'https://www.breathconductor.com/api_v1/library/favoriteExercise';
 
             fetch(proxyurl + FavoriteExersizeUrl, requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                const datajson = JSON.parse(result);
-                const status = datajson.data.data_found;
-                const FavoriteData = datajson.data.exercise_history_list;
-                if(status){
-                    this.setFavoriteContents(FavoriteData);
+            .then(responseData => responseData.text())
+            .then(favoriteExRes => {
+                const favoriteExDatajson = JSON.parse(favoriteExRes);
+                const favoriteExResStatus = favoriteExDatajson.data.data_found;
+                const favoriteData = favoriteExDatajson.data.favorite_exercise_list;
+                //console.log(favoriteExDatajson)
+                if(favoriteExResStatus){
+                    this.setFavoriteContents(favoriteData);
                     this.setState({
                         isFavorite: true
                     });
@@ -81,7 +81,7 @@ class BreathProvider extends Component {
                         isFavorite: false
                     });
                 }
-                console.log(result)
+                //console.log(favoriteExRes)
             })
             .catch(error => console.log('error', error)); // End favorite Exercise
 
@@ -105,7 +105,7 @@ class BreathProvider extends Component {
                     })
                 }
 
-                console.log(datajson)
+                //console.log(datajson)
 
             })
             .catch(error => console.log('error', error)); // End exercise history function
@@ -120,14 +120,14 @@ class BreathProvider extends Component {
             const id = item.exerciseHistoryID;
             const date = item.created_at;
             const content = { id, date, ...item.exercise};
-            console.log(content)
+            //console.log(content)
             return content;
         })
         this.setState({
             HistoryContents,
             loading: false
         })
-        console.log(HistoryContents);
+        //console.log(HistoryContents);
     }
 
     // Get conent from library
@@ -144,7 +144,7 @@ class BreathProvider extends Component {
             singleHistory: {...singleHistoryItem},
             loading: false
         })
-        console.log(singleHistoryItem)
+        //console.log(singleHistoryItem)
     }
 
     // Remove favorite data from localStorage
@@ -167,7 +167,7 @@ class BreathProvider extends Component {
             FavoriteContents,
             loading: false
         })
-        console.log(FavoriteContents);
+        //console.log(FavoriteContents);
     }
 
     // Get conent from library
@@ -184,7 +184,7 @@ class BreathProvider extends Component {
             singleFavorite: {...singleItem},
             loading: false
         })
-        console.log(`set signle library ${JSON.stringify(singleItem)}`)
+        //console.log(`set signle library ${JSON.stringify(singleItem)}`)
     }
 
     // Remove favorite data from localStorage
@@ -288,8 +288,6 @@ class BreathProvider extends Component {
                 }
             })
             .catch(error => console.log('error', error));
-
-            console.log(" I'  clicked clearHistory")
         }
     }
 
