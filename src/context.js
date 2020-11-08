@@ -46,7 +46,7 @@ class BreathProvider extends Component {
         let userId = sessionStorage.getItem('userID');
 
         if(token){
-            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            //let proxyurl = "https://cors-anywhere.herokuapp.com/";
             
             var myHeaders = new Headers();
             myHeaders.append("userID", userId);
@@ -64,7 +64,7 @@ class BreathProvider extends Component {
             //Favorite Exerscise API
             let FavoriteExersizeUrl = 'https://www.breathconductor.com/api_v1/library/favoriteExercise';
 
-            fetch(proxyurl + FavoriteExersizeUrl, requestOptions)
+            fetch(FavoriteExersizeUrl, requestOptions)
             .then(responseData => responseData.text())
             .then(favoriteExRes => {
                 const favoriteExDatajson = JSON.parse(favoriteExRes);
@@ -87,7 +87,7 @@ class BreathProvider extends Component {
 
             // Exercise history
             let ExersizeHistoryUrl = 'https://www.breathconductor.com/api_v1/library/exerciseHistory';
-            fetch(proxyurl + ExersizeHistoryUrl, requestOptions)
+            fetch(ExersizeHistoryUrl, requestOptions)
             .then(response => response.text())
             .then(result => {
                 const datajson = JSON.parse(result);
