@@ -148,6 +148,18 @@ button:focus {
     font-weight: 600;
 }
 
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #262b31 inset !important;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: #ffffff !important;
+}
+
 /* styles for login and signup page */
 .row {
     padding: 25px 0px;
