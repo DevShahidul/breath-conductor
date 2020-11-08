@@ -30,7 +30,8 @@ class Signup extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    signUp = () =>{
+    signUp = (e) =>{
+        e.preventDefault();
         if(this.state.username && this.state.password){
             let proxyurl = "https://cors-anywhere.herokuapp.com/";
             let BaseUrl = 'https://www.breathconductor.com/api_v1/auth/signup';
@@ -75,7 +76,7 @@ class Signup extends Component {
                     let userData = responsejson.data.user_details;
                     //console.log(responsejson)
                     if(userData){
-                        sessionStorage.setItem('token', userData.auth_token);
+                        localStorage.setItem('token', userData.auth_token);
                         this.setState({
                             redirect: true,
                         })
@@ -113,7 +114,7 @@ class Signup extends Component {
         if(this.state.redirect){
             return (<Redirect to="/login" />)
         }
-        if(sessionStorage.getItem('user_details')){
+        if(localStorage.getItem('user_details')){
             return (<Redirect to="/login" />)
         }
 
@@ -129,14 +130,14 @@ class Signup extends Component {
                             <div className="sign-in sign-up">
                                 <h2 className="title">Sign Up to Breath Conductor</h2>
                                 <p className="details">Enter your details below</p>
-                                <form>
+                                <form onSubmit={this.signUp}>
                                     <FormField type="text" placeholder="User Name" name="username" required={true} onChange={this.handleChange} value={username} icon={Username}/>
                                     <FormField type="email" placeholder="Email Address" name="email" required={true} onChange={this.handleChange} value={email} reactIcon={FiAtSign}/>
                                     <FormField type="number" placeholder="Phone Number" name="phoneNumber" required={true} onChange={this.handleChange} value={phoneNumber} icon={Phone}/>
                                     <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
                                     <FormField type="password" placeholder="Confirm Password" name="confirmPassword" required={true} onChange={this.handleChange} value={confirmPassword} icon={ConfirmPassword}/>
+                                    <button className="btn btn-primary">Sign Up</button>
                                 </form>
-                                <button onClick={() => this.signUp()} className="btn btn-primary">Sign Up</button>
                                 <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
                             </div>
                             <div className="text-divider">or</div>

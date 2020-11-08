@@ -20,6 +20,7 @@ class BreathProvider extends Component {
             isHistory: true,
             HistoryContents: [],
             singleHistory: {},
+            
             // Favorite
             isFavorite: true,
             FavoriteContents: [],
@@ -39,79 +40,81 @@ class BreathProvider extends Component {
         this.handleGoBack = this.handleGoBack.bind(this); // Go back previous
         this.removeFromHistory = this.removeFromHistory.bind(this); // Remove data from history 
         this.clearHistory = this.clearHistory.bind(this); // Clear all history
+        this.handleFeedback = this.handleFeedback.bind(this); // Clear all history
     }
 
     componentDidMount(){
 
-        let token = sessionStorage.getItem('token');
-        let userId = sessionStorage.getItem('userID');
+        let token = localStorage.getItem('token');
+        let userId = localStorage.getItem('userID');
+        //console.log(token)
 
-        if(token){
-            let proxyurl = "https://cors-anywhere.herokuapp.com/";
-            
-            var myHeaders = new Headers();
-            myHeaders.append("userID", userId);
-            myHeaders.append("device-id", "1");
-            myHeaders.append("timezone", "UTC");
-            myHeaders.append("device-type", "1");
-            myHeaders.append("Authorization", `Bearer ${token}`);
+        
+        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        
+        var myHeaders = new Headers();
+        myHeaders.append("userID", userId);
+        myHeaders.append("device-id", "1");
+        myHeaders.append("timezone", "UTC");
+        myHeaders.append("device-type", "1");
+        myHeaders.append("Authorization", `Bearer ${token}`);
 
-            var requestOptions = {
-                method: 'GET',
-                headers: myHeaders,
-                redirect: 'follow'
-            };
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
 
-            //Favorite Exerscise API
-            let FavoriteExersizeUrl = 'https://www.breathconductor.com/api_v1/library/favoriteExercise';
+        //Favorite Exerscise API
+        let FavoriteExersizeUrl = 'https://www.breathconductor.com/api_v1/library/favoriteExercise';
 
-            fetch(proxyurl + FavoriteExersizeUrl, requestOptions)
-            .then(responseData => responseData.text())
-            .then(favoriteExRes => {
-                const favoriteExDatajson = JSON.parse(favoriteExRes);
-                const favoriteExResStatus = favoriteExDatajson.data.data_found;
-                const favoriteData = favoriteExDatajson.data.favorite_exercise_list;
-                //console.log(favoriteExDatajson)
-                if(favoriteExResStatus){
-                    this.setFavoriteContents(favoriteData);
-                    this.setState({
-                        isFavorite: true
-                    });
-                }else{
-                    this.setState({
-                        isFavorite: false
-                    });
-                }
-                //console.log(favoriteExRes)
-            })
-            .catch(error => console.log('error', error)); // End favorite Exercise
+        fetch(proxyurl + FavoriteExersizeUrl, requestOptions)
+        .then(responseData => responseData.text())
+        .then(favoriteExRes => {
+            const favoriteExDatajson = JSON.parse(favoriteExRes);
+            const favoriteExResStatus = favoriteExDatajson.data.data_found;
+            const favoriteData = favoriteExDatajson.data.favorite_exercise_list;
+            //console.log(favoriteExDatajson)
+            if(favoriteExResStatus){
+                this.setFavoriteContents(favoriteData);
+                this.setState({
+                    isFavorite: true
+                });
+            }else{
+                this.setState({
+                    isFavorite: false
+                });
+            }
+            console.log(favoriteExRes)
+        })
+        .catch(error => console.log('error', error)); // End favorite Exercise
 
-            // Exercise history
-            let ExersizeHistoryUrl = 'https://www.breathconductor.com/api_v1/library/exerciseHistory';
-            fetch(proxyurl + ExersizeHistoryUrl, requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                const datajson = JSON.parse(result);
-                const status = datajson.data.data_found;
-                const historyData = datajson.data.exercise_history_list;
+        // Exercise history
+        let ExersizeHistoryUrl = 'https://www.breathconductor.com/api_v1/library/exerciseHistory';
+        fetch(proxyurl + ExersizeHistoryUrl, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            const datajson = JSON.parse(result);
+            const status = datajson.data.data_found;
+            const historyData = datajson.data.exercise_history_list;
 
-                if(status){
-                    this.setHistoryContents(historyData);
-                    this.setState({
-                        isHistory: true
-                    });
-                }else{
-                    this.setState({
-                        isHistory: false
-                    })
-                }
+            if(status){
+                this.setHistoryContents(historyData);
+                this.setState({
+                    isHistory: true
+                });
+            }else{
+                this.setState({
+                    isHistory: false
+                })
+            }
 
-                //console.log(datajson)
+            //console.log(datajson)
 
-            })
-            .catch(error => console.log('error', error)); // End exercise history function
+        })
+        .catch(error => console.log('error', error)); // End exercise history function
 
-        }
+        
 
     }
 
@@ -244,8 +247,8 @@ class BreathProvider extends Component {
     // Clear history
     clearHistory = () => {
 
-        let token = sessionStorage.getItem('token');
-        let userId = sessionStorage.getItem('userID');
+        let token = localStorage.getItem('token');
+        let userId = localStorage.getItem('userID');
 
         if(token){
             let proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -349,6 +352,15 @@ class BreathProvider extends Component {
         })
     }
 
+    //handleFeedback 
+    handleFeedback = () => {
+        this.setState({
+            showReplay: false,
+            showTutorial: false,
+            goHome: true
+        })
+    }
+
     render() {
         return (
             <BreathContext.Provider value={{
@@ -373,6 +385,7 @@ class BreathProvider extends Component {
                 deletHistoryData: this.deletHistoryData,
                 handleGoBack: this.handleGoBack,
                 clearHistory: this.clearHistory,
+                handleFeedback: this.handleFeedback,
             }}>
                 {this.props.children}
             </BreathContext.Provider>

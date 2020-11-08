@@ -20,7 +20,8 @@ class ResetPassword extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    Reset = () => {
+    Reset = (e) => {
+        e.preventDefault();
         if(this.state.email){
             let proxyurl = "https://cors-anywhere.herokuapp.com/";
             let BaseUrl = "https://www.breathconductor.com/api_v1/auth/resetPassword";
@@ -101,10 +102,10 @@ class ResetPassword extends Component {
                         <div className="sign-in">
                             <h2 className="title">Reset your password</h2>
                             <p className="details">Enter your email below</p>
-                            <form>
+                            <form onSubmit={this.Reset}>
                                 <FormField type="email" placeholder="Email Address" name="email"  required={true} onChange={this.handleChange} value={email} icon={Username}/>
+                                <button className="btn btn-primary"> Reset</button>
                             </form>
-                            <button className="btn btn-primary" onClick={() => this.Reset()}> Reset</button>
                             { message !== '' ?
                             <p className={statusClass}>{processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {message}</p> : null}
                         </div>

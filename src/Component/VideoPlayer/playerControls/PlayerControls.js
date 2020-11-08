@@ -6,7 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { PlayArrow, Pause, SkipNext, SkipPrevious, VolumeOff, VolumeDown, VolumeUp, Fullscreen, FullscreenExit } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { ControlsWrapper, ControlWrapMiddle, ControlWrapBottom } from './PlayerContorls.element';
+import { ControlsWrapper, ControlWrapMiddle, ControlWrapBottom, SkipIntro } from './PlayerContorls.element';
 import { Typography } from '@material-ui/core';
 import { BsPlayFill } from "react-icons/bs";
 
@@ -131,7 +131,9 @@ export const PlayerControls = ({
     onSeekMouseUp,
     elapsedTime,
     onChangeTimeDisplayFormate,
-    VolumeHigh
+    VolumeHigh,
+    onSkipIntro,
+    hideIntroSkipBtn
 }) => {
     const classes = useStyles();
 
@@ -191,6 +193,7 @@ export const PlayerControls = ({
                         </Grid>
                     </Grid>
                 </Grid>
+                {hideIntroSkipBtn ? <SkipIntro onClick={onSkipIntro}>Skip intro</SkipIntro> : null}
             </ControlWrapBottom>
         </ControlsWrapper>
     )

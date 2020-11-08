@@ -16,15 +16,11 @@ const HistoryDetailsPage = () => {
         history.goBack();
     }
 
-    const { loading, singleHistory, deletHistoryData, deletFavoriteData, removeFromHistory, handleAddFavorite } =  useContext(BreathContext);
+    const { loading, deletHistoryData, deletFavoriteData, removeFromHistory, handleAddFavorite } =  useContext(BreathContext);
 
-    // const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
+    const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
 
-    const {id, title, date, goal, theme, voice, duration_minutes} = singleHistory;
-
-    // const handleOnAddFavorite = () => {
-    //     handleAddFavorite(id)
-    // }
+    const {id, title, date, goal, theme, voice, duration_minutes} = dataFromLocalstorage;
    
     return (
         <Fragment>
@@ -51,7 +47,7 @@ const HistoryDetailsPage = () => {
                                 </div>
                             </div>
                             <div className="details-action">
-                                <IconicButton  type="primary" text="New Duplicate" imgIcon={DuplicateIcon}  click={ () => handleAddFavorite(id)}/>
+                                <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => handleAddFavorite(id)}/>
                                 <IconicButton type="primary" text="Share" icon={RiShareLine}/>
                                 <IconicButton type="danger" text="Remove from History" icon={RiDeleteBinLine} click={ () => removeFromHistory(id) }/>
                             </div>

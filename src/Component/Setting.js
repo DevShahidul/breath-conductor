@@ -19,12 +19,14 @@ class Setting extends Component {
             passWord: '123456478',
             email: 'email@mail.com'
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputField = this.handleInputField.bind(this);
     }
 
     componentDidMount(){
-        let token = sessionStorage.getItem('token');
-        let userName = sessionStorage.getItem('username');
-        let email = sessionStorage.getItem('email');
+        let token = localStorage.getItem('token');
+        let userName = localStorage.getItem('username');
+        let email = localStorage.getItem('email');
         if(token){
             this.setState({
                 userName,
@@ -40,6 +42,12 @@ class Setting extends Component {
         })
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("I'm working from fo");
+    }
+
+
     render() {
         const { clearHistory } = this.context;
         const {userName, passWord, email} = this.state;
@@ -53,12 +61,12 @@ class Setting extends Component {
                                 <div className="col-2 right-border">
                                     <div className="account">
                                         <h2 className="title">Account</h2>
-                                        <form>
+                                        <form onSubmit={this.handleSubmit}>
                                             <FormField type="text" label="User Name" placeholder="User Name" name="userName" onChange={this.handleInputField} value={userName}/>
                                             <FormField type="email" label="Email Address" placeholder="Email Address" name="email" onChange={this.handleInputField} value={email}/>
                                             <FormField type="password" label="Password" placeholder="Password Address" name="passWord" onChange={this.handleInputField} value={passWord}/>
+                                            <button className="btn primary">Save</button>
                                         </form>
-                                        <Button type="btn-primary" text="Save"/>
                                     </div>
                                 </div>
                                 <div className="col-2">

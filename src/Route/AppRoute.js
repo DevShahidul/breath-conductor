@@ -4,7 +4,7 @@ import ResetPasswordPage from "../Pages/ResetPasswordPage";
 import LoginPage from "../Pages/LoginPage";
 import SignupPage from "../Pages/SignupPage";
 import HomePage from "../Pages/HomePage";
-import SurveyPage from "../Pages/SurveyPage";
+//import SurveyPage from "../Pages/SurveyPage";
 import SettingPage from "../Pages/SettingPage";
 import LibraryPage from "../Pages/LibraryPage";
 import FavoritiesDetailsPage from "../Pages/FavoritiesDetailsPage";
@@ -17,14 +17,17 @@ class AppRoute extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path="/"> 
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/resetpassword" component={ResetPasswordPage} />
+                <Route exact path="/signup" component={SignupPage} />
+                <Route exact path="/">
                     <Protected page={HomePage} />
                 </Route>
-                <Route exact path="/login" component={LoginPage}/>
-                <Route exact path="/resetpassword" component={ResetPasswordPage}/>
-                <Route exact path="/signup" component={SignupPage}/>
-                <Route exact path="/survey">
-                    <Protected page={SurveyPage} />
+                <Route exact path="/library">
+                    <Protected page={LibraryPage} />
+                </Route>
+                <Route exact path="/library/:id">
+                    <Protected page={FavoritiesDetailsPage} />
                 </Route>
                 <Route exact path="/library/history">
                     <Protected page={HistoryPage} />
@@ -35,14 +38,11 @@ class AppRoute extends Component {
                 <Route exact path="/setting">
                     <Protected page={SettingPage} />
                 </Route>
-                <Route exact path="/library">
-                    <Protected page={LibraryPage} />
-                </Route>
-                <Route exact path="/library/:id" component={FavoritiesDetailsPage}>
-                    <Protected page={FavoritiesDetailsPage} />
-                </Route>
+                
                 <Route component={ErrorPage} />
             </Switch>
+
+        
         );
     }
 }

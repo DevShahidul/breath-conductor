@@ -80,8 +80,9 @@ export const ControlWrapBottom = styled.div`
     align-items: center;
     color: white;
     width: 100%;
-    padding: 0 20px 22px;
+    padding: 0 15px 22px;
     background: #010f22;
+    position: relative;
     & > .MuiGrid-container > .MuiGrid-item > .MuiGrid-container > button{
         color: #ffffff;
         padding: 0;
@@ -95,5 +96,22 @@ export const ControlWrapBottom = styled.div`
     }
     & > .MuiGrid-container > .MuiGrid-item > .MuiSlider-colorPrimary > .MuiSlider-thumb {
         background-color: #ffffff;
+    }
+`;
+
+export const SkipIntro = styled.button`
+    background: transparent;
+    border: 1px solid #787878;
+    padding: 8px;
+    display: block;
+    cursor: pointer;
+    top: -52px;
+    right: 14px;
+    position: absolute;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #ffffff;
+    &:focus{
+        outline: none;
     }
 `;

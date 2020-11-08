@@ -16,11 +16,11 @@ const FavoritiesDetailsPage = () => {
         history.goBack();
     }
     
-    const { loading, singleFavorite, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } =  useContext(BreathContext);
+    const { loading, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } =  useContext(BreathContext);
 
-    // const dataFromLocalstorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {};
+    const dataFromLocalstorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {};
 
-    const {id, title, goal, theme, duration_minutes, voice} = singleFavorite;
+    const {id, title, goal, theme, duration_minutes, voice} = dataFromLocalstorage;
 
 
     return (

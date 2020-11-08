@@ -1408,4 +1408,7 @@ a:visited,
 
 .error-page-inner a {
     color: #ffffff;
+    max-width: 200px;
+    margin-right: auto;
+    margin-left: auto;
 }

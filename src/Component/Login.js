@@ -7,9 +7,10 @@ import Google from '../Assets/Image/google.svg';
 import Apple from '../Assets/Image/apple.JPG';
 import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 import FormField from './FormField';
-//import { PostData } from '../services/PostData';
+import {BreathContext} from '../context';
 
 class Login extends Component {
+    static contextType = BreathContext;
     constructor(props){
         super(props);
         this.state = {
@@ -25,7 +26,8 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    login = () => {
+    login = (e) => {
+        e.preventDefault();
         if(this.state.username && this.state.password){
             let proxyurl = "https://cors-anywhere.herokuapp.com/";
             let BaseUrl = 'https://www.breathconductor.com/api_v1/auth/login';
@@ -66,13 +68,14 @@ class Login extends Component {
                     // Get user data from responsejson
                     let userData = responsejson.data.user_details;
                     if(userData){
-                        sessionStorage.setItem('token', userData.auth_token);
-                        sessionStorage.setItem('email', userData.email);
-                        sessionStorage.setItem('username', userData.username);
-                        sessionStorage.setItem('userID', userData.userID);
+                        localStorage.setItem('token', userData.auth_token);
+                        localStorage.setItem('email', userData.email);
+                        localStorage.setItem('username', userData.username);
+                        localStorage.setItem('userID', userData.userID);
+
                         this.setState({
                             redirect: true,
-                        })
+                        });
                     }else{
                         this.setState({
                             message: responsejson.message
@@ -122,12 +125,12 @@ class Login extends Component {
                         <div className="sign-in">
                             <h2 className="title">Sign In to Breath Conductor</h2>
                             <p className="details">Enter your details below</p>
-                            <form>
+                            <form onSubmit={this.login}>
                                 <FormField type="text" placeholder="User Name" name="username"  required={true} onChange={this.handleChange} value={username} icon={Username}/>
                                 <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
+                                <p className="forget"><Link to="/resetpassword">Forget Your Password?</Link></p>
+                                <button className="btn btn-primary"> Sign In</button>
                             </form>
-                            <p className="forget"><Link to="/resetpassword">Forget Your Password?</Link></p>
-                            <button className="btn btn-primary" onClick={() => this.login()}> Sign In</button>
                             { this.state.message !== '' ?
                             <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p> : null}
                         </div>

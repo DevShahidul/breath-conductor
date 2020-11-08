@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Link, NavLink, useLocation, Redirect} from "react-router-dom";
-//import { BreathContext} from '../context';
+import { BreathContext} from '../context';
 import Logo from "../Assets/Image/logo2.svg";
 import { HomeIcon, LibraryIcon, SettingIcon }  from "./icons";
 import Notification from "../Assets/Image/Notification.svg";
@@ -8,12 +8,13 @@ import UserPlaceholder from "../Assets/Image/user_placeholder.png";
 import DownArrow from "../Assets/Image/down-arrow.svg";
 
 const Navigation = () => {
+    const {singleHistory, singleFavorite} = useContext(BreathContext);
 
+    // const geSingleHistoryData = localStorage.getItem('singleHistoryData') ? localStorage.getItem('singleHistoryData') : 1;
+    // const geSingleFavoriteData = localStorage.getItem('singleFavoriteData') ? localStorage.getItem('singleFavoriteData') : 1;
 
-    const geSingleHistoryData = localStorage.getItem('singleHistoryData') ? localStorage.getItem('singleHistoryData') : 1;
-    const geSingleFavoriteData = localStorage.getItem('singleFavoriteData') ? localStorage.getItem('singleFavoriteData') : 1;
-    const historyId = JSON.parse(geSingleHistoryData).id;
-    const FavoriteId = JSON.parse(geSingleFavoriteData).id;
+    const historyId = singleHistory.id;
+    const FavoriteId = singleFavorite.id;
 
     const [expanded, setExpanded] = useState(false);
     
@@ -29,7 +30,7 @@ const Navigation = () => {
                 text: 'library',
                 path: '/library',
                 icon: <LibraryIcon />,
-                isActive: ['/library', `/library/${FavoriteId}`, `/library/history/${historyId}`, '/library/history']
+                isActive: ['/library', `/library/${FavoriteId}`, '/library/history', `/library/history/${historyId}`]
             },
             settings:{
                 text: 'settings',
@@ -44,7 +45,7 @@ const Navigation = () => {
     const {navItems, redirect} = state;
 
     const logOut = () => {
-        let token = sessionStorage.getItem('token');
+        let token = localStorage.getItem('token');
         if(token){
             sessionStorage.clear();
             localStorage.clear();

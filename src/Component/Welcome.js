@@ -12,8 +12,7 @@ class Welcome extends Component {
     }
 
     componentDidMount(){
-        const userName = sessionStorage.getItem('username');
-        console.log()
+        const userName = localStorage.getItem('username');
         this.setState({
             userName
         })

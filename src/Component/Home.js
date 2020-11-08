@@ -9,7 +9,7 @@ class Home extends Component {
         super(props);
         this.state = {
             themeOptions: ["Sunrise", "Earth", "Moon"],
-            theme: "Nature",
+            theme: "Sunrise",
             themePopup: false,
             goalOptions: ["Relax"],
             goal: "Relax",
@@ -18,7 +18,7 @@ class Home extends Component {
             time: "2 min",
             timePopup: false,
             narattionOptions: ["None", "Full"],
-            narattion: "Normal",
+            narattion: "None",
             narattionPopup: false,
         }
         this.handleChange = this.handleChange.bind(this); // Handle radio onChange
@@ -72,7 +72,7 @@ class Home extends Component {
     handleThemePopUpAction = (value) => {
         if(value === "Cancel"){
             this.setState({
-                theme: "Nature",
+                theme: "Sunrise",
                 themePopup: false
             })
         }else{
@@ -86,7 +86,7 @@ class Home extends Component {
     handleNarattionPopUpAction = (value) => {
         if(value === "Cancel"){
             this.setState({
-                narattion: "Normal",
+                narattion: "None",
                 narattionPopup: false
             })
         }else{

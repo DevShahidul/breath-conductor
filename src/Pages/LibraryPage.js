@@ -6,18 +6,6 @@ import NextPlay from "../Assets/Image/next.svg";
 
 class LibraryPage extends Component {
     static contextType = BreathContext;
-
-    // constructor(props){
-    //     super(props);
-    //     this.state ={
-    //         selected: 'Favorites',
-    //     }
-    // }
-
-    // componentDidMount(){
-        
-    // }
-
     
 
     render() {

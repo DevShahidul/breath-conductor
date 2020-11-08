@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import FeelControl from "./FeelControl";
 import favoriteIcon from "../Assets/Image/like.svg";
 import editeIcon from "../Assets/Image/edit.svg";
 import { RiShareLine } from "react-icons/ri";
@@ -31,7 +30,7 @@ export default class FeedbackSubmit extends Component {
     }
 
     render() {
-        const { handleReplayFromFeedback } = this.context;
+        const { handleReplayFromFeedback, handleFeedback } = this.context;
         return (
             <div className="feedbackInner">
                 <div className="actionRow">
@@ -40,7 +39,35 @@ export default class FeedbackSubmit extends Component {
                     <button onClick={this.handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
                 </div>
                 <div className="controlWrap">
-                    <FeelControl  buttonText="Submit"/>
+                    <div className="container-inner feel-control">
+                        <div className="contents-wrap">
+                            <h2 className="session-title ">How relaxed do you feel?</h2>
+                            <div className="radio-items-group">
+                                <div className="radio-items">
+                                    {[...Array(5)].map((rating, i) => {
+                                        const ratingValue = i+1;
+                                        return (
+                                            <label key={i} className="item">
+                                                <input 
+                                                    type="checkbox" 
+                                                    name="feeling" 
+                                                    value={ratingValue} 
+                                                    onChange={() => this.setState({feeling: ratingValue})}
+                                                />
+                                                <div className="box" style={{background: ratingValue <= this.state.feeling ? '#29aae3' : '#fff'}}>
+                                                </div>
+                                            </label>
+                                        )
+                                    })}
+                                </div>
+                                <div className="radio-text">
+                                    <p>Not Relaxed </p>
+                                    <p>Relaxed </p>
+                                </div>
+                            </div>
+                            <button onClick={handleFeedback} className="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
                     <button onClick={handleReplayFromFeedback} className="replay"><MdReplay /> Replay</button>
                 </div>
             </div>
