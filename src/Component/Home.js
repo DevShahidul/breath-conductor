@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { BreathContext } from '../context';
-import { PopUp } from '../Component';
+import { PopUp, TaskList } from '../Component';
 //import {Link} from "react-router-dom";
 
 class Home extends Component {
@@ -9,16 +9,16 @@ class Home extends Component {
         super(props);
         this.state = {
             themeOptions: ["Sunrise", "Earth", "Moon"],
-            theme: '',
+            theme: "Nature",
             themePopup: false,
             goalOptions: ["Relax"],
-            goal: '',
+            goal: "Relax",
             goalPopup: false,
-            timeOptions: ["-1 min", "1 min", "2 min"],
-            time: '',
+            timeOptions: ["-1 min", "1 min", "2 min", "5 min"],
+            time: "2 min",
             timePopup: false,
             narattionOptions: ["None", "Full"],
-            narattion: '',
+            narattion: "Normal",
             narattionPopup: false,
         }
         this.handleChange = this.handleChange.bind(this); // Handle radio onChange
@@ -72,7 +72,7 @@ class Home extends Component {
     handleThemePopUpAction = (value) => {
         if(value === "Cancel"){
             this.setState({
-                theme: '',
+                theme: "Nature",
                 themePopup: false
             })
         }else{
@@ -86,7 +86,7 @@ class Home extends Component {
     handleNarattionPopUpAction = (value) => {
         if(value === "Cancel"){
             this.setState({
-                narattion: '',
+                narattion: "Normal",
                 narattionPopup: false
             })
         }else{
@@ -100,7 +100,7 @@ class Home extends Component {
     handleTimePopUpAction = (value) => {
         if(value === "Cancel"){
             this.setState({
-                time: '',
+                time: "2 min",
                 timePopup: false
             })
         }else{
@@ -114,7 +114,7 @@ class Home extends Component {
     handleGoalPopUpAction = (value) => {
         if(value === "Cancel"){
             this.setState({
-                goal: '',
+                goal: "Relax",
                 goalPopup: false
             })
         }else{
@@ -131,22 +131,12 @@ class Home extends Component {
             <div className="container-inner session-container">
                 <div className="contents-wrap">
                     <h2 className="session-title ">Session Design</h2>
-                    <div className="task-list">
-                        <p className="task">Goal</p>
-                        <button onClick={this.handleGoalPopUp} className="task-des">Relax</button>
-                    </div>
-                    <div className="task-list">
-                        <p className="task">Time</p>
-                        <button onClick={this.handleTimePopUp} className="task-des">2 min</button>
-                    </div>
-                    <div className="task-list">
-                        <p className="task">Narattion</p>
-                        <button onClick={this.handleNarattionPopUp} className="task-des">Normal</button>
-                    </div>
-                    <div className="task-list">
-                        <p className="task">Theme</p>
-                        <button onClick={this.handleThemePopUp} className="task-des">Nature</button>
-                    </div>
+                    <TaskList title="Goal" contentText={goal} onClick={this.handleGoalPopUp} />
+                    <TaskList title="Time" contentText={time} onClick={this.handleTimePopUp} />
+                    <TaskList title="Narattion" contentText={narattion} onClick={this.handleNarattionPopUp} />
+                    <TaskList title="Theme" contentText={theme} onClick={this.handleThemePopUp} />
+                    
+                    {/* Beginning Popup components */}
                     {themePopup ? (
                         <PopUp title="Select theme" selectOptions={themeOptions} optionName={theme} name="theme" handleChange={this.handleChange} handlePopUpAction={this.handleThemePopUpAction} />
                     ) : null}

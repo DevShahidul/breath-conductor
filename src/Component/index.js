@@ -10,6 +10,7 @@ export {default as Setting } from './Setting';
 export {default as Survey } from './Survey';
 export {default as Welcome } from './Welcome';
 export {default as FeedbackSubmit } from './FeedbackSubmit';
+export {default as TaskList } from './TaskList';
 export {default as PopUp } from './PopUp';
 export {default as LibraryOptionsItem } from './LibraryOptionsItem';
 export {default as LibraryLinks } from './LibraryTopBar';

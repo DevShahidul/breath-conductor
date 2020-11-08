@@ -11,6 +11,7 @@ class BreathProvider extends Component {
         this.state = {
             reminders: false,
             showWelcome: true,
+            goHome: false,
             sowoFeelOption: false,
             showTutorial: false,
             showReplay: false,
@@ -302,7 +303,8 @@ class BreathProvider extends Component {
         //console.log(status);
         this.setState({
             reminders: setRemainder,
-            showWelcome: false
+            showWelcome: false,
+            goHome: true
         })
     }
 

@@ -9,12 +9,6 @@ import DownArrow from "../Assets/Image/down-arrow.svg";
 
 const Navigation = () => {
 
-    // constructor(){
-    //     super();
-    //     this.state = {
-            
-    //     }
-    // }   
 
     const geSingleHistoryData = localStorage.getItem('singleHistoryData') ? localStorage.getItem('singleHistoryData') : 1;
     const geSingleFavoriteData = localStorage.getItem('singleFavoriteData') ? localStorage.getItem('singleFavoriteData') : 1;
@@ -63,15 +57,6 @@ const Navigation = () => {
     const handleClick = () => {
         setExpanded(!expanded)
     }
-
-    // componentDidMount(){
-    //     if(sessionStorage.getItem('token')){
-    //         let userToken = sessionStorage.getItem('token')
-    //         console.log('call user feed ', userToken)
-    //     }else{
-    //         this.setState({redirect: true})
-    //     }
-    // }
 
     const { pathname } = useLocation();
         
