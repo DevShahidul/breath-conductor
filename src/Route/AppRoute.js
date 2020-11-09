@@ -31,8 +31,8 @@ class AppRoute extends Component {
                     <Protected page={FavoritiesDetailsPage} />
                 </Route>
                 {/* <Route exact path="/library/history" component={HistoryPage} /> */}
-                <Route exact path="/library/history/:id" component={HistoryDetailsPage} />
                 <Route exact path="/history" component={HistoryPage} />
+                <Route exact path="/history/:id" component={HistoryDetailsPage} />
                 <Route exact path="/setting">
                     <Protected page={SettingPage} />
                 </Route>

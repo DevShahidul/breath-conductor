@@ -934,11 +934,11 @@ li.nav-item.active a {
 }
 
 .setting-inner .mydata .title {
-    margin-bottom: 10px;
+    margin-bottom: 14px;
 }
 
-.setting-inner .account form {
-    margin-bottom: 35px;
+.setting-inner .account form > button{
+    margin-top: 35px;
 }
 
 .social {

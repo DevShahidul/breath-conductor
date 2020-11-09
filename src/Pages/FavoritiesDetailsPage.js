@@ -15,8 +15,20 @@ const FavoritiesDetailsPage = () => {
     const HandleGoback = () => {
         history.goBack();
     }
+
+    // Remove favorite data from localStorage
+    const deletHistoryData = () => {
+        return localStorage.removeItem('singleHistoryData');
+    }
+
+
+    // Remove favorite data from localStorage
+    const deletFavoriteData = () => {
+        return localStorage.removeItem('singleFavoriteData');
+    }
     
-    const { loading, deletHistoryData, deletFavoriteData, removeFromFavorite, handleAddFavorite } =  useContext(BreathContext);
+    
+    const { loading, removeFromFavorite, handleAddFavorite } =  useContext(BreathContext);
 
     const dataFromLocalstorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {};
 
@@ -34,7 +46,7 @@ const FavoritiesDetailsPage = () => {
                                 <Link onClick={deletHistoryData} to="/library">Favorites</Link>
                             </li>
                             <li className="nav-item">
-                                <Link onClick={deletFavoriteData} to="/library/history">History</Link>
+                                <Link onClick={deletFavoriteData} to="/history">History</Link>
                             </li>
                         </LibraryLinks>
                         <div className="library-content library-inner">
