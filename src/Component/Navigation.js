@@ -55,6 +55,8 @@ const Navigation = () => {
         }
     }
 
+    let userName = localStorage.getItem('username');
+
     const handleClick = () => {
         setExpanded(!expanded)
     }
@@ -98,7 +100,7 @@ const Navigation = () => {
             <div className="user" onClick={handleClick}>
                 {/* <Link to="setting"></Link> */}
                 <img className="userPlaceholder" src={UserPlaceholder} alt="User icon"/>
-                <p>Elina Baserinova</p>
+                <p>{userName}</p>
                 <img className="downArrow" src={DownArrow} alt="Down arrow"/>
             </div>
             <ul className={expanded ? 'userDropdown expanded' : 'userDropdown'} >

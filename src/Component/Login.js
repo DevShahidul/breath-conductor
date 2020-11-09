@@ -84,7 +84,8 @@ class Login extends Component {
                     }
                 })
                 .catch((error) => {
-                   return error;
+                   //return error;
+                   console.log(error);
                 })
         }else{
             this.setState({

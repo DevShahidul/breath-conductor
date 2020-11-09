@@ -82,34 +82,15 @@ class LibraryPage extends Component {
         //console.log(FavoriteContents);
     }
 
-    // Get conent from library
-    getFavoriteData = () => {
-        return localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {}
-    }
-
     // set single library
     setSingleFavoriteData = (id) => {
         let singleItem = this.state.FavoriteContents.find( item => item.id === id);
-        localStorage.removeItem('singleFavoriteData');
-        localStorage.setItem('singleFavoriteData', JSON.stringify(singleItem));
         this.setState({
             singleFavorite: {...singleItem},
             loading: false
         })
         //console.log(`set signle library ${JSON.stringify(singleItem)}`)
     }
-
-    // Remove favorite data from localStorage
-    deletHistoryData = () => {
-        return localStorage.removeItem('singleHistoryData');
-    }
-
-
-    // Remove favorite data from localStorage
-    deletFavoriteData = () => {
-        return localStorage.removeItem('singleFavoriteData');
-    }
-    
 
     render() {
         const { isFavorite, FavoriteContents, loading} = this.state;
@@ -121,10 +102,10 @@ class LibraryPage extends Component {
                     <div className="library-inner">
                         <LibraryLinks>
                             <li className="nav-item active">
-                                <Link onClick={this.deletHistoryData} to="/library">Favorites</Link>
+                                <Link to="/library">Favorites</Link>
                             </li>
                             <li className="nav-item">
-                                <Link onClick={this.deletFavoriteData} to="/history">History</Link>
+                                <Link to="/history">History</Link>
                             </li>
                         </LibraryLinks>
                         {loading ? <img className="loading-img" src={LoadingGif} alt="Loading ..." /> : 
