@@ -1244,11 +1244,11 @@ ul.userDropdown li:first-child {
 }
 
 a:visited,
-.sc-dlnjPT.bqnhDN.nav-item a {
+.nav-item a {
     color: #999ea5;
 }
 
-.sc-dlnjPT.cuIYFB.nav-item.active {
+.nav-item.active {
     color: #fff !important;
 }
 

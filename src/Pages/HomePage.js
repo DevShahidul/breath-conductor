@@ -15,27 +15,10 @@ class HomePage extends Component {
     }
 
 
-    componentDidMount(){
-        // if(sessionStorage.getItem('user_details')){
-        //     console.log('call user feed')
-        // }else{
-        //     this.setState({redirect: true})
-        // }
-
-        // var config = {
-        //     headers: { 
-        //         Authorization: 'Bearer ' + localStorage.getItem('token'),
-        //     }
-        // };
-
-        // axios.get('user', config).then(
-        //     res => {
-        //     console.log(res)
-        // },
-        // err => {
-        //     console.log(err)
-        // })
-    }
+    // componentDidMount(){
+    //     const { setDefautStep } = this.context;
+    //     setDefautStep()
+    // }
 
     render() {
         const {showWelcome, sowoFeelOption, showTutorial, showReplay, setFeeling, handleOnChangFeel} = this.context;

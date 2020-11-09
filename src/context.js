@@ -41,6 +41,7 @@ class BreathProvider extends Component {
         this.removeFromHistory = this.removeFromHistory.bind(this); // Remove data from history 
         this.clearHistory = this.clearHistory.bind(this); // Clear all history
         this.handleFeedback = this.handleFeedback.bind(this); // Clear all history
+        this.setDefautStep = this.setDefautStep.bind(this); // Clear all history
     }
 
     componentDidMount(){
@@ -72,8 +73,7 @@ class BreathProvider extends Component {
         return localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {}
     }
 
-    
-
+    // Handle go back     
     handleGoBack = () => {
         this.props.history.goBack()
     }
@@ -209,11 +209,6 @@ class BreathProvider extends Component {
         }
     }
 
-    // Sync library
-    syncLibrary = () => {
-
-    }
-
     // handle confirmation for welcome screen
     handleConfirmation = (status) => {
         let setRemainder = status === "Yes" ? true : false;
@@ -275,6 +270,18 @@ class BreathProvider extends Component {
         })
     }
 
+    // Home page go back frist stape
+    setDefautStep = () => {
+        this.setState({
+            showWelcome: false,
+            goHome: true,
+            sowoFeelOption: false,
+            showTutorial: false,
+            showReplay: false,
+            setFeeling: 3,
+        })
+    }
+
     render() {
         return (
             <BreathContext.Provider value={{
@@ -300,6 +307,7 @@ class BreathProvider extends Component {
                 handleGoBack: this.handleGoBack,
                 clearHistory: this.clearHistory,
                 handleFeedback: this.handleFeedback,
+                setDefautStep: this.setDefautStep,
             }}>
                 {this.props.children}
             </BreathContext.Provider>
