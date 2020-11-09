@@ -24,48 +24,49 @@ class HistoryPage extends Component {
         let userId = localStorage.getItem('userID');
         //console.log(token)
 
-        
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
-        
-        var myHeaders = new Headers();
-        myHeaders.append("userID", userId);
-        myHeaders.append("device-id", "1");
-        myHeaders.append("timezone", "UTC");
-        myHeaders.append("device-type", "1");
-        myHeaders.append("Authorization", `Bearer ${token}`);
+        if(token){
+            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            
+            var myHeaders = new Headers();
+            myHeaders.append("userID", userId);
+            myHeaders.append("device-id", "1");
+            myHeaders.append("timezone", "UTC");
+            myHeaders.append("device-type", "1");
+            myHeaders.append("Authorization", `Bearer ${token}`);
 
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
 
-        // Exercise history
-        let ExersizeHistoryUrl = 'https://www.breathconductor.com/api_v1/library/exerciseHistory';
-        fetch(proxyurl + ExersizeHistoryUrl, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            const datajson = JSON.parse(result);
-            const status = datajson.data.data_found;
-            const historyData = datajson.data.exercise_history_list;
+            // Exercise history
+            let ExersizeHistoryUrl = 'https://www.breathconductor.com/api_v1/library/exerciseHistory';
+            fetch(proxyurl + ExersizeHistoryUrl, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                const datajson = JSON.parse(result);
+                const status = datajson.data.data_found;
+                const historyData = datajson.data.exercise_history_list;
 
-            if(status){
-                this.setHistoryContents(historyData);
-                this.setState({
-                    isHistory: true,
-                    loading: false
-                });
-            }else{
-                this.setState({
-                    isHistory: false
-                })
-            }
+                if(status){
+                    this.setHistoryContents(historyData);
+                    this.setState({
+                        isHistory: true,
+                        loading: false
+                    });
+                }else{
+                    this.setState({
+                        isHistory: false,
+                        loading: false
+                    })
+                }
 
-            console.log(datajson)
+                //console.log(datajson)
 
-        })
-        .catch(error => console.log('error', error)); // End exercise history function
-
+            })
+            .catch(error => console.log('error', error)); // End exercise history function
+        }
     }
 
 

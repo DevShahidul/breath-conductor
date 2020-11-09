@@ -9,7 +9,6 @@ import SettingPage from "../Pages/SettingPage";
 import LibraryPage from "../Pages/LibraryPage";
 import HistoryPage from "../Pages/libraryHistory";
 import FavoritiesDetailsPage from "../Pages/FavoritiesDetailsPage";
-// import HistoryPage from "../Pages/HistoryPage";
 import HistoryDetailsPage from "../Pages/HistoryDetailsPage";
 import { ErrorPage } from "../Pages/ErrorPage";
 import { Protected } from '../Component';
@@ -30,9 +29,12 @@ class AppRoute extends Component {
                 <Route exact path="/library/:id">
                     <Protected page={FavoritiesDetailsPage} />
                 </Route>
-                {/* <Route exact path="/library/history" component={HistoryPage} /> */}
-                <Route exact path="/history" component={HistoryPage} />
-                <Route exact path="/history/:id" component={HistoryDetailsPage} />
+                <Route exact path="/history">
+                    <Protected page={HistoryPage} />
+                </Route>
+                <Route exact path="/history/:id">
+                    <Protected page={HistoryDetailsPage} />
+                </Route>
                 <Route exact path="/setting">
                     <Protected page={SettingPage} />
                 </Route>

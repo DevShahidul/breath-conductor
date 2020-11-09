@@ -34,7 +34,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
         seeking: false,
         timeDisplayFormate: 'normal',
         volumeTop: false,
-        hideSkipIntro: false
+        hideSkipIntro: true
     })
 
     const { playing, muted, volume, playbackRate, fullScreenStatus, played, seeking, timeDisplayFormate, volumeTop} = state;
@@ -147,13 +147,23 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       playerRef.current.seekTo(playerRef.current.getCurrentTime() + 12 );
       setState({
         ...state,
-        hideIntroSkipBtn: true
+        hideSkipIntro: true
+      })
+    }
+
+    const handleOnstart = () => {
+      setState({
+        ...state,
+        hideSkipIntro: false
       })
     }
 
     // Handle play pause function
     const handlePlayPause = () => {
-      setState({...state, playing: !playing})
+      setState({
+        ...state, 
+        playing: !playing,
+      })
     }
 
     return (
@@ -170,6 +180,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           playbackRate={playbackRate}
           onProgress={handleProgress}
           onEnded={handleEndVideo}
+          onStart={handleOnstart}
           config={{
             file:{
               attributes:{

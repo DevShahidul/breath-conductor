@@ -58,7 +58,8 @@ class LibraryPage extends Component {
                     });
                 }else{
                     this.setState({
-                        isFavorite: false
+                        isFavorite: false,
+                        loading: false
                     });
                 }
                 //console.log(favoriteExRes)

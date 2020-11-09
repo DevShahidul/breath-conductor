@@ -44,7 +44,7 @@ class Setting extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log("I'm working from fo");
+        console.log("I'm working from setting");
     }
 
 

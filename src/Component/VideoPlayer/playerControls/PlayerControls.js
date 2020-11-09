@@ -193,7 +193,7 @@ export const PlayerControls = ({
                         </Grid>
                     </Grid>
                 </Grid>
-                {hideIntroSkipBtn ? <SkipIntro onClick={onSkipIntro}>Skip intro</SkipIntro> : null}
+                {!hideIntroSkipBtn ? <SkipIntro onClick={onSkipIntro}>Skip intro</SkipIntro> : null}
             </ControlWrapBottom>
         </ControlsWrapper>
     )
