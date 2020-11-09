@@ -1412,3 +1412,7 @@ a:visited,
     margin-right: auto;
     margin-left: auto;
 }
+
+.loading-img{
+    margin-top: 15px;
+}

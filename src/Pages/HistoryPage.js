@@ -4,8 +4,11 @@ import { Navigation, LibraryLinks } from "../Component";
 import {Link} from "react-router-dom";
 import NextPlay from "../Assets/Image/next.svg";
 
+
 class HistoryPage extends Component {
     static contextType = BreathContext;
+
+    
     render() {
         const { isHistory, HistoryContents, setSingleHistoryData, deletHistoryData, deletFavoriteData } = this.context;
         return (

@@ -30,7 +30,7 @@ const Navigation = () => {
                 text: 'library',
                 path: '/library',
                 icon: <LibraryIcon />,
-                isActive: ['/library', `/library/${FavoriteId}`, '/library/history', `/library/history/${historyId}`]
+                isActive: ['/library', `/library/${FavoriteId}`, '/history', `/history/${historyId}`]
             },
             settings:{
                 text: 'settings',

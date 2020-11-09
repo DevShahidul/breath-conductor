@@ -35,7 +35,7 @@ class BreathProvider extends Component {
         this.handleEndVideo = this.handleEndVideo.bind(this);
         this.handleReplayFromFeedback = this.handleReplayFromFeedback.bind(this);
         this.backToPrev = this.backToPrev.bind(this);
-        this.removeFromFavorite = this.removeFromFavorite.bind(this); // Remove data from favorite
+        //this.removeFromFavorite = this.removeFromFavorite.bind(this); // Remove data from favorite
         this.handleAddFavorite = this.handleAddFavorite.bind(this); // Add data favorite
         this.handleGoBack = this.handleGoBack.bind(this); // Go back previous
         this.removeFromHistory = this.removeFromHistory.bind(this); // Remove data from history 
@@ -45,74 +45,7 @@ class BreathProvider extends Component {
 
     componentDidMount(){
 
-        let token = localStorage.getItem('token');
-        let userId = localStorage.getItem('userID');
-        //console.log(token)
-
         
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
-        
-        var myHeaders = new Headers();
-        myHeaders.append("userID", userId);
-        myHeaders.append("device-id", "1");
-        myHeaders.append("timezone", "UTC");
-        myHeaders.append("device-type", "1");
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        //Favorite Exerscise API
-        let FavoriteExersizeUrl = 'https://www.breathconductor.com/api_v1/library/favoriteExercise';
-
-        fetch(proxyurl + FavoriteExersizeUrl, requestOptions)
-        .then(responseData => responseData.text())
-        .then(favoriteExRes => {
-            const favoriteExDatajson = JSON.parse(favoriteExRes);
-            const favoriteExResStatus = favoriteExDatajson.data.data_found;
-            const favoriteData = favoriteExDatajson.data.favorite_exercise_list;
-            //console.log(favoriteExDatajson)
-            if(favoriteExResStatus){
-                this.setFavoriteContents(favoriteData);
-                this.setState({
-                    isFavorite: true
-                });
-            }else{
-                this.setState({
-                    isFavorite: false
-                });
-            }
-            console.log(favoriteExRes)
-        })
-        .catch(error => console.log('error', error)); // End favorite Exercise
-
-        // Exercise history
-        let ExersizeHistoryUrl = 'https://www.breathconductor.com/api_v1/library/exerciseHistory';
-        fetch(proxyurl + ExersizeHistoryUrl, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            const datajson = JSON.parse(result);
-            const status = datajson.data.data_found;
-            const historyData = datajson.data.exercise_history_list;
-
-            if(status){
-                this.setHistoryContents(historyData);
-                this.setState({
-                    isHistory: true
-                });
-            }else{
-                this.setState({
-                    isHistory: false
-                })
-            }
-
-            //console.log(datajson)
-
-        })
-        .catch(error => console.log('error', error)); // End exercise history function
 
         
 
@@ -139,22 +72,7 @@ class BreathProvider extends Component {
         return localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {}
     }
 
-    // set single library
-    setSingleHistoryData = (id) => {
-        let singleHistoryItem = this.state.HistoryContents.find( item => item.id === id);
-        localStorage.removeItem('singleHistoryData');
-        localStorage.setItem('singleHistoryData', JSON.stringify(singleHistoryItem));
-        this.setState({
-            singleHistory: {...singleHistoryItem},
-            loading: false
-        })
-        //console.log(singleHistoryItem)
-    }
-
-    // Remove favorite data from localStorage
-    deletHistoryData = () => {
-        return localStorage.removeItem('singleHistoryData');
-    }
+    
 
     handleGoBack = () => {
         this.props.history.goBack()
@@ -191,10 +109,6 @@ class BreathProvider extends Component {
         //console.log(`set signle library ${JSON.stringify(singleItem)}`)
     }
 
-    // Remove favorite data from localStorage
-    deletFavoriteData = () => {
-        return localStorage.removeItem('singleFavoriteData');
-    }
 
     // Share from library
     shareFromLibrary = (id) => {
@@ -377,7 +291,7 @@ class BreathProvider extends Component {
                 shareFromLibrary: this.shareFromLibrary,
                 setSingleFavoriteData: this.setSingleFavoriteData,
                 getFavoriteData: this.getFavoriteData,
-                deletFavoriteData: this.deletFavoriteData,
+                //deletFavoriteData: this.deletFavoriteData,
                 handleAddFavorite: this.handleAddFavorite,
                 // History function method
                 setSingleHistoryData: this.setSingleHistoryData,
