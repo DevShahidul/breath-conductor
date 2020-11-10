@@ -1,6 +1,5 @@
 import React from 'react'
 import BackIcon from "../Assets/Image/back.svg";
-import favoriteIcon from "../Assets/Image/like.svg";
 
 const LibraryDetailTop = (props) => {
     return (
@@ -12,9 +11,9 @@ const LibraryDetailTop = (props) => {
                 <h2>{props.title}</h2>
                 {props.date ? <p>{props.date}</p> : ''}
             </div>
-            {props.onAddFavorite ? (
+            {props.togglerFavorite ? (
                 <div className="faborite-button">
-                    <button onClick={ props.onAddFavorite }><img src={favoriteIcon} alt="Favorite icon"/></button>
+                    <button onClick={ props.onAddFavorite }>{props.favoriteIcon}</button>
                 </div>
             ) : ''}
         </div>

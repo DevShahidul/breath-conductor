@@ -752,6 +752,13 @@ li.nav-item.active a {
     padding-bottom: 80px;
 }
 
+.library-single .library-content.loading{
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .library .no-space {
     padding: 0px;
 }
@@ -1415,4 +1422,13 @@ a:visited,
 
 .loading-img{
     margin-top: 15px;
+}
+
+.loader-gif{
+    max-width: 100%;
+    max-height: 250px;
+    display: block;
+    width: auto;
+    margin: 0 auto;
+    clear: both;
 }
