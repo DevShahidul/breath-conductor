@@ -79,19 +79,19 @@ class Setting extends Component {
                                             </div>
                                             <div className="social">
                                                 <img src={FacebookIcon} alt="Facebook icon"/>
-                                                <Link to="http://facebook.com/dennis_vladobinov"> <p>dennis_vladobinov</p></Link>
+                                                <a href="http://facebook.com/dennis_vladobinov" rel="noreferrer" target="_blank"> <p>dennis_vladobinov</p></a>
                                             </div>
                                             <div className="social">
                                                 <img src={InstagramIcon} alt="Instagram icon"/>
-                                                <Link to="https://www.instagram.com/dennis_vladobinov/"><p>dennis_vladobinov</p></Link>
+                                                <a href="https://www.instagram.com/dennis_vladobinov/" rel="noreferrer" target="_blank"><p>dennis_vladobinov</p></a>
                                             </div>
                                             <div className="social">
                                                 <img src={YoutubeIcon} alt="Youtube icon"/>
-                                                <Link to="https://youtube.com/dennis_vladobinov"><p>https://youtube.com/dennis_vladobinov</p></Link>
+                                                <a href="https://youtube.com/dennis_vladobinov" rel="noreferrer" target="_blank"><p>https://youtube.com/dennis_vladobinov</p></a>
                                             </div>
                                             <div className="social">
                                                 <img src={TiktokIcon} alt="Tiktok icon"/>
-                                                <Link to="https://www.tiktok.com/dennis_vladobinov"><p>dennis_vladobinov</p></Link>
+                                                <a href="https://www.tiktok.com/dennis_vladobinov" rel="noreferrer" target="_blank"><p>dennis_vladobinov</p></a>
                                             </div>
                                         </div>
                                         <div className="mydata">

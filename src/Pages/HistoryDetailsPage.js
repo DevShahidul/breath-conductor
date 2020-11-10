@@ -91,6 +91,7 @@ class HistoryDetailsPage extends Component{
             is_favorite,
             exerciseHistoryID
         })
+        console.log(exercise_history_detail)
     }
 
     // Handle bo back
@@ -104,18 +105,40 @@ class HistoryDetailsPage extends Component{
     }
 
     // // Remove from history function
-    // removeFromHistory = (historyid) => {
-    //     const {} = this.state;
-    //     // this.setState({
+    removeFromHistory = (historyid) => {
+        let token = localStorage.getItem('token');
+        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        let fetchUrl = `https://www.breathconductor.com/api_v1/library/exerciseHistory/${historyid}?action=1`;
 
-    //     // })
-    //     console.log(`I've remove from history ${historyid}`)
-    // }
+        // this.setState({
+
+        // })
+
+        var myHeaders = new Headers();
+        myHeaders.append("device-id", "1");
+        myHeaders.append("timezone", "UTC");
+        myHeaders.append("device-type", "1");
+        myHeaders.append("Authorization", `Bearer ${token}`);
+
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(proxyurl + fetchUrl, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+        console.log(`I've remove from history ${historyid}`)
+    }
 
     // Handle Toggle favorite button
     toggleFavorite = (historyid) => {
         let token = localStorage.getItem('token');
         let {is_favorite} = this.state;
+        let exerciseID = this.state.exercise_history_detail.exerciseID;
         //let setFavorite = is_favorite + 1;
         let changedStat = is_favorite === 0 ? 1 : 0 ;
         let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
@@ -126,7 +149,7 @@ class HistoryDetailsPage extends Component{
         })
 
         let proxyurl = "https://cors-anywhere.herokuapp.com/";
-        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${historyid}?action=${is_favorite}`;
+        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${exerciseID}?action=${is_favorite}`;
 
         var myHeaders = new Headers();
         myHeaders.append("device-id", "1");
@@ -149,12 +172,13 @@ class HistoryDetailsPage extends Component{
             console.log('error', error)
         });
 
-        console.log(is_favorite)
+        console.log(exerciseID)
     }
+
 
     render(){
 
-        const {removeFromHistory} = this.context;
+        //const {removeFromHistory} = this.context;
         // const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
 
         //const {id, title, date, goal, theme, voice, duration_minutes} = dataFromLocalstorage;
@@ -189,7 +213,7 @@ class HistoryDetailsPage extends Component{
                             <div className="details-action">
                                 <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate(exerciseHistoryID)}/>
                                 <IconicButton type="primary" text="Share" icon={RiShareLine}/>
-                                <IconicButton type="danger" text="Remove from History" icon={RiDeleteBinLine} click={ () => removeFromHistory(exerciseHistoryID) }/>
+                                <IconicButton type="danger" text="Remove from History" icon={RiDeleteBinLine} click={ () => this.removeFromHistory(exerciseHistoryID) }/>
                             </div>
                             </>
                             )}

@@ -1,7 +1,4 @@
 import React, { Component, createContext } from 'react';
-import {  v4 as uuidv4  } from 'uuid';
-//import { HistoryData } from './data/HistoryData';
-//import { FavoriteData } from './data/FavoriteData';
 
 const BreathContext = createContext();
 
@@ -42,10 +39,7 @@ class BreathProvider extends Component {
         this.handleEndVideo = this.handleEndVideo.bind(this);
         this.handleReplayFromFeedback = this.handleReplayFromFeedback.bind(this);
         this.backToPrev = this.backToPrev.bind(this);
-        //this.removeFromFavorite = this.removeFromFavorite.bind(this); // Remove data from favorite
-        this.handleAddFavorite = this.handleAddFavorite.bind(this); // Add data favorite
         this.handleGoBack = this.handleGoBack.bind(this); // Go back previous
-        this.removeFromHistory = this.removeFromHistory.bind(this); // Remove data from history 
         this.clearHistory = this.clearHistory.bind(this); // Clear all history
         this.handleFeedback = this.handleFeedback.bind(this); // Clear all history
         this.setDefautStep = this.setDefautStep.bind(this); // Clear all history
@@ -150,75 +144,6 @@ class BreathProvider extends Component {
     shareFromLibrary = (id) => {
         console.log(`Share from library ${id}`);
     }
-
-    // Remove from favorite
-    removeFromFavorite = (id) => {
-        // let token = localStorage.getItem('token');
-        // let proxyurl = "https://cors-anywhere.herokuapp.com/";
-        // let fetchUrl = `https://www.breathconductor.com/api_v1/library/exerciseHistory/${id}?action=1`;
-
-        const {FavoriteContents} = this.state;
-        const newContents = FavoriteContents.filter(item => item.id !== id);
-        this.setState({
-            FavoriteContents: newContents
-        });
-    }
-
-    // Remove from favorite
-    removeFromHistory = (id) => {
-        let token = localStorage.getItem('token');
-
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
-        let fetchUrl = `https://www.breathconductor.com/api_v1/library/exerciseHistory/${id}?action=1`;
-
-        var myHeaders = new Headers();
-        myHeaders.append("device-id", "1");
-        myHeaders.append("timezone", "UTC");
-        myHeaders.append("device-type", "1");
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
-        var requestOptions = {
-            method: 'DELETE',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch( proxyurl + fetchUrl, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-
-        const {HistoryContents} = this.state;
-        const newContents = HistoryContents.filter(item => item.id !== id);
-        this.setState({
-            HistoryContents: newContents
-        });
-    }
-
-    // Add Favorite
-    handleAddFavorite = (id) => {
-        const {FavoriteContents} = this.state;
-        const fromLocalStorage = localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {} || localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
-        const {title, goal, date, duration_minutes, voice, theme} = fromLocalStorage;
-        const newContents = {
-            id,
-            title,
-            goal,
-            exerciseID: uuidv4(),
-            date,
-            theme,
-            duration_minutes,
-            voice
-        }
-        this.setState({
-            FavoriteContents: [...FavoriteContents, newContents],
-            isFavorite: true
-        })
-
-        console.log(fromLocalStorage);
-
-    }
-
 
     // Clear history
     clearHistory = () => {
@@ -355,17 +280,12 @@ class BreathProvider extends Component {
                 handleReplayFromFeedback: this.handleReplayFromFeedback,
                 backToPrev: this.backToPrev,
                 //Favorite function method
-                removeFromFavorite: this.removeFromFavorite,
-                removeFromHistory: this.removeFromHistory,
                 shareFromLibrary: this.shareFromLibrary,
                 setSingleFavoriteData: this.setSingleFavoriteData,
                 getFavoriteData: this.getFavoriteData,
-                //deletFavoriteData: this.deletFavoriteData,
-                handleAddFavorite: this.handleAddFavorite,
+                
                 // History function method
-                setSingleHistoryData: this.setSingleHistoryData,
                 getHistoryData: this.getHistoryData,
-                deletHistoryData: this.deletHistoryData,
                 handleGoBack: this.handleGoBack,
                 clearHistory: this.clearHistory,
                 handleFeedback: this.handleFeedback,

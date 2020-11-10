@@ -118,7 +118,6 @@ class FavoritiesDetailsPage extends Component {
 
     render(){
                 
-        
         const { handleAddFavorite } =  this.context;
 
         const {id, title, goal, theme, duration_minutes, narration} = this.state.exercise_detail;
