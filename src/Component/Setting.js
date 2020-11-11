@@ -8,6 +8,8 @@ import TiktokIcon from "../Assets/Image/tik-tok.svg";
 import Button from './Button';
 import { FormField } from '../Component';
 import { BreathContext } from '../context';
+import { Facebook, Twitter,Google} from 'react-sharingbuttons';
+import 'react-sharingbuttons/dist/main.css'
 
 
 class Setting extends Component {
@@ -17,7 +19,9 @@ class Setting extends Component {
         this.state = {
             userName: 'user',
             passWord: '123456478',
-            email: 'email@mail.com'
+            email: 'email@mail.com',
+            location: '',
+            modalShown: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputField = this.handleInputField.bind(this);
@@ -33,6 +37,12 @@ class Setting extends Component {
                 email,
             })
         }
+
+        var location = window.location.href
+        this.setState({
+            location:location
+        })
+        console.log(location);
     }
 
     handleInputField = (e) => {
@@ -45,6 +55,25 @@ class Setting extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         console.log("I'm working from setting");
+    }
+
+    shareModal = () => {
+        return (
+            <>
+            <div className="share-modal-wrap">
+                <Facebook url={this.state.location} />
+                <Twitter url={this.state.location} />
+                <Google url={this.state.location}/>
+            </div>
+            </>
+        )
+    };
+
+    handleShareModal = () => {
+        this.setState({
+            modalShown: true,
+        })
+        console.log("I've clicked")
     }
 
 
@@ -73,25 +102,30 @@ class Setting extends Component {
                                     <div className="community">
                                         <div className="social-section">
                                             <h2 className="title">Community</h2>
-                                            <div className="social">
+                                            <div className="share-modal-wrap">
+                                                <Facebook url={this.state.location} />
+                                                <Twitter url={this.state.location} />
+                                                <Google url={this.state.location}/>
+                                            </div>
+                                            <div className="social" onClick={this.handleShareModal.bind(this)}>
                                                 <img src={ShareIcon} alt="Share icon"/>
                                                 <p>Share</p>
                                             </div>
                                             <div className="social">
                                                 <img src={FacebookIcon} alt="Facebook icon"/>
-                                                <a href="http://facebook.com/dennis_vladobinov" rel="noreferrer" target="_blank"> <p>dennis_vladobinov</p></a>
+                                                <Link to="//http://facebook.com/dennis_vladobinov" rel="noreferrer" target="_blank"> <p>dennis_vladobinov</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={InstagramIcon} alt="Instagram icon"/>
-                                                <a href="https://www.instagram.com/dennis_vladobinov/" rel="noreferrer" target="_blank"><p>dennis_vladobinov</p></a>
+                                                <Link to="//https://www.instagram.com/dennis_vladobinov/" rel="noreferrer" target="_blank"><p>dennis_vladobinov</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={YoutubeIcon} alt="Youtube icon"/>
-                                                <a href="https://youtube.com/dennis_vladobinov" rel="noreferrer" target="_blank"><p>https://youtube.com/dennis_vladobinov</p></a>
+                                                <Link to="//https://youtube.com/dennis_vladobinov" rel="noreferrer" target="_blank"><p>https://youtube.com/dennis_vladobinov</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={TiktokIcon} alt="Tiktok icon"/>
-                                                <a href="https://www.tiktok.com/dennis_vladobinov" rel="noreferrer" target="_blank"><p>dennis_vladobinov</p></a>
+                                                <Link to="//https://www.tiktok.com/dennis_vladobinov" rel="noreferrer" target="_blank"><p>dennis_vladobinov</p></Link>
                                             </div>
                                         </div>
                                         <div className="mydata">

@@ -5,6 +5,7 @@ import screenfull from 'screenfull';
 import { PlayerWrap } from './VideoPlayer.elements';
 import PlayerControls from './playerControls';
 
+
 const formate = (seconds) => {
   if(isNaN(seconds)){
     return '00:00';
@@ -22,7 +23,7 @@ const formate = (seconds) => {
 }
 
 export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
-    const { handleEndVideo } = useContext(BreathContext);
+    const { handleEndVideo, exerciseVideo, intro_duration } = useContext(BreathContext);
 
     const [state, setState] = useState({
         playing: false,
@@ -47,6 +48,8 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
 
     const elapsedTime = timeDisplayFormate === 'normal' ? formate(currentTime) : `-${formate(duration - currentTime)}`;
     const totalDuration = formate(duration);
+
+    const skiptedDuration =  intro_duration.split(':').reduce((acc,time) => (60 * acc) + +time);
 
     // Handle change display formate
     const handleChangeTimeDisplayFormate = () => {
@@ -87,6 +90,15 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
         setState({
           ...state,
           ...changeState
+        })
+      }
+
+      let getCurrentPlayingTime = playerRef.current.getCurrentTime();
+      
+      if(getCurrentPlayingTime >= skiptedDuration){
+        setState({
+          ...state,
+          hideSkipIntro: true
         })
       }
     }
@@ -142,13 +154,25 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
     const handleForward = () => {
       playerRef.current.seekTo(playerRef.current.getCurrentTime() + 10)
     }
+  
 
     const handleOnSkip = () => {
-      playerRef.current.seekTo(playerRef.current.getCurrentTime() + 12 );
+      playerRef.current.seekTo(0 + skiptedDuration );
       setState({
         ...state,
         hideSkipIntro: true
       })
+    }
+
+    const handleHideSkipIntro = () => {
+      let getCurrentPlayingTime = playerRef.current.getCurrentTime();
+      
+      if(getCurrentPlayingTime >= skiptedDuration){
+        setState({
+          ...state,
+          hideSkipIntro: true
+        })
+      }
     }
 
     const handleOnstart = () => {
@@ -166,17 +190,20 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       })
     }
 
+    let proxyurl = "https://cors-anywhere.herokuapp.com/";
+
     return (
     <PlayerWrap className={header ? 'headerShown' : ''} header={header} syllabusToggle={onSyllabusToggle} syllabusExpanded={syllabusExpanded} ref={playerContainerRef}>
         <ReactPlayer
           className='react-player'
-          url='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+          url={proxyurl+exerciseVideo}
           width='100%'
           height='100%'
           muted={muted}
           playing={playing}
           ref={playerRef}
           volume={volume}
+          onBuffer={handleHideSkipIntro}
           playbackRate={playbackRate}
           onProgress={handleProgress}
           onEnded={handleEndVideo}

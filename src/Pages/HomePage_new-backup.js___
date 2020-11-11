@@ -1,0 +1,421 @@
+import React, {Component, Fragment} from 'react';
+import { BreathContext } from '../context';
+import { PopUp, TaskList } from '../Component';
+import BackIcon from "../Assets/Image/back.svg";
+import { VideoPlayer } from '../Component/VideoPlayer/VideoPlayer'
+import favoriteIcon from "../Assets/Image/like.svg";
+import editeIcon from "../Assets/Image/edit.svg";
+import { RiShareLine } from "react-icons/ri";
+import { MdReplay } from "react-icons/md";
+import { Radio } from '../Component'
+//import { Redirect } from 'react-router-dom';
+import {Home, Navigation, Welcome, FeelControl, Tutorial, FeedbackSubmit} from "../Component";
+
+class HomePage extends Component {
+    static contextType = BreathContext;
+    constructor(props){
+        super(props);
+        this.state = {
+            generalList: [],
+            sendData: {},
+            goalOptions: [{id:1, name:"Relax"}],
+            timeOptions: [{id:1, name:"-1 min"}, {id: 2, name:"1 min"}, {id: 3, name: "2 min"}, {id:4, name:"5 min"}],
+            narattionOptions: [{id:1, name: "None"}, {id:1, name:"Full"}],
+            themeOptions: [{id:1, name: "Sunrise"}, {id: 2, name: "Earth"}, {id: 3, name:"Moon"}],
+            theme: "Sunrise",
+            themePopup: false,
+            goal: "Relax",
+            goalPopup: false,
+            time: "2 min",
+            timePopup: false,
+            narattion: "None",
+            narattionPopup: false,
+            feeling: 3,
+            replay: false,
+            userName: 'User',
+            welcomeText: 'When is the best time for you to practice self-care?'
+        }
+        //this.handleChange = this.handleChange.bind(this); // Handle radio onChange
+        this.handleThemePopUpAction = this.handleThemePopUpAction.bind(this); // Theme action handle
+        this.handleTimePopUpAction = this.handleTimePopUpAction.bind(this); // Time action handle
+        this.handleGoalPopUpAction = this.handleGoalPopUpAction.bind(this); // Goal action handle
+        this.handleNarattionPopUpAction = this.handleNarattionPopUpAction.bind(this); // Narattion action handle
+        this.handleThemePopUp = this.handleThemePopUp.bind(this); // Theme popup hanle
+        this.handleTimePopUp = this.handleTimePopUp.bind(this); // Time popup hanle
+        this.handleGoalPopUp = this.handleGoalPopUp.bind(this); // Goal popup hanle
+        this.handleNarattionPopUp = this.handleNarattionPopUp.bind(this); // Naration popup handle
+    }
+
+    componentDidMount(){
+        const userName = localStorage.getItem('username');
+        this.setState({
+            userName
+        })
+    }
+
+    // radio onchange function
+    // handleChange = (e) => {
+    //     const value = e.target.value;
+    //     this.setState({
+    //         [e.target.name]: value
+    //     })
+    //     console.log(value);
+    // }
+
+    handleChangeTheme = (e) => {
+        this.setState({
+            themeOptions: e.target.value
+        })
+    }
+
+    handleChangeTime = (e) => {
+        this.setState({
+            timeOptions: e.target.value
+        })
+    }
+    handleChangeNarattion = (e) => {
+        this.setState({
+            narattionOptions: e.target.value
+        })
+    }
+    handleChangeGoal = (e) => {
+        this.setState({
+            goalOptions: e.target.value
+        })
+    }
+    // handleChange = (e) => {
+    //     this.setState({
+    //         themeOptions: e.target.value
+    //     })
+    // }
+
+
+    
+    // Handle theme popup show
+    handleThemePopUp = () => {
+        this.setState({
+            themePopup: true
+        });
+    }
+
+    // Handle time popup show
+    handleTimePopUp = () => {
+        this.setState({
+            timePopup: true
+        });
+    }
+
+    // Handle time popup show
+    handleNarattionPopUp = () => {
+        this.setState({
+            narattionPopup: true
+        });
+    }
+
+    // Handle time popup show
+    handleGoalPopUp = () => {
+        this.setState({
+            goalPopup: true
+        });
+    }
+    
+    // handle theme option 
+    handleThemePopUpAction = (value) => {
+        if(value === "Cancel"){
+            this.setState({
+                theme: "Sunrise",
+                themePopup: false
+            })
+        }else{
+            this.setState({
+                themePopup: false
+            })
+        }
+    }
+    
+    // handle theme option 
+    handleNarattionPopUpAction = (value) => {
+        if(value === "Cancel"){
+            this.setState({
+                narattion: "None",
+                narattionPopup: false
+            })
+        }else{
+            this.setState({
+                narattionPopup: false
+            })
+        }
+    }
+    
+    // handle time option 
+    handleTimePopUpAction = (value) => {
+        if(value === "Cancel"){
+            this.setState({
+                time: "2 min",
+                timePopup: false
+            })
+        }else{
+            this.setState({
+                timePopup: false
+            })
+        }
+    }
+    
+    // handle theme option 
+    handleGoalPopUpAction = (value) => {
+        if(value === "Cancel"){
+            this.setState({
+                goal: "Relax",
+                goalPopup: false
+            })
+        }else{
+            this.setState({
+                goalPopup: false
+            })
+        }
+    }
+
+    // Add Favorite function
+    handleFaborite = (e) => {
+        e.preventDefault();
+        console.log("I'm added on faborite");
+    }
+
+    handleShare = (e) => {
+        e.preventDefault();
+        console.log("I'm added on share");
+    }
+
+    handleEdit = (e) => {
+        e.preventDefault();
+        console.log("I'm added on edit");
+    }
+
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         redirect: false,
+    //     }
+    //     //this.logOut = this.logOut.bind(this);
+    // }
+
+
+    // componentDidMount(){
+    //     const { setDefautStep } = this.context;
+    //     setDefautStep()
+    // }
+
+    handleFeelOption = () => {
+        console.log("I'm clicked")
+        let token = localStorage.getItem('token');
+        //let userId = localStorage.getItem('userID');
+
+        let {goal, time, narattion, theme} = this.state;
+
+        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${goal}&narration_id=${narattion}&theme_id=${theme}&duration_minute_id=${time}`;
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        myHeaders.append("device-id", "1");
+        myHeaders.append("timezone", "UTC");
+        myHeaders.append("device-type", "1");
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(proxyurl + fetchUrl, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            console.log(result + 'Data from filltering')
+        })
+        .catch(error => {
+            console.log('error', error)
+        });
+
+        this.setState({
+            showWelcome: false,
+            sowoFeelOption: false,
+            showTutorial: true
+        })
+    }
+
+    render() {
+        const {showWelcome, sowoFeelOption, showTutorial, showReplay, setFeeling, handleOnChangFeel, handleHomeStart, backToPrev, handleReplayFromFeedback, handleFeedback, handleConfirmation} = this.context;
+
+        const { themePopup, themeOptions, theme, goalPopup, goalOptions, goal, timePopup, timeOptions, time, narattionPopup, narattionOptions, narattion } = this.state;
+
+        const themeName = this.state.themeOptions.map(item => {
+            return (
+                <>
+                    <Radio  name={item.name} value={item.id} onChange={this.handleChangeTheme.bind(this)} lableText={item.name} />
+                </>
+            )
+        })
+
+        const timeName = this.state.timeOptions.map(item => {
+            return (
+                <>
+                    <Radio  name={item.name} value={item.id} onChange={this.handleChangeTime.bind(this)} lableText={item.name} />
+                </>
+            )
+        })
+        const narattionName = this.state.narattionOptions.map(item => {
+            return (
+                <>
+                    <Radio  name={item.name} value={item.id} onChange={this.handleChangeNarattion.bind(this)} lableText={item.name} />
+                </>
+            )
+        })
+        const goalName = this.state.goalOptions.map(item => {
+            return (
+                <>
+                    <Radio  name={item.name} value={item.id} onChange={this.handleChangeGoal.bind(this)} lableText={item.name} />
+                </>
+            )
+        })
+        // if(this.state.redirect){
+        //     return (<Redirect to="/login" />)
+        // }
+        return ( 
+            <Fragment>
+                <Navigation/>
+                <div className="home-contents container">
+                    {/* {showWelcome ? <Welcome/> : <Home/> && sowoFeelOption ? <FeelControl feeling={setFeeling} onChangFeel={handleOnChangFeel} /> : <Home/> && showTutorial ? <Tutorial /> : <Home/> && showReplay ? <FeedbackSubmit /> : <Home/> } */}
+                    <div className={ showWelcome ? "intro" : "intro display-none" } >
+                        <div className="contents-wrap">
+                            <h2 className="name-title ">Hey {this.state.userName},</h2>
+                            <p className="welcome-msg">{this.state.welcomeText}</p>
+                            <button onClick={() => handleConfirmation('Yes')} className="btn btn-primary">Yes</button>
+                            <button onClick={() => handleConfirmation('No')} className="btn btn-secondary">No</button>
+                        </div>
+                    </div>
+
+                    <div className={ showWelcome ? "container-inner session-container display-none" : "container-inner session-container"}>
+                        <div className="contents-wrap">
+                            <h2 className="session-title ">Session Design</h2>
+                            <TaskList title="Goal" contentText={goal} onClick={this.handleGoalPopUp} />
+                            <TaskList title="Time" contentText={time} onClick={this.handleTimePopUp} />
+                            <TaskList title="Narattion" contentText={narattion} onClick={this.handleNarattionPopUp} />
+                            <TaskList title="Theme" contentText={theme} onClick={this.handleThemePopUp} />
+                            
+                            {/* Beginning Popup components */}
+                            {/* {themePopup ? (
+                                <PopUp title="Select theme" selectOptions={themeOptions} optionName={theme} name="theme" handleChange={this.handleChange} handlePopUpAction={this.handleThemePopUpAction} />
+                            ) : null}
+                            {goalPopup ? (
+                                <PopUp title="Select theme" selectOptions={goalOptions} optionName={goal} name="goal" handleChange={this.handleChange} handlePopUpAction={this.handleGoalPopUpAction} />
+                            ) : null}
+                            {timePopup ? (
+                                <PopUp title="Select theme" selectOptions={timeOptions} optionName={time} name="time" handleChange={this.handleChange} handlePopUpAction={this.handleTimePopUpAction} />
+                            ) : null}
+                            {narattionPopup ? (
+                                <PopUp title="Select theme" selectOptions={narattionOptions} optionName={narattion} name="narattion" handleChange={this.handleChange} handlePopUpAction={this.handleNarattionPopUpAction} />
+                            ) : null} */}
+                            {goalName}
+                            {timeName}
+                            {narattionName}
+                            {themeName}
+                            {/* <Link to="/feel"></Link> */}
+                            <button onClick={handleHomeStart} className="btn btn-primary">Start</button>
+                        </div>
+                    </div>
+                    {/* End session design */}
+
+                    {/* Beginning feel control */}
+                    <div className={ sowoFeelOption ? "container-inner feel-control" : "container-inner feel-control display-none"}>
+                        <div className="contents-wrap">
+                            <h2 className="session-title ">How relaxed do you feel?</h2>
+                            <div className="radio-items-group">
+                                <div className="radio-items">
+                                    {[...Array(5)].map((rating, i) => {
+                                        const ratingValue = i+1;
+                                        return (
+                                            <label key={i} className="item">
+                                                <input 
+                                                    type="checkbox" 
+                                                    name="feeling" 
+                                                    value={ratingValue} 
+                                                    onChange={() => this.setState({feeling: ratingValue})}
+                                                />
+                                                <div className="box" style={{background: ratingValue <= this.state.feeling ? '#29aae3' : '#fff'}}>
+                                                </div>
+                                            </label>
+                                        )
+                                    })}
+                                </div>
+                                <div className="radio-text">
+                                    <p>Not Relaxed </p>
+                                    <p>Relaxed </p>
+                                </div>
+                            </div>
+                            <button onClick={this.handleFeelOption.bind(this)} className="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                    {/* End feel control */}
+
+                    {/* Beginning video tutorial */}
+                    <div className={showTutorial ? "tutorial-wrap" : "tutorial-wrap display-none"}>
+                        <div className="tutorial-top">
+                            <div className="back-section">
+                                <button onClick={backToPrev}><img src={BackIcon} alt="Back arrow"/></button>
+                            </div>
+                            <div className="section-title">
+                                <h2>Tutorial</h2>
+                            </div>
+                        </div>
+                        <VideoPlayer />
+                    </div>
+                    {/* End video */}
+
+                    {/* Submition result */}
+                    <div className={showReplay ? "feedbackInner" : "feedbackInner display-none"}>
+                        <div className="actionRow">
+                            <button onClick={this.handleFaborite}><img src={favoriteIcon} alt="Favorite icon" /></button>
+                            <button onClick={this.handleShare}><RiShareLine /></button>
+                            <button onClick={this.handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
+                        </div>
+                        <div className="controlWrap">
+                            <div className="container-inner feel-control">
+                                <div className="contents-wrap">
+                                    <h2 className="session-title ">How relaxed do you feel?</h2>
+                                    <div className="radio-items-group">
+                                        <div className="radio-items">
+                                            {[...Array(5)].map((rating, i) => {
+                                                const ratingValue = i+1;
+                                                return (
+                                                    <label key={i} className="item">
+                                                        <input 
+                                                            type="checkbox" 
+                                                            name="feeling" 
+                                                            value={ratingValue} 
+                                                            onChange={() => this.setState({feeling: ratingValue})}
+                                                        />
+                                                        <div className="box" style={{background: ratingValue <= this.state.feeling ? '#29aae3' : '#fff'}}>
+                                                        </div>
+                                                    </label>
+                                                )
+                                            })}
+                                        </div>
+                                        <div className="radio-text">
+                                            <p>Not Relaxed </p>
+                                            <p>Relaxed </p>
+                                        </div>
+                                    </div>
+                                    <button onClick={handleFeedback} className="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                            <button onClick={handleReplayFromFeedback} className="replay"><MdReplay /> Replay</button>
+                        </div>
+                    </div>
+
+                </div>
+            </Fragment>
+        );
+    }
+}
+
+export default HomePage;

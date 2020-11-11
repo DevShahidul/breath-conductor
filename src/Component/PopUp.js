@@ -9,7 +9,7 @@ const PopUp = (props) => {
             <ul>
                 {selectOptions.map((option, index) => (
                     <li key={index}>
-                        <Radio className={optionName === option ? 'box checked' : 'box'} name={name} value={option} checked={optionName === option} onChange={handleChange} lableText={option} />
+                        <Radio className={optionName === option.name ? 'box checked' : 'box'} name={name} value={option.name} checked={optionName === option.name} onChange={handleChange} lableText={option.name} />
                     </li>
                 ))}
             </ul>

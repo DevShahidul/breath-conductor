@@ -116,11 +116,16 @@ class FavoritiesDetailsPage extends Component {
 
     }
 
+    // Handle duplicate
+    handleDuplicate = (id) => {
+        console.log(id)
+    }
+
     render(){
                 
-        const { handleAddFavorite } =  this.context;
+        //const { handleAddFavorite } =  this.context;
 
-        const {id, title, goal, theme, duration_minutes, narration} = this.state.exercise_detail;
+        const { title, goal, theme, duration_minutes, narration} = this.state.exercise_detail;
         
         return (
             <Fragment>
@@ -148,7 +153,7 @@ class FavoritiesDetailsPage extends Component {
                                         </div>
                                     </div>
                                     <div className="details-action">
-                                        <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => handleAddFavorite(id)}/>
+                                        <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate(this.state.id)}/>
                                         <IconicButton type="primary" text="Share" icon={RiShareLine}/>
                                         <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => this.removeFavorite(this.state.id) }/>
                                     </div>

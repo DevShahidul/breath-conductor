@@ -13,12 +13,27 @@ class BreathProvider extends Component {
             showTutorial: false,
             showReplay: false,
             setFeeling: 3,
+
+            // Exercise data
             generalList: [],
-            
-            theme: 'Sunrise',
-            goal: 'Relax',
-            time: '2',
-            narattion: 'Full',
+            goalOptions: [{id:1, name:"Relax"}],
+            timeOptions: [{id:1, name:"-1 min"}, {id: 2, name:"1 min"}, {id: 3, name: "2 min"}, {id:4, name:"5 min"}],
+            narattionOptions: [{id:1, name: "None"}, {id:1, name:"Full"}],
+            themeOptions: [{id:1, name: "Sunrise"}, {id: 2, name: "Earth"}, {id: 3, name:"Moon"}],
+            goal: "Relax",
+            time: "2 min",
+            theme: "Sunrise",
+            narattion: "None",
+            themePopup: false,
+            goalPopup: false,
+            timePopup: false,
+            narattionPopup: false,
+
+            exerciseVideo: '',
+            exercise_id: '',
+            videoFallback: '',
+            intro_duration: '',
+            exerciseTitle: '',
 
             // History
             isHistory: true,
@@ -43,6 +58,120 @@ class BreathProvider extends Component {
         this.clearHistory = this.clearHistory.bind(this); // Clear all history
         this.handleFeedback = this.handleFeedback.bind(this); // Clear all history
         this.setDefautStep = this.setDefautStep.bind(this); // Clear all history
+        this.handleChange = this.handleChange.bind(this);
+
+        this.handleThemePopUpAction = this.handleThemePopUpAction.bind(this)// Handle theme popup option
+        this.handleTimePopUpAction = this.handleTimePopUpAction.bind(this)// Handle time popup option
+        this.handleNarattionPopUpAction = this.handleNarattionPopUpAction.bind(this)// Handle narattion popup option
+        this.handleGoalPopUpAction = this.handleGoalPopUpAction.bind(this)// Handle goal popup option
+
+        this.handleGoalPopUp = this.handleGoalPopUp.bind(this)
+        this.handleThemePopUp = this.handleThemePopUp.bind(this)
+        this.handleTimePopUp = this.handleTimePopUp.bind(this)
+        this.handleNarattionPopUp = this.handleNarattionPopUp.bind(this)
+    }
+
+    // handle confirmation for welcome screen
+    handleFeelOption = () => {
+        this.setState({
+            sowoFeelOption: false,
+            showTutorial: true,
+        });
+    }
+
+    handleChange = (e) => {
+        const value = e.target.value;
+        this.setState({
+            [e.target.name]: value,
+        })
+    }
+
+    // Handle theme popup show
+    handleThemePopUp = () => {
+        this.setState({
+            themePopup: true
+        });
+    }
+
+    // Handle time popup show
+    handleTimePopUp = () => {
+        this.setState({
+            timePopup: true
+        });
+    }
+
+    // Handle time popup show
+    handleNarattionPopUp = () => {
+        this.setState({
+            narattionPopup: true
+        });
+    }
+
+    // Handle time popup show
+    handleGoalPopUp = () => {
+        this.setState({
+            goalPopup: true
+        });
+    }
+
+    // handle theme option 
+    handleThemePopUpAction = (value) => {
+        console.log("I'm clicked theme popup")
+        if(value === "Cancel"){
+            this.setState({
+                theme: "Sunrise",
+                themePopup: false
+            })
+        }else{
+            this.setState({
+                themePopup: false
+            })
+        }
+    }
+    
+    // handle theme option 
+    handleNarattionPopUpAction = (value) => {
+        console.log("I'm clicked narattion popup")
+        if(value === "Cancel"){
+            this.setState({
+                narattion: "None",
+                narattionPopup: false
+            })
+        }else{
+            this.setState({
+                narattionPopup: false
+            })
+        }
+    }
+    
+    // handle time option 
+    handleTimePopUpAction = (value) => {
+        console.log("I'm clicked time popup")
+        if(value === "Cancel"){
+            this.setState({
+                time: "2 min",
+                timePopup: false
+            })
+        }else{
+            this.setState({
+                timePopup: false
+            })
+        }
+    }
+    
+    // handle theme option 
+    handleGoalPopUpAction = (value) => {
+        console.log("I'm clicked goal popup")
+        if(value === "Cancel"){
+            this.setState({
+                goal: "Relax",
+                goalPopup: false
+            })
+        }else{
+            this.setState({
+                goalPopup: false
+            })
+        }
     }
 
     componentDidMount(){
@@ -77,10 +206,7 @@ class BreathProvider extends Component {
                 
 
     }
-
-    // setExercise (data){
-    //     let time: '';
-    // }
+    
 
     // Get History Data
     setHistoryContents = (contents) => {
@@ -121,6 +247,8 @@ class BreathProvider extends Component {
         })
         //console.log(FavoriteContents);
     }
+
+
 
     // Get conent from library
     getFavoriteData = () => {
@@ -211,7 +339,59 @@ class BreathProvider extends Component {
     handleHomeStart = () => {
         this.setState({
             sowoFeelOption: true
+        });
+
+        const {goal, time, theme, narattion} = this.state;
+
+        const golId = goal === "Relax" ? 1 : 0;
+        const timeId = time === "-1 min" ? 9 : 1 && time === "1 min" ? 1 : 1 && time === "2 min" ? 2 : 1 && time === "5 min" ? 8 : 1;
+        const themeId = theme === "Sunrise" ? 1 : 2 && theme === "Earth" ? 2 : 1 && theme === "Moon" ? 3 : 1;
+        const narattionId = narattion === "None" ? 1 : 3 && narattion === "Full" ? 3 : 1 ;
+
+        console.log('Goal == ' + golId + ' time = ' + timeId + ' theme = ' + themeId + ' narattion =' + narattionId)
+
+        let token = localStorage.getItem('token');
+        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${golId}&narration_id=${narattionId}&theme_id=${themeId}&duration_minute_id=${timeId}`;
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        myHeaders.append("device-id", "1");
+        myHeaders.append("timezone", "UTC");
+        myHeaders.append("device-type", "1");
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(proxyurl + fetchUrl, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            let resultjson = JSON.parse(result)
+            let status = resultjson.data.data_found;
+            let id = resultjson.data.exercise.exerciseID;
+            let intro_duration = resultjson.data.exercise.intro_duration;
+            let title = resultjson.data.exercise.title;
+            if(status){
+                this.setState({
+                    exerciseVideo: resultjson.data.exercise.exercise_video,
+                    exercise_id: id,
+                    intro_duration,
+                    exerciseTitle: title
+                })
+            }else{
+                this.setState({
+                    videoFallback: "No data found"
+                });
+            }
+            console.log(resultjson)
         })
+        .catch(error => {
+            console.log('error', error)
+        });
+
     }
 
     // Handle back button on tutorial component
@@ -222,13 +402,6 @@ class BreathProvider extends Component {
         })
     }
 
-    // handle confirmation for welcome screen
-    handleFeelOption = () => {
-        this.setState({
-            sowoFeelOption: false,
-            showTutorial: true
-        })
-    }
 
     // Handle function after video playing end 
     handleEndVideo = () => {
@@ -290,6 +463,16 @@ class BreathProvider extends Component {
                 clearHistory: this.clearHistory,
                 handleFeedback: this.handleFeedback,
                 setDefautStep: this.setDefautStep,
+
+                handleChange: this.handleChange,
+                handleThemePopUpAction: this.handleThemePopUpAction,
+                handleTimePopUpAction: this.handleTimePopUpAction,
+                handleNarattionPopUpAction: this.handleNarattionPopUpAction,
+                handleGoalPopUpAction: this.handleGoalPopUpAction,
+                handleGoalPopUp: this.handleGoalPopUp,
+                handleThemePopUp: this.handleThemePopUp,
+                handleTimePopUp: this.handleTimePopUp,
+                handleNarattionPopUp: this.handleNarattionPopUp
             }}>
                 {this.props.children}
             </BreathContext.Provider>
