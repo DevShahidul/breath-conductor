@@ -1,4 +1,5 @@
 import React, { Component, createContext } from 'react';
+import {HeartFill, HeartOutline} from './Component/icons';
 
 const BreathContext = createContext();
 
@@ -34,6 +35,8 @@ class BreathProvider extends Component {
             videoFallback: '',
             intro_duration: '',
             exerciseTitle: '',
+            previousFeel: 0,
+            afterFeel: 0,
 
             // History
             isHistory: true,
@@ -41,7 +44,9 @@ class BreathProvider extends Component {
             singleHistory: {},
             
             // Favorite
+            favoriteIcon: <HeartOutline />,
             isFavorite: true,
+            is_favorite: 0,
             FavoriteContents: [],
             singleFavorite: {},
             deleteMessage: '',
@@ -69,6 +74,53 @@ class BreathProvider extends Component {
         this.handleThemePopUp = this.handleThemePopUp.bind(this)
         this.handleTimePopUp = this.handleTimePopUp.bind(this)
         this.handleNarattionPopUp = this.handleNarattionPopUp.bind(this)
+        this.toggleFavorite = this.toggleFavorite.bind(this)
+    }
+
+    // Handle Toggle favorite button
+    toggleFavorite = (exerciseID) => {
+        let token = localStorage.getItem('token');
+        let {is_favorite} = this.state;
+//        let exerciseID = this.state.exercise_history_detail.exerciseID;
+        //let setFavorite = is_favorite + 1;
+        let changedStat = is_favorite === 0 ? 1 : 0 ;
+        let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
+
+        this.setState({
+            is_favorite: changedStat,
+            favoriteIcon
+        });
+
+        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${exerciseID}?action=${is_favorite}`;
+
+        var myHeaders = new Headers();
+        myHeaders.append("device-id", "1");
+        myHeaders.append("timezone", "UTC");
+        myHeaders.append("device-type", "1");
+        myHeaders.append("Authorization", `Bearer ${token}`);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(proxyurl + fetchUrl, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            console.log(result)
+        })
+        .catch(error => {
+            console.log('error', error)
+        });
+
+        console.log(exerciseID)
+    }
+
+    // Handle share button
+    handleShare = () => {
+
     }
 
     // handle confirmation for welcome screen
@@ -175,34 +227,43 @@ class BreathProvider extends Component {
     }
 
     componentDidMount(){
-        let token = localStorage.getItem('token');
-        let userId = localStorage.getItem('userID');
+        const {is_favorite} = this.state;
 
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
-        let fetchUrl = `https://www.breathconductor.com/api_v1/general/list?user_id=${userId}`;
-
-        var myHeaders = new Headers();
-        myHeaders.append("device-id", "1");
-        myHeaders.append("timezone", "UTC");
-        myHeaders.append("device-type", "1");
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch(proxyurl + fetchUrl, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            let resultjson = JSON.parse(result);
-            this.setState({
-                generalList: resultjson.data
-            })
-            console.log(resultjson)
+        let changedStat = is_favorite === 0 ? 1 : 0 ;
+        let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
+        this.setState({
+            favoriteIcon,
+            is_favorite: changedStat
         })
-        .catch(error => console.log('error', error));
+
+        // let token = localStorage.getItem('token');
+        // let userId = localStorage.getItem('userID');
+
+        // let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        // let fetchUrl = `https://www.breathconductor.com/api_v1/general/list?user_id=${userId}`;
+
+        // var myHeaders = new Headers();
+        // myHeaders.append("device-id", "1");
+        // myHeaders.append("timezone", "UTC");
+        // myHeaders.append("device-type", "1");
+        // myHeaders.append("Authorization", `Bearer ${token}`);
+
+        // var requestOptions = {
+        //     method: 'GET',
+        //     headers: myHeaders,
+        //     redirect: 'follow'
+        // };
+
+        // fetch(proxyurl + fetchUrl, requestOptions)
+        // .then(response => response.text())
+        // .then(result => {
+        //     let resultjson = JSON.parse(result);
+        //     this.setState({
+        //         generalList: resultjson.data
+        //     })
+        //     console.log(resultjson)
+        // })
+        // .catch(error => console.log('error', error));
                 
 
     }
@@ -369,27 +430,30 @@ class BreathProvider extends Component {
         fetch(proxyurl + fetchUrl, requestOptions)
         .then(response => response.text())
         .then(result => {
-            let resultjson = JSON.parse(result)
+            let resultjson = JSON.parse(result);
             let status = resultjson.data.data_found;
-            let id = resultjson.data.exercise.exerciseID;
-            let intro_duration = resultjson.data.exercise.intro_duration;
-            let title = resultjson.data.exercise.title;
+            
             if(status){
+                let id = resultjson.data.exercise.exerciseID;
+                let intro_duration = resultjson.data.exercise.intro_duration;
+                let title = resultjson.data.exercise.title;
+                let is_favorite = resultjson.data.exercise.is_favorite;
                 this.setState({
                     exerciseVideo: resultjson.data.exercise.exercise_video,
                     exercise_id: id,
                     intro_duration,
-                    exerciseTitle: title
+                    exerciseTitle: title,
+                    is_favorite
                 })
             }else{
                 this.setState({
-                    videoFallback: "No data found"
+                    videoFallback: "No data found",
                 });
             }
             console.log(resultjson)
         })
         .catch(error => {
-            console.log('error', error)
+            console.log('error', error);
         });
 
     }
@@ -472,7 +536,8 @@ class BreathProvider extends Component {
                 handleGoalPopUp: this.handleGoalPopUp,
                 handleThemePopUp: this.handleThemePopUp,
                 handleTimePopUp: this.handleTimePopUp,
-                handleNarattionPopUp: this.handleNarattionPopUp
+                handleNarattionPopUp: this.handleNarattionPopUp,
+                toggleFavorite: this.toggleFavorite
             }}>
                 {this.props.children}
             </BreathContext.Provider>

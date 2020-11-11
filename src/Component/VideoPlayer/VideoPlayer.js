@@ -2,8 +2,9 @@ import React, { useState, useRef, useContext } from 'react';
 import {BreathContext} from '../../context'
 import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
-import { PlayerWrap } from './VideoPlayer.elements';
+import { PlayerWrap, PlayerLoader} from './VideoPlayer.elements';
 import PlayerControls from './playerControls';
+import LoadingGif from '../../Assets/Image/gif/loading-circle.gif';
 
 
 const formate = (seconds) => {
@@ -35,10 +36,11 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
         seeking: false,
         timeDisplayFormate: 'normal',
         volumeTop: false,
-        hideSkipIntro: true
+        hideSkipIntro: true,
+        loading: true
     })
 
-    const { playing, muted, volume, playbackRate, fullScreenStatus, played, seeking, timeDisplayFormate, volumeTop} = state;
+    const { playing, muted, volume, playbackRate, fullScreenStatus, played, seeking, timeDisplayFormate, volumeTop, loading} = state;
 
     const playerRef = useRef(null);
     const playerContainerRef = useRef(null);
@@ -175,10 +177,16 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       }
     }
 
+    const handleOnReady = () => {
+      setState({
+        loading: false
+      })
+    }
+
     const handleOnstart = () => {
       setState({
         ...state,
-        hideSkipIntro: false
+        hideSkipIntro: false,
       })
     }
 
@@ -194,6 +202,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
 
     return (
     <PlayerWrap className={header ? 'headerShown' : ''} header={header} syllabusToggle={onSyllabusToggle} syllabusExpanded={syllabusExpanded} ref={playerContainerRef}>
+        {loading ? <PlayerLoader src={LoadingGif} alt="Loader image" /> : null }
         <ReactPlayer
           className='react-player'
           url={proxyurl+exerciseVideo}
@@ -203,6 +212,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           playing={playing}
           ref={playerRef}
           volume={volume}
+          onReady={handleOnReady}
           onBuffer={handleHideSkipIntro}
           playbackRate={playbackRate}
           onProgress={handleProgress}
@@ -216,6 +226,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
             }
           }}
         />
+        {!loading ? 
         <PlayerControls 
           onPlayPause={handlePlayPause} 
           playing={playing} 
@@ -240,7 +251,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           onChangeTimeDisplayFormate={handleChangeTimeDisplayFormate}
           onSkipIntro={handleOnSkip}
           hideIntroSkipBtn={state.hideSkipIntro}
-        />
+        /> : null }
     </PlayerWrap>
     )
 }

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {BreathContext} from '../context';
 import BackIcon from "../Assets/Image/back.svg";
-import {HeartOutline} from '../Component/icons'
-//import favoriteIcon from "../Assets/Image/like.svg";
 import editeIcon from "../Assets/Image/edit.svg";
 import { RiShareLine } from "react-icons/ri";
 import { VideoPlayer } from './VideoPlayer/VideoPlayer'
@@ -10,7 +8,7 @@ import { VideoPlayer } from './VideoPlayer/VideoPlayer'
 class Tutorial extends Component {
     static contextType = BreathContext;
     render() {
-        const { backToPrev } = this.context;
+        const { backToPrev, toggleFavorite, handleShare, handleEdit, favoriteIcon, exercise_id } = this.context;
         return (
             <div className="tutorial-wrap">
                 <div className="tutorial-top">
@@ -21,9 +19,9 @@ class Tutorial extends Component {
                         <h2>Tutorial</h2>
                     </div>
                     <div className="actionRow">
-                        <button onClick={this.handleFaborite}><HeartOutline /></button>
-                        <button onClick={this.handleShare}><RiShareLine /></button>
-                        <button onClick={this.handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
+                        <button onClick={() => toggleFavorite(exercise_id)}>{favoriteIcon}</button>
+                        <button onClick={handleShare}><RiShareLine /></button>
+                        <button onClick={handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
                     </div>
                 </div>
                 <VideoPlayer />

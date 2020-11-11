@@ -15,3 +15,10 @@ export const PlayerWrap = styled.div`
         left: 0;
     }
 `;
+
+export const PlayerLoader = styled.img`
+    position: relative;
+    display: block;
+    width: 100%;
+    z-index: 3;
+`;

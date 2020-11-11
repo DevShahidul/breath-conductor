@@ -27,24 +27,15 @@ class AppRoute extends Component {
                     <Protected page={LibraryPage} />
                 </Route>
                 <Route exact path='/library/:id' component={FavoritiesDetailsPage} />
-                {/* <Route exact path="/library/:id">
-                    <Protected page={FavoritiesDetailsPage} />
-                </Route> */}
                 <Route exact path="/history">
                     <Protected page={HistoryPage} />
                 </Route>
                 <Route exact path='/history/:id' component={HistoryDetailsPage} />
-                {/* <Route exact path="/history/:id">
-                    <Protected page={HistoryDetailsPage} />
-                </Route> */}
                 <Route exact path="/setting">
                     <Protected page={SettingPage} />
                 </Route>
-                
                 <Route component={ErrorPage} />
-            </Switch>
-
-        
+            </Switch>        
         );
     }
 }

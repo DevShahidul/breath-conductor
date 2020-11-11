@@ -20,8 +20,8 @@ class HistoryDetailsPage extends Component{
             exercise_history_detail: {},
             focus: '',
             is_favorite: 0,
-            exerciseHistoryID: '',
             favoriteIcon: <HeartOutline />,
+            exerciseHistoryID: '',
             loading: true,
         }
     }
@@ -34,9 +34,12 @@ class HistoryDetailsPage extends Component{
         const {id, is_favorite} = this.state;
 
         // Set favorite icon
-        let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill />
+
+        let changedStat = is_favorite === 0 ? 1 : 0 ;
+        let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
         this.setState({
-            favoriteIcon
+            favoriteIcon,
+            is_favorite: changedStat
         })
 
         if(token){
@@ -134,56 +137,11 @@ class HistoryDetailsPage extends Component{
         console.log(`I've remove from history ${historyid}`)
     }
 
-    // Handle Toggle favorite button
-    toggleFavorite = (historyid) => {
-        let token = localStorage.getItem('token');
-        let {is_favorite} = this.state;
-        let exerciseID = this.state.exercise_history_detail.exerciseID;
-        //let setFavorite = is_favorite + 1;
-        let changedStat = is_favorite === 0 ? 1 : 0 ;
-        let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
-
-        this.setState({
-            is_favorite: changedStat,
-            favoriteIcon
-        })
-
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
-        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${exerciseID}?action=${is_favorite}`;
-
-        var myHeaders = new Headers();
-        myHeaders.append("device-id", "1");
-        myHeaders.append("timezone", "UTC");
-        myHeaders.append("device-type", "1");
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch(proxyurl + fetchUrl, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            console.log(result)
-        })
-        .catch(error => {
-            console.log('error', error)
-        });
-
-        console.log(exerciseID)
-    }
-
-
     render(){
 
-        //const {removeFromHistory} = this.context;
-        // const dataFromLocalstorage = localStorage.getItem('singleHistoryData') ? JSON.parse(localStorage.getItem('singleHistoryData')) : {};
-
-        //const {id, title, date, goal, theme, voice, duration_minutes} = dataFromLocalstorage;
-        const { title, goal, theme, duration_minutes, narration} = this.state.exercise_history_detail;
-        const {loading, focus, exerciseHistoryID, favoriteIcon} = this.state;
+        const { title, goal, theme, duration_minutes, narration, exerciseID} = this.state.exercise_history_detail;
+        const {loading, focus, exerciseHistoryID} = this.state;
+        const { toggleFavorite, favoriteIcon } = this.context;
     
         return (
             <Fragment>
@@ -201,7 +159,7 @@ class HistoryDetailsPage extends Component{
                         <div className={loading ? `library-content library-inner loading` : `library-content library-inner`}>
                             { loading ? <img className="loader-gif" src={LoadingGif} alt="Loading gif" /> : (
                             <>
-                            <LibraryDetailTop title={title} date={focus} onClick={this.HandleGoback} onAddFavorite={ () => this.toggleFavorite(exerciseHistoryID) } togglerFavorite={true} favoriteIcon={favoriteIcon}/>
+                            <LibraryDetailTop title={title} date={focus} onClick={this.HandleGoback} onAddFavorite={ () => toggleFavorite(exerciseID) } togglerFavorite={true} favoriteIcon={favoriteIcon}/>
                             <div className="details-items">
                                 <div className="row"> 
                                     {goal ? <LibraryOptionsItem icon={GoalIcon} title="Goal" text={goal} /> : ''}

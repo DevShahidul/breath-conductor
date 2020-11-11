@@ -14,7 +14,7 @@ export default class FeedbackSubmit extends Component {
         }
     }
     // Add Favorite function
-    handleFaborite = (e) => {
+    toggleFavorite = (e) => {
         e.preventDefault();
         console.log("I'm added on faborite");
     }
@@ -34,7 +34,7 @@ export default class FeedbackSubmit extends Component {
         return (
             <div className="feedbackInner">
                 <div className="actionRow">
-                    <button onClick={this.handleFaborite}><img src={favoriteIcon} alt="Favorite icon" /></button>
+                    <button onClick={this.toggleFavorite}><img src={favoriteIcon} alt="Favorite icon" /></button>
                     <button onClick={this.handleShare}><RiShareLine /></button>
                     <button onClick={this.handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
                 </div>
