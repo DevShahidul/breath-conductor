@@ -23,6 +23,7 @@ class FeelControlPage extends Component {
                             <div className="radio-items-group">
                                 <div className="radio-items">
                                     {[...Array(5)].map((rating, i) => {
+                                        console.log(rating)
                                         const ratingValue = i+1;
                                         return (
                                             <label key={i} className="item">

@@ -7,6 +7,7 @@ import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
 
 class HistoryPage extends Component {
     static contextType = BreathContext;
+    _isMounted = false;
 
     constructor(props){
         super(props);
@@ -20,12 +21,13 @@ class HistoryPage extends Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         let token = localStorage.getItem('token');
         let userId = localStorage.getItem('userID');
         //console.log(token)
 
         if(token){
-            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             
             var myHeaders = new Headers();
             myHeaders.append("userID", userId);
@@ -48,6 +50,7 @@ class HistoryPage extends Component {
                 const datajson = JSON.parse(result);
                 const status = datajson.data.data_found;
                 const historyData = datajson.data.exercise_history_list;
+                //console.log(datajson.data)
 
                 if(status){
                     this.setHistoryContents(historyData);
@@ -67,6 +70,10 @@ class HistoryPage extends Component {
             })
             .catch(error => console.log('error', error)); // End exercise history function
         }
+    }
+
+    componentWillMount(){
+        this._isMounted = false;
     }
 
 

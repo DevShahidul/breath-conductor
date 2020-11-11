@@ -7,7 +7,7 @@ import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
 
 class LibraryPage extends Component {
     static contextType = BreathContext;
-
+    _isMounted = false;
     constructor(props){
         super(props);
         this.state = {
@@ -20,12 +20,13 @@ class LibraryPage extends Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         let token = localStorage.getItem('token');
         let userId = localStorage.getItem('userID');
         //console.log(token)
 
         if(token){
-            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             
             var myHeaders = new Headers();
             myHeaders.append("userID", userId);
@@ -66,6 +67,10 @@ class LibraryPage extends Component {
             })
             .catch(error => console.log('error', error)); // End favorite Exercise
         }
+    }
+
+    componentWillMount(){
+        this._isMounted = false;
     }
 
     // Get Favorite Data 

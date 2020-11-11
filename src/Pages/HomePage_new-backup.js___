@@ -201,8 +201,8 @@ class HomePage extends Component {
 
 
     // componentDidMount(){
-    //     const { setDefautStep } = this.context;
-    //     setDefautStep()
+    //     const { setDefaultStep } = this.context;
+    //     setDefaultStep()
     // }
 
     handleFeelOption = () => {
@@ -212,7 +212,7 @@ class HomePage extends Component {
 
         let {goal, time, narattion, theme} = this.state;
 
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${goal}&narration_id=${narattion}&theme_id=${theme}&duration_minute_id=${time}`;
 
         var myHeaders = new Headers();

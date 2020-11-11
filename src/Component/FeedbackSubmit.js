@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import favoriteIcon from "../Assets/Image/like.svg";
 import editeIcon from "../Assets/Image/edit.svg";
 import { RiShareLine } from "react-icons/ri";
 import { MdReplay } from "react-icons/md";
 import { BreathContext } from '../context';
+import {HeartFill, HeartOutline} from '../Component/icons';
 
 export default class FeedbackSubmit extends Component {
     static contextType = BreathContext;
@@ -30,11 +30,11 @@ export default class FeedbackSubmit extends Component {
     }
 
     render() {
-        const { handleReplayFromFeedback, handleFeedback } = this.context;
+        const { handleReplayFromFeedback, handleFeedback, is_favorite } = this.context;
         return (
             <div className="feedbackInner">
                 <div className="actionRow">
-                    <button onClick={this.toggleFavorite}><img src={favoriteIcon} alt="Favorite icon" /></button>
+                    <button onClick={this.toggleFavorite}>{is_favorite === 1 ? <HeartFill /> : <HeartOutline />}</button>
                     <button onClick={this.handleShare}><RiShareLine /></button>
                     <button onClick={this.handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
                 </div>

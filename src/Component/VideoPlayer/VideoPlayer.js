@@ -30,7 +30,6 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
         playing: false,
         muted: false,
         volume: 0.5,
-        playbackRate: 1.0,
         fullScreenStatus: false,
         played: 0,
         seeking: false,
@@ -40,7 +39,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
         loading: true
     })
 
-    const { playing, muted, volume, playbackRate, fullScreenStatus, played, seeking, timeDisplayFormate, volumeTop, loading} = state;
+    const { playing, muted, volume, fullScreenStatus, played, seeking, timeDisplayFormate, volumeTop, loading} = state;
 
     const playerRef = useRef(null);
     const playerContainerRef = useRef(null);
@@ -64,7 +63,8 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
     // Handle seek change
     const handleSeekChange = (e, newValue) => {
       setState({
-        ...state, played: parseFloat(newValue / 100)
+        ...state, 
+        played: parseFloat(newValue / 100)
       })
     }
 
@@ -76,7 +76,8 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
     // Handle Seek mouse up
     const handleSeekMouseUp = (e, newValue) => {
       setState({
-        ...state, seeking: false
+        ...state, 
+        seeking: false
       })
       playerRef.current.seekTo(newValue / 100);
     }
@@ -114,14 +115,6 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       screenfull.toggle(playerContainerRef.current);
     }
 
-    // Handle playbackRate function
-    const handleOnPlaybackRateChange = (rate) => {
-      setState({
-        ...state,
-        playbackRate: rate
-      })
-    }
-
     // Volume change function
     const handleVolumeChange = (e, newValue) => {
       setState({
@@ -150,31 +143,40 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
 
     // Handle Rewind function
     const handleRewind = () => {
-      playerRef.current.seekTo(playerRef.current.getCurrentTime() - 10)
+      playerRef.current.seekTo(playerRef.current.getCurrentTime() - 10);
+      const timer = setTimeout(() => {
+        setState({
+          ...state,
+          playing: true
+        })
+      }, 1000);
+      return () => clearTimeout(timer);
     }
     // Handle Forward function
     const handleForward = () => {
-      playerRef.current.seekTo(playerRef.current.getCurrentTime() + 10)
+      playerRef.current.seekTo(playerRef.current.getCurrentTime() + 10);
+      const timer = setTimeout(() => {
+        setState({
+          ...state,
+          playing: true
+        })
+      }, 1000);
+      return () => clearTimeout(timer);
     }
   
 
     const handleOnSkip = () => {
       playerRef.current.seekTo(0 + skiptedDuration );
-      setState({
-        ...state,
-        hideSkipIntro: true
-      })
-    }
-
-    const handleHideSkipIntro = () => {
-      let getCurrentPlayingTime = playerRef.current.getCurrentTime();
-      
-      if(getCurrentPlayingTime >= skiptedDuration){
+      const timer = setTimeout(() => {
         setState({
           ...state,
-          hideSkipIntro: true
+          hideSkipIntro: true,
+          playing: true
         })
-      }
+        //console.log('This will run after 1 second!')
+      }, 1000);
+      return () => clearTimeout(timer);
+      
     }
 
     const handleOnReady = () => {
@@ -187,6 +189,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       setState({
         ...state,
         hideSkipIntro: false,
+        playing: true
       })
     }
 
@@ -198,7 +201,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       })
     }
 
-    let proxyurl = "https://cors-anywhere.herokuapp.com/";
+    let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
 
     return (
     <PlayerWrap className={header ? 'headerShown' : ''} header={header} syllabusToggle={onSyllabusToggle} syllabusExpanded={syllabusExpanded} ref={playerContainerRef}>
@@ -213,8 +216,6 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           ref={playerRef}
           volume={volume}
           onReady={handleOnReady}
-          onBuffer={handleHideSkipIntro}
-          playbackRate={playbackRate}
           onProgress={handleProgress}
           onEnded={handleEndVideo}
           onStart={handleOnstart}
@@ -238,8 +239,6 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           VolumeHigh={volumeTop}
           onVolumeChange={handleVolumeChange} 
           onVolumeSeekUp={handleVolumeSeekUp} 
-          playbackRate={playbackRate}
-          onPlaybackRateChange={handleOnPlaybackRateChange}
           onToggleFullScreen={handleToggleFullScreen}
           toggleFullScreen={fullScreenStatus}
           played={played}

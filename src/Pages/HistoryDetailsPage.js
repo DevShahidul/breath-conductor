@@ -20,7 +20,6 @@ class HistoryDetailsPage extends Component{
             exercise_history_detail: {},
             focus: '',
             is_favorite: 0,
-            favoriteIcon: <HeartOutline />,
             exerciseHistoryID: '',
             loading: true,
         }
@@ -31,19 +30,10 @@ class HistoryDetailsPage extends Component{
         let token = localStorage.getItem('token');
         let userId = localStorage.getItem('userId')
 
-        const {id, is_favorite} = this.state;
-
-        // Set favorite icon
-
-        let changedStat = is_favorite === 0 ? 1 : 0 ;
-        let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
-        this.setState({
-            favoriteIcon,
-            is_favorite: changedStat
-        })
+        const {id} = this.state;
 
         if(token){
-            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let fetchUrl = `https://www.breathconductor.com/api_v1/library/exerciseHistoryDetail/${id}`;
 
             var myHeaders = new Headers();
@@ -63,13 +53,13 @@ class HistoryDetailsPage extends Component{
             .then(response => response.text())
             .then(result => {
                 let jsonResult = JSON.parse(result);
-                let data = jsonResult.data.exercise_history_detail
+                let data = jsonResult.data.exercise_history_detail;
                 //console.log(jsonResult.data);
                 this.setExerciseHistoryDetail(data);
                 this.setState({
-                    loading: false
+                    loading: false,
                 })
-                //console.log(data)
+                console.log(jsonResult.data)
             })
             .catch(error => {
                 this.setState({
@@ -110,12 +100,8 @@ class HistoryDetailsPage extends Component{
     // // Remove from history function
     removeFromHistory = (historyid) => {
         let token = localStorage.getItem('token');
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let fetchUrl = `https://www.breathconductor.com/api_v1/library/exerciseHistory/${historyid}?action=1`;
-
-        // this.setState({
-
-        // })
 
         var myHeaders = new Headers();
         myHeaders.append("device-id", "1");
@@ -137,11 +123,50 @@ class HistoryDetailsPage extends Component{
         console.log(`I've remove from history ${historyid}`)
     }
 
+    // Handle Toggle favorite button
+    toggleFavorite = (exerciseID) => {
+        let token = localStorage.getItem('token');
+        let {is_favorite} = this.state;
+
+        let changedStat = is_favorite === 0 ? 1 : 0 ;
+
+        this.setState({
+            is_favorite: changedStat,
+        });
+
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${exerciseID}?action=${is_favorite}`;
+
+        var myHeaders = new Headers();
+        myHeaders.append("device-id", "1");
+        myHeaders.append("timezone", "UTC");
+        myHeaders.append("device-type", "1");
+        myHeaders.append("Authorization", `Bearer ${token}`);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(proxyurl + fetchUrl, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            console.log(result)
+        })
+        .catch(error => {
+            console.log('error', error)
+        });
+
+        //console.log(exerciseID)
+    }
+
+
     render(){
 
         const { title, goal, theme, duration_minutes, narration, exerciseID} = this.state.exercise_history_detail;
-        const {loading, focus, exerciseHistoryID} = this.state;
-        const { toggleFavorite, favoriteIcon } = this.context;
+        const {loading, focus, exerciseHistoryID, is_favorite} = this.state;
+        //const { toggleFavorite, favoriteIcon } = this.context;
     
         return (
             <Fragment>
@@ -159,7 +184,8 @@ class HistoryDetailsPage extends Component{
                         <div className={loading ? `library-content library-inner loading` : `library-content library-inner`}>
                             { loading ? <img className="loader-gif" src={LoadingGif} alt="Loading gif" /> : (
                             <>
-                            <LibraryDetailTop title={title} date={focus} onClick={this.HandleGoback} onAddFavorite={ () => toggleFavorite(exerciseID) } togglerFavorite={true} favoriteIcon={favoriteIcon}/>
+                            <LibraryDetailTop title={title} date={focus} onClick={this.HandleGoback} onAddFavorite={ () => this.toggleFavorite(exerciseID) } togglerFavorite={true} favoriteIcon={is_favorite === 1 ? <HeartFill /> : <HeartOutline />}/>
+                            <h1 style={{color: "#fff"}}>{is_favorite}</h1>
                             <div className="details-items">
                                 <div className="row"> 
                                     {goal ? <LibraryOptionsItem icon={GoalIcon} title="Goal" text={goal} /> : ''}

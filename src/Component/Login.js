@@ -29,7 +29,7 @@ class Login extends Component {
     login = (e) => {
         e.preventDefault();
         if(this.state.username && this.state.password){
-            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let BaseUrl = 'https://www.breathconductor.com/api_v1/auth/login';
 
             var myHeaders = new Headers();

@@ -23,7 +23,7 @@ class ResetPassword extends Component {
     Reset = (e) => {
         e.preventDefault();
         if(this.state.email){
-            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let BaseUrl = "https://www.breathconductor.com/api_v1/auth/resetPassword";
 
             var myHeaders = new Headers();

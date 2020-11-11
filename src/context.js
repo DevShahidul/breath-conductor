@@ -53,8 +53,9 @@ class BreathProvider extends Component {
             loading: false,
 
         }
-        this.handleConfirmation = this.handleConfirmation.bind(this);
-        this.handleHomeStart = this.handleHomeStart.bind(this);
+        this.handleConfirmation = this.handleConfirmation.bind(this); // Handle confirmation 
+        this.handleHomeStart = this.handleHomeStart.bind(this); // Handle home session start
+        this.reSetSession = this.reSetSession.bind(this) // Reset home session
         this.handleFeelOption = this.handleFeelOption.bind(this);
         this.handleEndVideo = this.handleEndVideo.bind(this);
         this.handleReplayFromFeedback = this.handleReplayFromFeedback.bind(this);
@@ -62,7 +63,7 @@ class BreathProvider extends Component {
         this.handleGoBack = this.handleGoBack.bind(this); // Go back previous
         this.clearHistory = this.clearHistory.bind(this); // Clear all history
         this.handleFeedback = this.handleFeedback.bind(this); // Clear all history
-        this.setDefautStep = this.setDefautStep.bind(this); // Clear all history
+        this.setDefaultStep = this.setDefaultStep.bind(this); // Clear all history
         this.handleChange = this.handleChange.bind(this);
 
         this.handleThemePopUpAction = this.handleThemePopUpAction.bind(this)// Handle theme popup option
@@ -70,19 +71,17 @@ class BreathProvider extends Component {
         this.handleNarattionPopUpAction = this.handleNarattionPopUpAction.bind(this)// Handle narattion popup option
         this.handleGoalPopUpAction = this.handleGoalPopUpAction.bind(this)// Handle goal popup option
 
-        this.handleGoalPopUp = this.handleGoalPopUp.bind(this)
-        this.handleThemePopUp = this.handleThemePopUp.bind(this)
-        this.handleTimePopUp = this.handleTimePopUp.bind(this)
-        this.handleNarattionPopUp = this.handleNarattionPopUp.bind(this)
-        this.toggleFavorite = this.toggleFavorite.bind(this)
+        this.handleGoalPopUp = this.handleGoalPopUp.bind(this) // Handle goal popup
+        this.handleThemePopUp = this.handleThemePopUp.bind(this) // Handle theme popup
+        this.handleTimePopUp = this.handleTimePopUp.bind(this) // Handle Time popup
+        this.handleNarattionPopUp = this.handleNarattionPopUp.bind(this) // Handle narattion popup
+        this.toggleFavorite = this.toggleFavorite.bind(this) // Toggle Favorite function
     }
 
     // Handle Toggle favorite button
     toggleFavorite = (exerciseID) => {
         let token = localStorage.getItem('token');
         let {is_favorite} = this.state;
-//        let exerciseID = this.state.exercise_history_detail.exerciseID;
-        //let setFavorite = is_favorite + 1;
         let changedStat = is_favorite === 0 ? 1 : 0 ;
         let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
 
@@ -91,7 +90,7 @@ class BreathProvider extends Component {
             favoriteIcon
         });
 
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${exerciseID}?action=${is_favorite}`;
 
         var myHeaders = new Headers();
@@ -236,10 +235,11 @@ class BreathProvider extends Component {
             is_favorite: changedStat
         })
 
+
         // let token = localStorage.getItem('token');
         // let userId = localStorage.getItem('userID');
 
-        // let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        // let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         // let fetchUrl = `https://www.breathconductor.com/api_v1/general/list?user_id=${userId}`;
 
         // var myHeaders = new Headers();
@@ -264,8 +264,6 @@ class BreathProvider extends Component {
         //     console.log(resultjson)
         // })
         // .catch(error => console.log('error', error));
-                
-
     }
     
 
@@ -341,7 +339,7 @@ class BreathProvider extends Component {
         let userId = localStorage.getItem('userID');
 
         if(token){
-            let proxyurl = "https://cors-anywhere.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let clearHistoryUrl = "https://www.breathconductor.com/api_v1/library/exerciseHistoryClear";
 
             var myHeaders = new Headers();
@@ -396,6 +394,17 @@ class BreathProvider extends Component {
         })
     }
 
+    // Handle reset session options
+    reSetSession = () => {
+        this.setState({
+            exerciseVideo: '',
+            exercise_id: '',
+            intro_duration: '',
+            exerciseTitle: '',
+            is_favorite: 0
+        })
+    }
+
     // handle confirmation for welcome screen
     handleHomeStart = () => {
         this.setState({
@@ -409,10 +418,10 @@ class BreathProvider extends Component {
         const themeId = theme === "Sunrise" ? 1 : 2 && theme === "Earth" ? 2 : 1 && theme === "Moon" ? 3 : 1;
         const narattionId = narattion === "None" ? 1 : 3 && narattion === "Full" ? 3 : 1 ;
 
-        console.log('Goal == ' + golId + ' time = ' + timeId + ' theme = ' + themeId + ' narattion =' + narattionId)
+        //console.log('Goal == ' + golId + ' time = ' + timeId + ' theme = ' + themeId + ' narattion =' + narattionId)
 
         let token = localStorage.getItem('token');
-        let proxyurl = "https://cors-anywhere.herokuapp.com/";
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${golId}&narration_id=${narattionId}&theme_id=${themeId}&duration_minute_id=${timeId}`;
 
         var myHeaders = new Headers();
@@ -437,7 +446,7 @@ class BreathProvider extends Component {
                 let id = resultjson.data.exercise.exerciseID;
                 let intro_duration = resultjson.data.exercise.intro_duration;
                 let title = resultjson.data.exercise.title;
-                let is_favorite = resultjson.data.exercise.is_favorite;
+                let is_favorite = parseInt(resultjson.data.exercise.is_favorite);
                 this.setState({
                     exerciseVideo: resultjson.data.exercise.exercise_video,
                     exercise_id: id,
@@ -495,7 +504,7 @@ class BreathProvider extends Component {
     }
 
     // Home page go back frist stape
-    setDefautStep = () => {
+    setDefaultStep = () => {
         this.setState({
             showWelcome: false,
             goHome: true,
@@ -503,7 +512,14 @@ class BreathProvider extends Component {
             showTutorial: false,
             showReplay: false,
             setFeeling: 3,
-        })
+            // Reset session state
+            // exerciseVideo: '',
+            // exercise_id: '',
+            // intro_duration: '',
+            // exerciseTitle: '',
+            // is_favorite: 0
+        });
+        this.reSetSession()
     }
 
     render() {
@@ -526,7 +542,7 @@ class BreathProvider extends Component {
                 handleGoBack: this.handleGoBack,
                 clearHistory: this.clearHistory,
                 handleFeedback: this.handleFeedback,
-                setDefautStep: this.setDefautStep,
+                setDefaultStep: this.setDefaultStep,
 
                 handleChange: this.handleChange,
                 handleThemePopUpAction: this.handleThemePopUpAction,
@@ -537,7 +553,8 @@ class BreathProvider extends Component {
                 handleThemePopUp: this.handleThemePopUp,
                 handleTimePopUp: this.handleTimePopUp,
                 handleNarattionPopUp: this.handleNarattionPopUp,
-                toggleFavorite: this.toggleFavorite
+                toggleFavorite: this.toggleFavorite,
+                reSetSession: this.reSetSession
             }}>
                 {this.props.children}
             </BreathContext.Provider>
