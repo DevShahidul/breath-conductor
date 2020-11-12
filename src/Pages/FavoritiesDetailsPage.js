@@ -18,6 +18,7 @@ class FavoritiesDetailsPage extends Component {
             id: match.params.id,
             exercise_detail: {},
             loading: true,
+            exerciseID: '',
         }
     }
 
@@ -56,7 +57,6 @@ class FavoritiesDetailsPage extends Component {
             .then(result => {
                 let jsonResult = JSON.parse(result);
                 let data = jsonResult.data.favorite_exercise_detail
-                //console.log(jsonResult.data);
                 this.setExerciseDetail(data);
                 this.setState({
                     loading: false
@@ -79,9 +79,12 @@ class FavoritiesDetailsPage extends Component {
         });
 
         let exercise_detail = {...getMatchItem[0].exercise} // Destructuring exercise data
+        let exerciseID = exercise_detail.exerciseID;
         this.setState({ // Set data in state
             exercise_detail,
+            exerciseID
         })
+        console.log(data);
     }
 
 
@@ -114,6 +117,7 @@ class FavoritiesDetailsPage extends Component {
             console.log('error', error)
         });
 
+        console.log(id);
     }
 
     // Handle duplicate
@@ -126,6 +130,7 @@ class FavoritiesDetailsPage extends Component {
         //const { handleAddFavorite } =  this.context;
 
         const { title, goal, theme, duration_minutes, narration} = this.state.exercise_detail;
+        const {loading, exerciseID, id} = this.state;
         
         return (
             <Fragment>
@@ -140,8 +145,8 @@ class FavoritiesDetailsPage extends Component {
                                     <Link to="/history">History</Link>
                                 </li>
                             </LibraryLinks>
-                            <div className={this.state.loading ? `library-content library-inner loading` : `library-content library-inner`}>
-                                { this.state.loading ? <img className="loader-gif" src={LoadingGif} alt="Loading gif" /> : (
+                            <div className={loading ? `library-content library-inner loading` : `library-content library-inner`}>
+                                { loading ? <img className="loader-gif" src={LoadingGif} alt="Loading gif" /> : (
                                 <>
                                     <LibraryDetailTop title={title} onClick={this.HandleGoback} />
                                     <div className="details-items">
@@ -153,9 +158,9 @@ class FavoritiesDetailsPage extends Component {
                                         </div>
                                     </div>
                                     <div className="details-action">
-                                        <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate(this.state.id)}/>
+                                        <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate(exerciseID)}/>
                                         <IconicButton type="primary" text="Share" icon={RiShareLine}/>
-                                        <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => this.removeFavorite(this.state.id) }/>
+                                        <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => this.removeFavorite(id) }/>
                                     </div>
                                 </>
                                 )}

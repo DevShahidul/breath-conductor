@@ -408,7 +408,11 @@ class BreathProvider extends Component {
             exercise_id: '',
             intro_duration: '',
             exerciseTitle: '',
-            is_favorite: 0
+            is_favorite: 0,
+            goal: "Relax",
+            time: "2 min",
+            theme: "Sunrise",
+            narattion: "None",            
         })
     }
 
@@ -530,12 +534,6 @@ class BreathProvider extends Component {
             showTutorial: false,
             showReplay: false,
             setFeeling: 3,
-            // Reset session state
-            // exerciseVideo: '',
-            // exercise_id: '',
-            // intro_duration: '',
-            // exerciseTitle: '',
-            // is_favorite: 0
         });
         this.reSetSession()
     }

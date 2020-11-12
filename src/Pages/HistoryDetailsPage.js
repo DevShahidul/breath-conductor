@@ -88,7 +88,7 @@ class HistoryDetailsPage extends Component{
             action,
             loading: false
         })
-        console.log(data)
+        //console.log(data)
     }
 
     // Handle bo back
@@ -140,7 +140,7 @@ class HistoryDetailsPage extends Component{
             is_favorite: changedState
         });
         
-        console.log(actionId)
+        //console.log(actionId)
         let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${actionId}?action=${action}`;
 
