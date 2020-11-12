@@ -11,7 +11,7 @@ class FeelControl extends Component {
     }
 
     render() {
-        const {handleFeelOption} = this.context;
+        const {handleFeelOption, previousFeel, beforeFeelOnChange} = this.context;
         return (
             <div className="container-inner feel-control">
                 <div className="contents-wrap">
@@ -26,9 +26,9 @@ class FeelControl extends Component {
                                             type="checkbox" 
                                             name="feeling" 
                                             value={ratingValue} 
-                                            onChange={() => this.setState({feeling: ratingValue})}
+                                            onChange={() => beforeFeelOnChange(ratingValue)}
                                         />
-                                        <div className="box" style={{background: ratingValue <= this.state.feeling ? '#29aae3' : '#fff'}}>
+                                        <div className="box" style={{background: ratingValue <= previousFeel ? '#29aae3' : '#fff'}}>
                                         </div>
                                     </label>
                                 )

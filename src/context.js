@@ -1,5 +1,5 @@
 import React, { Component, createContext } from 'react';
-import {HeartFill, HeartOutline} from './Component/icons';
+//import {HeartFill, HeartOutline} from './Component/icons';
 
 const BreathContext = createContext();
 
@@ -13,7 +13,6 @@ class BreathProvider extends Component {
             sowoFeelOption: false,
             showTutorial: false,
             showReplay: false,
-            setFeeling: 3,
 
             // Exercise data
             generalList: [],
@@ -35,8 +34,8 @@ class BreathProvider extends Component {
             videoFallback: '',
             intro_duration: '',
             exerciseTitle: '',
-            previousFeel: 0,
-            afterFeel: 0,
+            previousFeel: 3,
+            afterFeel: 3,
 
             // History
             isHistory: true,
@@ -44,9 +43,9 @@ class BreathProvider extends Component {
             singleHistory: {},
             
             // Favorite
-            favoriteIcon: <HeartOutline />,
             isFavorite: true,
             is_favorite: 0,
+            action: 1,
             FavoriteContents: [],
             singleFavorite: {},
             deleteMessage: '',
@@ -76,22 +75,39 @@ class BreathProvider extends Component {
         this.handleTimePopUp = this.handleTimePopUp.bind(this) // Handle Time popup
         this.handleNarattionPopUp = this.handleNarattionPopUp.bind(this) // Handle narattion popup
         this.toggleFavorite = this.toggleFavorite.bind(this) // Toggle Favorite function
+        this.beforeFeelOnChange = this.beforeFeelOnChange.bind(this) // Toggle Favorite function
+        this.afterFeelOnChange = this.afterFeelOnChange.bind(this) // Toggle Favorite function
+    }
+
+    // Handle before feel
+    afterFeelOnChange = (ratingValue) => {
+        this.setState({
+            afterFeel: ratingValue
+        })
+    }
+
+    // Handle before feel
+    beforeFeelOnChange = (ratingValue) => {
+        this.setState({
+            previousFeel: ratingValue
+        })
     }
 
     // Handle Toggle favorite button
     toggleFavorite = (exerciseID) => {
         let token = localStorage.getItem('token');
-        let {is_favorite} = this.state;
-        let changedStat = is_favorite === 0 ? 1 : 0 ;
-        let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
+        let {is_favorite, action} = this.state;
+
+        let changedState = is_favorite === 0 ? 1 : 0 ;
+        let changedAction = action === 0 ? 1 : 0 ;
 
         this.setState({
-            is_favorite: changedStat,
-            favoriteIcon
+            action: changedAction,
+            is_favorite: changedState
         });
 
         let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
-        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${exerciseID}?action=${is_favorite}`;
+        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${exerciseID}?action=${action}`;
 
         var myHeaders = new Headers();
         myHeaders.append("device-id", "1");
@@ -167,7 +183,7 @@ class BreathProvider extends Component {
 
     // handle theme option 
     handleThemePopUpAction = (value) => {
-        console.log("I'm clicked theme popup")
+        //console.log("I'm clicked theme popup")
         if(value === "Cancel"){
             this.setState({
                 theme: "Sunrise",
@@ -182,7 +198,7 @@ class BreathProvider extends Component {
     
     // handle theme option 
     handleNarattionPopUpAction = (value) => {
-        console.log("I'm clicked narattion popup")
+        //console.log("I'm clicked narattion popup")
         if(value === "Cancel"){
             this.setState({
                 narattion: "None",
@@ -197,7 +213,7 @@ class BreathProvider extends Component {
     
     // handle time option 
     handleTimePopUpAction = (value) => {
-        console.log("I'm clicked time popup")
+        //console.log("I'm clicked time popup")
         if(value === "Cancel"){
             this.setState({
                 time: "2 min",
@@ -212,7 +228,7 @@ class BreathProvider extends Component {
     
     // handle theme option 
     handleGoalPopUpAction = (value) => {
-        console.log("I'm clicked goal popup")
+        //console.log("I'm clicked goal popup")
         if(value === "Cancel"){
             this.setState({
                 goal: "Relax",
@@ -226,15 +242,6 @@ class BreathProvider extends Component {
     }
 
     componentDidMount(){
-        const {is_favorite} = this.state;
-
-        let changedStat = is_favorite === 0 ? 1 : 0 ;
-        let favoriteIcon = is_favorite === 0 ? <HeartOutline /> : <HeartFill /> ;
-        this.setState({
-            favoriteIcon,
-            is_favorite: changedStat
-        })
-
 
         // let token = localStorage.getItem('token');
         // let userId = localStorage.getItem('userID');
@@ -447,12 +454,14 @@ class BreathProvider extends Component {
                 let intro_duration = resultjson.data.exercise.intro_duration;
                 let title = resultjson.data.exercise.title;
                 let is_favorite = parseInt(resultjson.data.exercise.is_favorite);
+                let changeActionState = is_favorite === 1 ? 0 : 1;
                 this.setState({
                     exerciseVideo: resultjson.data.exercise.exercise_video,
                     exercise_id: id,
                     intro_duration,
                     exerciseTitle: title,
-                    is_favorite
+                    is_favorite,
+                    action: changeActionState
                 })
             }else{
                 this.setState({
@@ -491,6 +500,11 @@ class BreathProvider extends Component {
         this.setState({
             showReplay: false,
             showTutorial: true,
+            exerciseVideo: '',
+            exercise_id: '',
+            intro_duration: '',
+            exerciseTitle: '',
+            is_favorite: 0
         })
     }
 
@@ -499,7 +513,11 @@ class BreathProvider extends Component {
         this.setState({
             showReplay: false,
             showTutorial: false,
-            goHome: true
+            goHome: true,
+            goal: "Relax",
+            time: "2 min",
+            theme: "Sunrise",
+            narattion: "None",
         })
     }
 
@@ -554,7 +572,9 @@ class BreathProvider extends Component {
                 handleTimePopUp: this.handleTimePopUp,
                 handleNarattionPopUp: this.handleNarattionPopUp,
                 toggleFavorite: this.toggleFavorite,
-                reSetSession: this.reSetSession
+                reSetSession: this.reSetSession,
+                beforeFeelOnChange: this.beforeFeelOnChange,
+                afterFeelOnChange: this.afterFeelOnChange
             }}>
                 {this.props.children}
             </BreathContext.Provider>

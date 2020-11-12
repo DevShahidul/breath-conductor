@@ -6,13 +6,13 @@ class HomePage extends Component {
     static contextType = BreathContext;
 
     render() {
-        const {showWelcome, sowoFeelOption, showTutorial, showReplay, setFeeling, handleOnChangFeel} = this.context;
+        const {showWelcome, sowoFeelOption, showTutorial, showReplay} = this.context;
         
         return ( 
             <Fragment>
                 <Navigation/>
                 <div className="home-contents container">
-                    {showWelcome ? <Welcome/> : <Home/> && sowoFeelOption ? <FeelControl feeling={setFeeling} onChangFeel={handleOnChangFeel} /> : <Home/> && showTutorial ? <Tutorial /> : <Home/> && showReplay ? <FeedbackSubmit /> : <Home/> }
+                    {showWelcome ? <Welcome/> : <Home/> && sowoFeelOption ? <FeelControl /> : <Home/> && showTutorial ? <Tutorial /> : <Home/> && showReplay ? <FeedbackSubmit /> : <Home/> }
                 </div>
             </Fragment>
         );

@@ -201,6 +201,18 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       })
     }
 
+    // Handle OnBuffer
+    const handleOnBuffer = () => {
+      const timer = setTimeout(() => {
+        setState({
+          ...state,
+          playing: true
+        })
+        //console.log('This will run after 1 second!')
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+
     let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
 
     return (
@@ -217,6 +229,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           volume={volume}
           onReady={handleOnReady}
           onProgress={handleProgress}
+          onBuffer={handleOnBuffer}
           onEnded={handleEndVideo}
           onStart={handleOnstart}
           config={{

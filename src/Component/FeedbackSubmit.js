@@ -7,17 +7,12 @@ import {HeartFill, HeartOutline} from '../Component/icons';
 
 export default class FeedbackSubmit extends Component {
     static contextType = BreathContext;
-    constructor(props){
-        super(props);
-        this.state = {
-            replay: false
-        }
-    }
-    // Add Favorite function
-    toggleFavorite = (e) => {
-        e.preventDefault();
-        console.log("I'm added on faborite");
-    }
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         replay: false
+    //     }
+    // }
 
     handleShare = (e) => {
         e.preventDefault();
@@ -30,11 +25,11 @@ export default class FeedbackSubmit extends Component {
     }
 
     render() {
-        const { handleReplayFromFeedback, handleFeedback, is_favorite } = this.context;
+        const { handleReplayFromFeedback, handleFeedback, exercise_id , toggleFavorite, is_favorite, afterFeel, afterFeelOnChange} = this.context;
         return (
             <div className="feedbackInner">
                 <div className="actionRow">
-                    <button onClick={this.toggleFavorite}>{is_favorite === 1 ? <HeartFill /> : <HeartOutline />}</button>
+                    <button onClick={() => toggleFavorite(exercise_id)}>{is_favorite === 1 ? <HeartFill /> : <HeartOutline />}</button>
                     <button onClick={this.handleShare}><RiShareLine /></button>
                     <button onClick={this.handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
                 </div>
@@ -52,9 +47,9 @@ export default class FeedbackSubmit extends Component {
                                                     type="checkbox" 
                                                     name="feeling" 
                                                     value={ratingValue} 
-                                                    onChange={() => this.setState({feeling: ratingValue})}
+                                                    onChange={() => afterFeelOnChange(ratingValue)}
                                                 />
-                                                <div className="box" style={{background: ratingValue <= this.state.feeling ? '#29aae3' : '#fff'}}>
+                                                <div className="box" style={{background: ratingValue <= afterFeel ? '#29aae3' : '#fff'}}>
                                                 </div>
                                             </label>
                                         )

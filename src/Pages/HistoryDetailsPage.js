@@ -20,7 +20,9 @@ class HistoryDetailsPage extends Component{
             exercise_history_detail: {},
             focus: '',
             is_favorite: 0,
+            action: 1,
             exerciseHistoryID: '',
+            exerciseID: '',
             loading: true,
         }
     }
@@ -56,10 +58,7 @@ class HistoryDetailsPage extends Component{
                 let data = jsonResult.data.exercise_history_detail;
                 //console.log(jsonResult.data);
                 this.setExerciseHistoryDetail(data);
-                this.setState({
-                    loading: false,
-                })
-                console.log(jsonResult.data)
+                //console.log(jsonResult.data)
             })
             .catch(error => {
                 this.setState({
@@ -77,14 +76,19 @@ class HistoryDetailsPage extends Component{
         const favoriteStatus = data.is_favorite;
         const is_favorite = parseInt(favoriteStatus, 10)
         const exercise_history_detail = {...data.exercise};
+        const exerciseID = data.exercise_id;
+        let action = is_favorite === 0 ? 1 : 0;
         
         this.setState({ // Set data in state
             exercise_history_detail,
             focus,
             is_favorite,
-            exerciseHistoryID
+            exerciseHistoryID,
+            exerciseID,
+            action,
+            loading: false
         })
-        console.log(exercise_history_detail)
+        console.log(data)
     }
 
     // Handle bo back
@@ -124,18 +128,21 @@ class HistoryDetailsPage extends Component{
     }
 
     // Handle Toggle favorite button
-    toggleFavorite = (exerciseID) => {
+    toggleFavorite = (actionId) => {
         let token = localStorage.getItem('token');
-        let {is_favorite} = this.state;
+        let {action, is_favorite} = this.state;
 
-        let changedStat = is_favorite === 0 ? 1 : 0 ;
+        let changedState = is_favorite === 0 ? 1 : 0 ;
+        let changedAction = action === 0 ? 1 : 0 ;
 
         this.setState({
-            is_favorite: changedStat,
+            action: changedAction,
+            is_favorite: changedState
         });
-
+        
+        console.log(actionId)
         let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
-        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${exerciseID}?action=${is_favorite}`;
+        let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${actionId}?action=${action}`;
 
         var myHeaders = new Headers();
         myHeaders.append("device-id", "1");
@@ -158,14 +165,13 @@ class HistoryDetailsPage extends Component{
             console.log('error', error)
         });
 
-        //console.log(exerciseID)
     }
 
 
     render(){
 
-        const { title, goal, theme, duration_minutes, narration, exerciseID} = this.state.exercise_history_detail;
-        const {loading, focus, exerciseHistoryID, is_favorite} = this.state;
+        const { title, goal, theme, duration_minutes, narration} = this.state.exercise_history_detail;
+        const {loading, focus, exerciseHistoryID, is_favorite, exerciseID} = this.state;
         //const { toggleFavorite, favoriteIcon } = this.context;
     
         return (
@@ -185,7 +191,6 @@ class HistoryDetailsPage extends Component{
                             { loading ? <img className="loader-gif" src={LoadingGif} alt="Loading gif" /> : (
                             <>
                             <LibraryDetailTop title={title} date={focus} onClick={this.HandleGoback} onAddFavorite={ () => this.toggleFavorite(exerciseID) } togglerFavorite={true} favoriteIcon={is_favorite === 1 ? <HeartFill /> : <HeartOutline />}/>
-                            <h1 style={{color: "#fff"}}>{is_favorite}</h1>
                             <div className="details-items">
                                 <div className="row"> 
                                     {goal ? <LibraryOptionsItem icon={GoalIcon} title="Goal" text={goal} /> : ''}
