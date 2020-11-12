@@ -6,8 +6,14 @@ import { PopUp, TaskList } from '../Component';
 class Home extends Component {
     static contextType = BreathContext;
 
+    componentDidMount(){
+        const { updateComponentFromHome } = this.context;
+        updateComponentFromHome()
+        //console.log("I'm loaded from home component")
+    }
+
     render() {
-        const {handleHomeStart, handleThemePopUpAction, handleGoalPopUpAction, handleTimePopUpAction, handleNarattionPopUpAction, handleChange, themeOptions, timeOptions, goalOptions, narattionOptions, theme, goal, time, narattion, themePopup,  goalPopup, timePopup, narattionPopup, handleGoalPopUp, handleTimePopUp, handleThemePopUp, handleNarattionPopUp, goalHandleChange } = this.context;
+        const {handleHomeStart, handleThemePopUpAction, handleGoalPopUpAction, handleTimePopUpAction, handlenarrationPopUpAction, handleChange, themeOptions, timeOptions, goalOptions, narrationOptions, theme, goal, time, narration, themePopup,  goalPopup, timePopup, narrationPopup, handleGoalPopUp, handleTimePopUp, handleThemePopUp, handlenarrationPopUp, goalHandleChange } = this.context;
         
         return (
             <div className="container-inner session-container">
@@ -15,7 +21,7 @@ class Home extends Component {
                     <h2 className="session-title ">Session Design</h2>
                     <TaskList title="Goal" contentText={goal} onClick={handleGoalPopUp} />
                     <TaskList title="Time" contentText={time} onClick={handleTimePopUp} />
-                    <TaskList title="Narattion" contentText={narattion} onClick={handleNarattionPopUp} />
+                    <TaskList title="narration" contentText={narration} onClick={handlenarrationPopUp} />
                     <TaskList title="Theme" contentText={theme} onClick={handleThemePopUp} />
                     
                     {/* Beginning Popup components */}
@@ -28,8 +34,8 @@ class Home extends Component {
                     {timePopup ? (
                         <PopUp title="Select theme" selectOptions={timeOptions} optionName={time} name="time" handleChange={handleChange} handlePopUpAction={handleTimePopUpAction} />
                     ) : null}
-                    {narattionPopup ? (
-                        <PopUp title="Select theme" selectOptions={narattionOptions} optionName={narattion} name="narattion" handleChange={handleChange} handlePopUpAction={handleNarattionPopUpAction} />
+                    {narrationPopup ? (
+                        <PopUp title="Select theme" selectOptions={narrationOptions} optionName={narration} name="narration" handleChange={handleChange} handlePopUpAction={handlenarrationPopUpAction} />
                     ) : null}
                     
                     {/* <Link to="/feel"></Link> */}

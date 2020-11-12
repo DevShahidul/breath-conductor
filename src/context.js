@@ -1,4 +1,5 @@
 import React, { Component, createContext } from 'react';
+//import { useHistory } from 'react-router-dom';
 //import {HeartFill, HeartOutline} from './Component/icons';
 
 const BreathContext = createContext();
@@ -18,16 +19,16 @@ class BreathProvider extends Component {
             generalList: [],
             goalOptions: [{id:1, name:"Relax"}],
             timeOptions: [{id:1, name:"-1 min"}, {id: 2, name:"1 min"}, {id: 3, name: "2 min"}, {id:4, name:"5 min"}],
-            narattionOptions: [{id:1, name: "None"}, {id:1, name:"Full"}],
+            narrationOptions: [{id:1, name: "None"}, {id:1, name:"Full"}],
             themeOptions: [{id:1, name: "Sunrise"}, {id: 2, name: "Earth"}, {id: 3, name:"Moon"}],
             goal: "Relax",
             time: "2 min",
             theme: "Sunrise",
-            narattion: "None",
+            narration: "None",
             themePopup: false,
             goalPopup: false,
             timePopup: false,
-            narattionPopup: false,
+            narrationPopup: false,
 
             exerciseVideo: '',
             exercise_id: '',
@@ -67,18 +68,67 @@ class BreathProvider extends Component {
 
         this.handleThemePopUpAction = this.handleThemePopUpAction.bind(this)// Handle theme popup option
         this.handleTimePopUpAction = this.handleTimePopUpAction.bind(this)// Handle time popup option
-        this.handleNarattionPopUpAction = this.handleNarattionPopUpAction.bind(this)// Handle narattion popup option
+        this.handlenarrationPopUpAction = this.handlenarrationPopUpAction.bind(this)// Handle narration popup option
         this.handleGoalPopUpAction = this.handleGoalPopUpAction.bind(this)// Handle goal popup option
 
         this.handleGoalPopUp = this.handleGoalPopUp.bind(this) // Handle goal popup
         this.handleThemePopUp = this.handleThemePopUp.bind(this) // Handle theme popup
         this.handleTimePopUp = this.handleTimePopUp.bind(this) // Handle Time popup
-        this.handleNarattionPopUp = this.handleNarattionPopUp.bind(this) // Handle narattion popup
+        this.handlenarrationPopUp = this.handlenarrationPopUp.bind(this) // Handle narration popup
         this.toggleFavorite = this.toggleFavorite.bind(this) // Toggle Favorite function
         this.beforeFeelOnChange = this.beforeFeelOnChange.bind(this) // Toggle Favorite function
         this.afterFeelOnChange = this.afterFeelOnChange.bind(this) // Toggle Favorite function
+        this.updateComponentFromHome = this.updateComponentFromHome.bind(this) // Update componetn for duplicate function
+
     }
 
+    // componentDidMount(){
+
+    //     let token = localStorage.getItem('token');
+    //     let userId = localStorage.getItem('userID');
+
+    //     let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+    //     let fetchUrl = `https://www.breathconductor.com/api_v1/general/list?user_id=${userId}`;
+
+    //     var myHeaders = new Headers();
+    //     myHeaders.append("device-id", "1");
+    //     myHeaders.append("timezone", "UTC");
+    //     myHeaders.append("device-type", "1");
+    //     myHeaders.append("Authorization", `Bearer ${token}`);
+
+    //     var requestOptions = {
+    //         method: 'GET',
+    //         headers: myHeaders,
+    //         redirect: 'follow'
+    //     };
+
+    //     fetch(proxyurl + fetchUrl, requestOptions)
+    //     .then(response => response.text())
+    //     .then(result => {
+    //         let resultjson = JSON.parse(result);
+    //         this.setState({
+    //             generalList: resultjson.data
+    //         })
+    //         console.log(resultjson)
+    //     })
+    //     .catch(error => console.log('error', error));
+    // }
+
+    updateComponentFromHome = () => {
+        let sessionData = localStorage.getItem('sessionData');
+        if(sessionData){
+            const { goal, time, theme, narration } = JSON.parse(sessionData);
+            this.setState({
+                goal,
+                time,
+                theme,
+                narration,
+            })
+            //console.log("I'm loaded from context");
+        }
+    }
+
+    
     // Handle before feel
     afterFeelOnChange = (ratingValue) => {
         this.setState({
@@ -140,6 +190,10 @@ class BreathProvider extends Component {
 
     // handle confirmation for welcome screen
     handleFeelOption = () => {
+        let sessionData = localStorage.getItem('sessionData')
+        if(sessionData){
+            localStorage.removeItem('sessionData')
+        }
         this.setState({
             sowoFeelOption: false,
             showTutorial: true,
@@ -168,9 +222,9 @@ class BreathProvider extends Component {
     }
 
     // Handle time popup show
-    handleNarattionPopUp = () => {
+    handlenarrationPopUp = () => {
         this.setState({
-            narattionPopup: true
+            narrationPopup: true
         });
     }
 
@@ -197,16 +251,16 @@ class BreathProvider extends Component {
     }
     
     // handle theme option 
-    handleNarattionPopUpAction = (value) => {
-        //console.log("I'm clicked narattion popup")
+    handlenarrationPopUpAction = (value) => {
+        //console.log("I'm clicked narration popup")
         if(value === "Cancel"){
             this.setState({
-                narattion: "None",
-                narattionPopup: false
+                narration: "None",
+                narrationPopup: false
             })
         }else{
             this.setState({
-                narattionPopup: false
+                narrationPopup: false
             })
         }
     }
@@ -239,38 +293,6 @@ class BreathProvider extends Component {
                 goalPopup: false
             })
         }
-    }
-
-    componentDidMount(){
-
-        // let token = localStorage.getItem('token');
-        // let userId = localStorage.getItem('userID');
-
-        // let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
-        // let fetchUrl = `https://www.breathconductor.com/api_v1/general/list?user_id=${userId}`;
-
-        // var myHeaders = new Headers();
-        // myHeaders.append("device-id", "1");
-        // myHeaders.append("timezone", "UTC");
-        // myHeaders.append("device-type", "1");
-        // myHeaders.append("Authorization", `Bearer ${token}`);
-
-        // var requestOptions = {
-        //     method: 'GET',
-        //     headers: myHeaders,
-        //     redirect: 'follow'
-        // };
-
-        // fetch(proxyurl + fetchUrl, requestOptions)
-        // .then(response => response.text())
-        // .then(result => {
-        //     let resultjson = JSON.parse(result);
-        //     this.setState({
-        //         generalList: resultjson.data
-        //     })
-        //     console.log(resultjson)
-        // })
-        // .catch(error => console.log('error', error));
     }
     
 
@@ -412,7 +434,7 @@ class BreathProvider extends Component {
             goal: "Relax",
             time: "2 min",
             theme: "Sunrise",
-            narattion: "None",            
+            narration: "None",            
         })
     }
 
@@ -422,18 +444,18 @@ class BreathProvider extends Component {
             sowoFeelOption: true
         });
 
-        const {goal, time, theme, narattion} = this.state;
+        const {goal, time, theme, narration} = this.state;
 
         const golId = goal === "Relax" ? 1 : 0;
         const timeId = time === "-1 min" ? 9 : 1 && time === "1 min" ? 1 : 1 && time === "2 min" ? 2 : 1 && time === "5 min" ? 8 : 1;
         const themeId = theme === "Sunrise" ? 1 : 2 && theme === "Earth" ? 2 : 1 && theme === "Moon" ? 3 : 1;
-        const narattionId = narattion === "None" ? 1 : 3 && narattion === "Full" ? 3 : 1 ;
+        const narrationId = narration === "None" ? 1 : 3 && narration === "Full" ? 3 : 1 ;
 
-        //console.log('Goal == ' + golId + ' time = ' + timeId + ' theme = ' + themeId + ' narattion =' + narattionId)
+        //console.log('Goal == ' + golId + ' time = ' + timeId + ' theme = ' + themeId + ' narration =' + narrationId)
 
         let token = localStorage.getItem('token');
         let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
-        let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${golId}&narration_id=${narattionId}&theme_id=${themeId}&duration_minute_id=${timeId}`;
+        let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${golId}&narration_id=${narrationId}&theme_id=${themeId}&duration_minute_id=${timeId}`;
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${token}`);
@@ -521,7 +543,7 @@ class BreathProvider extends Component {
             goal: "Relax",
             time: "2 min",
             theme: "Sunrise",
-            narattion: "None",
+            narration: "None",
         })
     }
 
@@ -536,6 +558,7 @@ class BreathProvider extends Component {
             setFeeling: 3,
         });
         this.reSetSession()
+        localStorage.removeItem('sessionData')
     }
 
     render() {
@@ -563,16 +586,17 @@ class BreathProvider extends Component {
                 handleChange: this.handleChange,
                 handleThemePopUpAction: this.handleThemePopUpAction,
                 handleTimePopUpAction: this.handleTimePopUpAction,
-                handleNarattionPopUpAction: this.handleNarattionPopUpAction,
+                handlenarrationPopUpAction: this.handlenarrationPopUpAction,
                 handleGoalPopUpAction: this.handleGoalPopUpAction,
                 handleGoalPopUp: this.handleGoalPopUp,
                 handleThemePopUp: this.handleThemePopUp,
                 handleTimePopUp: this.handleTimePopUp,
-                handleNarattionPopUp: this.handleNarattionPopUp,
+                handlenarrationPopUp: this.handlenarrationPopUp,
                 toggleFavorite: this.toggleFavorite,
                 reSetSession: this.reSetSession,
                 beforeFeelOnChange: this.beforeFeelOnChange,
-                afterFeelOnChange: this.afterFeelOnChange
+                afterFeelOnChange: this.afterFeelOnChange,
+                updateComponentFromHome: this.updateComponentFromHome,
             }}>
                 {this.props.children}
             </BreathContext.Provider>

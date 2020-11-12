@@ -104,6 +104,16 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           hideSkipIntro: true
         })
       }
+
+      const timer = setTimeout(() => {
+        setState({
+          ...state,
+          playing: true
+        })
+        //console.log('This will run after 1 second!')
+      }, 500);
+      return () => clearTimeout(timer);
+
     }
 
     // Handle full screen function 

@@ -16,6 +16,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
     "react-sharingbuttons": "^1.0.0",
+    "react-web-share-button": "^1.0.1",
     "screenfull-react": "0.0.4",
     "styled-components": "^5.2.0"
   },

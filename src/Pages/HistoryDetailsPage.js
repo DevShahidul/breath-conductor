@@ -25,6 +25,7 @@ class HistoryDetailsPage extends Component{
             exerciseID: '',
             loading: true,
         }
+        this.handleDuplicate = this.handleDuplicate.bind(this)
     }
 
     // Component did mount
@@ -91,14 +92,26 @@ class HistoryDetailsPage extends Component{
         //console.log(data)
     }
 
+    handleDuplicate = () => {
+        const { goal, theme, duration_minutes, narration} = this.state.exercise_history_detail;
+        let time = duration_minutes + ' min';
+        let sessionData = {
+            goal,
+            time,
+            theme,
+            narration,
+        }
+        let getSessionData = localStorage.getItem('sessionData');
+        if(!getSessionData){
+            localStorage.setItem('sessionData', JSON.stringify(sessionData));
+        }
+        const location = this.props.history;
+        location.push('/');
+    }
+
     // Handle bo back
     HandleGoback = () => {
         this.props.history.goBack();    
-    }
-
-    // Handle Duplicate button
-    handleDuplicate = (historyid) => {
-        console.log(`Duplicate history ${historyid}`)
     }
 
     // // Remove from history function
@@ -200,7 +213,7 @@ class HistoryDetailsPage extends Component{
                                 </div>
                             </div>
                             <div className="details-action">
-                                <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate(exerciseHistoryID)}/>
+                                <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate()}/>
                                 <IconicButton type="primary" text="Share" icon={RiShareLine}/>
                                 <IconicButton type="danger" text="Remove from History" icon={RiDeleteBinLine} click={ () => this.removeFromHistory(exerciseHistoryID) }/>
                             </div>

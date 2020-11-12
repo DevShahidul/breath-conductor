@@ -120,18 +120,33 @@ class FavoritiesDetailsPage extends Component {
         console.log(id);
     }
 
-    // Handle duplicate
-    handleDuplicate = (id) => {
-        console.log(id)
+    handleDuplicate = () => {
+        const { goal, theme, duration_minutes, narration} = this.state.exercise_detail;
+        let time = duration_minutes + ' min';
+        let sessionData = {
+            goal,
+            time,
+            theme,
+            narration,
+        }
+        let getSessionData = localStorage.getItem('sessionData');
+        if(!getSessionData){
+            localStorage.setItem('sessionData', JSON.stringify(sessionData));
+        }
+        const location = this.props.history;
+        location.push('/');
     }
+
 
     render(){
                 
-        //const { handleAddFavorite } =  this.context;
+        //const { handleDuplicate } =  this.context;
 
         const { title, goal, theme, duration_minutes, narration} = this.state.exercise_detail;
-        const {loading, exerciseID, id} = this.state;
-        
+        const {loading, id} = this.state;
+
+        //const location = this.props.history;
+
         return (
             <Fragment>
                 <Navigation/>
@@ -158,7 +173,7 @@ class FavoritiesDetailsPage extends Component {
                                         </div>
                                     </div>
                                     <div className="details-action">
-                                        <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate(exerciseID)}/>
+                                        <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate()}/>
                                         <IconicButton type="primary" text="Share" icon={RiShareLine}/>
                                         <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => this.removeFavorite(id) }/>
                                     </div>
