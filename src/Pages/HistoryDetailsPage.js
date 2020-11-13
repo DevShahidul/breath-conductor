@@ -10,6 +10,10 @@ import { Navigation, IconicButton, LibraryOptionsItem, LibraryLinks, LibraryDeta
 import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
 import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
 import {HeartFill, HeartOutline} from '../Component/icons';
+import { Facebook, Twitter} from 'react-sharingbuttons';
+import 'react-sharingbuttons/dist/main.css'
+import { confirmAlert } from 'react-confirm-alert'; // Import confirm alert
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 class HistoryDetailsPage extends Component{
     static contextType = BreathContext;
@@ -23,7 +27,7 @@ class HistoryDetailsPage extends Component{
             action: 1,
             exerciseHistoryID: '',
             exerciseID: '',
-            loading: true,
+            loading: true
         }
         this.handleDuplicate = this.handleDuplicate.bind(this)
     }
@@ -59,7 +63,7 @@ class HistoryDetailsPage extends Component{
                 let data = jsonResult.data.exercise_history_detail;
                 //console.log(jsonResult.data);
                 this.setExerciseHistoryDetail(data);
-                //console.log(jsonResult.data)
+                console.log(jsonResult.data)
             })
             .catch(error => {
                 this.setState({
@@ -134,10 +138,29 @@ class HistoryDetailsPage extends Component{
 
         fetch(proxyurl + fetchUrl, requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result)
+            alert('Removed successful') 
+        })
         .catch(error => console.log('error', error));
 
         console.log(`I've remove from history ${historyid}`)
+    }
+
+    // On remove
+    onRemoveHistory = (id) => {
+        confirmAlert({
+            title: 'Alert',
+            message: 'Are you sure you want to remove it?',
+            buttons: [
+                { label: 'Yes', onClick: () => {
+                    this.removeFromHistory(id)
+                }},
+                { label: 'No', onClick: () => {
+                    console.log("Your request canceled")
+                }}
+            ]
+        });
     }
 
     // Handle Toggle favorite button
@@ -184,8 +207,14 @@ class HistoryDetailsPage extends Component{
     render(){
 
         const { title, goal, theme, duration_minutes, narration} = this.state.exercise_history_detail;
-        const {loading, focus, exerciseHistoryID, is_favorite, exerciseID} = this.state;
-        //const { toggleFavorite, favoriteIcon } = this.context;
+        const {loading, focus, exerciseHistoryID, is_favorite, exerciseID, exercise_history_detail} = this.state;
+        //const trailer_video = this.state.exercise_history_detail.exercise.trailer_video.trailer
+        const { modalShown, handleShareModal } = this.context;
+        const trailerInfo = {...exercise_history_detail.trailer_video}
+        const shareText = "Let's try! ";
+        const videoUrl = trailerInfo.trailer
+    
+        console.log(videoUrl)
     
         return (
             <Fragment>
@@ -214,9 +243,17 @@ class HistoryDetailsPage extends Component{
                             </div>
                             <div className="details-action">
                                 <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate()}/>
-                                <IconicButton type="primary" text="Share" icon={RiShareLine}/>
-                                <IconicButton type="danger" text="Remove from History" icon={RiDeleteBinLine} click={ () => this.removeFromHistory(exerciseHistoryID) }/>
+                                <IconicButton type="primary" text="Share" icon={RiShareLine}  click={() => handleShareModal()}/>
+                                <IconicButton type="danger" text="Remove from History" icon={RiDeleteBinLine} click={ () => this.onRemoveHistory(exerciseHistoryID) }/>
                             </div>
+                            {modalShown ? 
+                                <div className="share-modal" onClick={() => handleShareModal()}>
+                                    <div className="share-modal-inner">
+                                        <Facebook url={videoUrl} />
+                                        <Twitter url={videoUrl} shareText={shareText} />
+                                    </div>
+                                </div> : 
+                            null }
                             </>
                             )}
                         </div>

@@ -1438,3 +1438,105 @@ a:visited,
 .display-none{
     display: none;
 }
+
+.social-section{
+    position: relative;
+}
+
+.modalContainer,
+.share-modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-inner,
+.share-modal-inner{
+    background-color: #000;
+    height: 250px;
+    width: 670px;
+    max-width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-transition: all .3s ease-in;
+    -moz-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+}
+
+.react-confirm-alert-overlay{
+    background-color: rgba(0, 0, 0, 0.65) !important;
+}
+
+.react-confirm-alert-body{
+    background: #010710 !important;
+    color: #ffffff !important;
+    text-align: center !important;
+}
+
+.react-confirm-alert-body>h1{
+    margin-bottom: 10px !important;
+}
+
+.react-confirm-alert-button-group{
+    justify-content: center !important;
+}
+
+.react-confirm-alert-button-group>button{
+    background: #29aae3 !important;
+    color: #ffffff !important;
+}
+
+
+.modal-content{
+    position: relative;
+    width: 450px;
+    margin: 0 auto;
+    color: #ffffff;
+    /* display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap; */
+}
+
+.modal-content h4{
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.modal-inner form label{
+    width: 100%;
+}
+
+.modal-inner form button{
+    margin-left: 55%;
+}
+
+.modal-content button {
+    width: 45%;
+}
+
+.modal-content > button{
+    position: absolute;
+    margin-top: -45px;
+}
+
+.share-modal-inner a:visited,
+.share-modal-inner a{
+    color: #ffffff;
+}
+
+.share-buttons{
+    max-width: 915px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform: translateX(-50%);
+}

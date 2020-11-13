@@ -35,8 +35,11 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
         seeking: false,
         timeDisplayFormate: 'normal',
         volumeTop: false,
-        hideSkipIntro: true,
         loading: true
+    })
+
+    const [skiptIntro, setsSkiptIntro] = useState({
+        hideSkipIntro: true,
     })
 
     const { playing, muted, volume, fullScreenStatus, played, seeking, timeDisplayFormate, volumeTop, loading} = state;
@@ -88,7 +91,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
 
     // Handle progress time
     const handleProgress = (changeState) => {
-      //console.log(changeState)
+      // console.log(changeState)
       if(!seeking){
         setState({
           ...state,
@@ -99,20 +102,12 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       let getCurrentPlayingTime = playerRef.current.getCurrentTime();
       
       if(getCurrentPlayingTime >= skiptedDuration){
-        setState({
+        setsSkiptIntro({
           ...state,
           hideSkipIntro: true
         })
       }
 
-      const timer = setTimeout(() => {
-        setState({
-          ...state,
-          playing: true
-        })
-        //console.log('This will run after 1 second!')
-      }, 500);
-      return () => clearTimeout(timer);
 
     }
 
@@ -180,8 +175,12 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       const timer = setTimeout(() => {
         setState({
           ...state,
-          hideSkipIntro: true,
           playing: true
+        })
+
+        setsSkiptIntro({
+          ...skiptIntro,
+          hideSkipIntro: true,
         })
         //console.log('This will run after 1 second!')
       }, 1000);
@@ -198,7 +197,6 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
     const handleOnstart = () => {
       setState({
         ...state,
-        hideSkipIntro: false,
         playing: true
       })
     }

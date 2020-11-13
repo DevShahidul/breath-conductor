@@ -9,6 +9,11 @@ import ThemeIcon from "../Assets/Image/Theme.svg";
 import { Navigation, IconicButton, LibraryOptionsItem, LibraryLinks, LibraryDetailTop } from '../Component';
 import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
 import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
+import { Facebook, Twitter} from 'react-sharingbuttons';
+import 'react-sharingbuttons/dist/main.css';
+
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 class FavoritiesDetailsPage extends Component {
     static contextType = BreathContext;
@@ -20,6 +25,8 @@ class FavoritiesDetailsPage extends Component {
             loading: true,
             exerciseID: '',
         }
+
+        this.onRemoveFavorites = this.onRemoveFavorites.bind(this)
     }
 
     HandleGoback = () => {
@@ -111,39 +118,60 @@ class FavoritiesDetailsPage extends Component {
         fetch(proxyurl + fetchUrl, requestOptions)
         .then(response => response.text())
         .then(result => {
-            console.log(result)
+            console.log(result) 
+            alert('Removed successful') 
         })
         .catch(error => {
             console.log('error', error)
         });
-
         console.log(id);
     }
 
+    // On remove
+    onRemoveFavorites = (id) => {
+        confirmAlert({
+            title: 'Alert',
+            message: 'Are you sure you want to remove it?',
+            buttons: [
+                { label: 'Yes', onClick: () => {
+                    this.removeFavorite(id)
+                }},
+                { label: 'No', onClick: () => {
+                    console.log("Your request canceled")
+                }}
+            ]
+        });
+    }
+
+    // Duplicate
     handleDuplicate = () => {
         const { goal, theme, duration_minutes, narration} = this.state.exercise_detail;
+        const location = this.props.history;
         let time = duration_minutes + ' min';
+        let getSessionData = localStorage.getItem('sessionData');
+
         let sessionData = {
             goal,
             time,
             theme,
             narration,
         }
-        let getSessionData = localStorage.getItem('sessionData');
         if(!getSessionData){
             localStorage.setItem('sessionData', JSON.stringify(sessionData));
         }
-        const location = this.props.history;
         location.push('/');
     }
 
 
     render(){
-                
-        //const { handleDuplicate } =  this.context;
+        const { modalShown, handleShareModal } =  this.context;
 
         const { title, goal, theme, duration_minutes, narration} = this.state.exercise_detail;
-        const {loading, id} = this.state;
+        const {loading, id, exercise_detail} = this.state;
+        const trailerInfo = {...exercise_detail.trailer_video}
+        const shareText = "Let's try! ";
+        const videoUrl = trailerInfo.trailer
+    
 
         //const location = this.props.history;
 
@@ -174,9 +202,17 @@ class FavoritiesDetailsPage extends Component {
                                     </div>
                                     <div className="details-action">
                                         <IconicButton type="primary" text="New Duplicate" imgIcon={DuplicateIcon} click={ () => this.handleDuplicate()}/>
-                                        <IconicButton type="primary" text="Share" icon={RiShareLine}/>
-                                        <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => this.removeFavorite(id) }/>
+                                        <IconicButton type="primary" text="Share" icon={RiShareLine} click={() => handleShareModal()}/>
+                                        <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => this.onRemoveFavorites(id) }/>
                                     </div>
+                                    {modalShown ? 
+                                        <div className="share-modal" onClick={() => handleShareModal()}>
+                                            <div className="share-modal-inner">
+                                                <Facebook url={videoUrl} />
+                                                <Twitter url={videoUrl} shareText={shareText} />
+                                            </div>
+                                        </div> : 
+                                    null }
                                 </>
                                 )}
                             </div>

@@ -51,6 +51,7 @@ class BreathProvider extends Component {
             singleFavorite: {},
             deleteMessage: '',
             loading: false,
+            modalShown: false
 
         }
         this.handleConfirmation = this.handleConfirmation.bind(this); // Handle confirmation 
@@ -61,7 +62,6 @@ class BreathProvider extends Component {
         this.handleReplayFromFeedback = this.handleReplayFromFeedback.bind(this);
         this.backToPrev = this.backToPrev.bind(this);
         this.handleGoBack = this.handleGoBack.bind(this); // Go back previous
-        this.clearHistory = this.clearHistory.bind(this); // Clear all history
         this.handleFeedback = this.handleFeedback.bind(this); // Clear all history
         this.setDefaultStep = this.setDefaultStep.bind(this); // Clear all history
         this.handleChange = this.handleChange.bind(this);
@@ -79,6 +79,7 @@ class BreathProvider extends Component {
         this.beforeFeelOnChange = this.beforeFeelOnChange.bind(this) // Toggle Favorite function
         this.afterFeelOnChange = this.afterFeelOnChange.bind(this) // Toggle Favorite function
         this.updateComponentFromHome = this.updateComponentFromHome.bind(this) // Update componetn for duplicate function
+        this.handleShareModal = this.handleShareModal.bind(this) // Update componetn for duplicate function
 
     }
 
@@ -114,6 +115,15 @@ class BreathProvider extends Component {
     //     .catch(error => console.log('error', error));
     // }
 
+    
+    // Handle share option popup
+    handleShareModal = () => {
+        this.setState({
+            modalShown: !this.state.modalShown,
+        })
+    }
+
+    // Duplicate function
     updateComponentFromHome = () => {
         let sessionData = localStorage.getItem('sessionData');
         if(sessionData){
@@ -361,57 +371,6 @@ class BreathProvider extends Component {
         console.log(`Share from library ${id}`);
     }
 
-    // Clear history
-    clearHistory = () => {
-
-        let token = localStorage.getItem('token');
-        let userId = localStorage.getItem('userID');
-
-        if(token){
-            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
-            let clearHistoryUrl = "https://www.breathconductor.com/api_v1/library/exerciseHistoryClear";
-
-            var myHeaders = new Headers();
-            myHeaders.append("userID", userId);
-            myHeaders.append("device-id", "1");
-            myHeaders.append("timezone", "UTC");
-            myHeaders.append("device-type", "1");
-            myHeaders.append("Authorization", `Bearer ${token}`);
-
-            var requestOptions = {
-                method: 'DELETE',
-                headers: myHeaders,
-                redirect: 'follow'
-            };
-
-            fetch(proxyurl + clearHistoryUrl, requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                const datajson = JSON.parse(result);
-                const status = datajson.data.data_found;
-                //const historyData = datajson.data.exercise_history_list;
-                this.setState({
-                    deleteMessage: "Request processing"
-                })
-
-                alert(datajson.message);
-                if(status){
-
-                    this.setHistoryContents([]);
-                    this.setState({
-                        HistoryContents: [],
-                        deleteMessage: datajson.message
-                    });
-                }else{
-                    this.setState({
-                        isHistory: false
-                    })
-                }
-            })
-            .catch(error => console.log('error', error));
-        }
-    }
-
     // handle confirmation for welcome screen
     handleConfirmation = (status) => {
         let setRemainder = status === "Yes" ? true : false;
@@ -579,7 +538,6 @@ class BreathProvider extends Component {
                 // History function method
                 getHistoryData: this.getHistoryData,
                 handleGoBack: this.handleGoBack,
-                clearHistory: this.clearHistory,
                 handleFeedback: this.handleFeedback,
                 setDefaultStep: this.setDefaultStep,
 
@@ -597,6 +555,7 @@ class BreathProvider extends Component {
                 beforeFeelOnChange: this.beforeFeelOnChange,
                 afterFeelOnChange: this.afterFeelOnChange,
                 updateComponentFromHome: this.updateComponentFromHome,
+                handleShareModal: this.handleShareModal,
             }}>
                 {this.props.children}
             </BreathContext.Provider>
