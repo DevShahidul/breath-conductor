@@ -112,7 +112,7 @@ class Login extends Component {
         if(this.state.redirect){
             return (<Redirect to="/" />)
         }
-        if(sessionStorage.getItem('token')){
+        if(localStorage.getItem('token')){
             return (<Redirect to="/" />)
         }
 

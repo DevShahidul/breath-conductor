@@ -114,7 +114,7 @@ class Signup extends Component {
         if(this.state.redirect){
             return (<Redirect to="/login" />)
         }
-        if(localStorage.getItem('user_details')){
+        if(localStorage.getItem('token')){
             return (<Redirect to="/login" />)
         }
 
