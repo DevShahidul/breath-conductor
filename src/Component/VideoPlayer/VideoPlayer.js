@@ -38,8 +38,8 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
         loading: true
     })
 
-    const [skiptIntro, setsSkiptIntro] = useState({
-        hideSkipIntro: true,
+    const [skiptIntro, setSkiptIntro] = useState({
+        hideSkipIntro: false,
     })
 
     const { playing, muted, volume, fullScreenStatus, played, seeking, timeDisplayFormate, volumeTop, loading} = state;
@@ -102,8 +102,8 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       let getCurrentPlayingTime = playerRef.current.getCurrentTime();
       
       if(getCurrentPlayingTime >= skiptedDuration){
-        setsSkiptIntro({
-          ...state,
+        setSkiptIntro({
+          ...skiptIntro,
           hideSkipIntro: true
         })
       }
@@ -178,7 +178,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           playing: true
         })
 
-        setsSkiptIntro({
+        setSkiptIntro({
           ...skiptIntro,
           hideSkipIntro: true,
         })
@@ -190,7 +190,8 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
 
     const handleOnReady = () => {
       setState({
-        loading: false
+        loading: false,
+        playing: true
       })
     }
 
@@ -199,6 +200,14 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
         ...state,
         playing: true
       })
+
+      const timer = setTimeout(() => {
+        setSkiptIntro({
+          hideSkipIntro: false
+        })
+        //console.log('This will run after 1 second!')
+      }, 1000);
+      return () => clearTimeout(timer);
     }
 
     // Handle play pause function
@@ -270,7 +279,7 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
           totalDuration={totalDuration}
           onChangeTimeDisplayFormate={handleChangeTimeDisplayFormate}
           onSkipIntro={handleOnSkip}
-          hideIntroSkipBtn={state.hideSkipIntro}
+          hideIntroSkipBtn={skiptIntro.hideSkipIntro}
         /> : null }
     </PlayerWrap>
     )

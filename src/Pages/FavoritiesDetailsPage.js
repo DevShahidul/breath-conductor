@@ -68,6 +68,7 @@ class FavoritiesDetailsPage extends Component {
                 this.setState({
                     loading: false
                 })
+                console.log(data)
             })
             .catch(error => {
                 this.setState({

@@ -485,11 +485,6 @@ class BreathProvider extends Component {
         this.setState({
             showReplay: false,
             showTutorial: true,
-            exerciseVideo: '',
-            exercise_id: '',
-            intro_duration: '',
-            exerciseTitle: '',
-            is_favorite: 0
         })
     }
 
