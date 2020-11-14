@@ -94,9 +94,6 @@ const Navigation = () => {
                     })}
                 </ul>
             </nav>
-            <button className="notification-btn">
-                <img className="notification" src={Notification} alt="Notification icon"/>
-            </button>
             <div className="user" onClick={handleClick}>
                 {/* <Link to="setting"></Link> */}
                 <img className="userPlaceholder" src={UserPlaceholder} alt="User icon"/>
