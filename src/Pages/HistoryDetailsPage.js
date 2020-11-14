@@ -234,7 +234,7 @@ class HistoryDetailsPage extends Component{
                                 <Link to="/library">Favorites</Link>
                             </li>
                             <li className="nav-item active">
-                                <Link to="/library/history">History</Link>
+                                <Link to="/history">History</Link>
                             </li>
                         </LibraryLinks>
                         <div className={loading ? `library-content library-inner loading` : `library-content library-inner`}>
