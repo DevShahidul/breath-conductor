@@ -780,6 +780,10 @@ li.nav-item.active a {
     min-height: 90px;
 }
 
+.favorites-list:last-child {
+    margin-bottom: 30px;
+}
+
 .favorites-list a {
     width: 100%;
     display: flex;
@@ -1470,6 +1474,7 @@ a:visited,
     -webkit-transition: all .3s ease-in;
     -moz-transition: all .3s ease-in;
     transition: all .3s ease-in;
+    border: 2px solid #355d6f;
 }
 
 .react-confirm-alert-overlay{
@@ -1480,6 +1485,7 @@ a:visited,
     background: #010710 !important;
     color: #ffffff !important;
     text-align: center !important;
+    border: 2px solid #355d6f;
 }
 
 .react-confirm-alert-body>h1{

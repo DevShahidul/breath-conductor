@@ -3,15 +3,11 @@ import {Link, NavLink, useLocation, Redirect} from "react-router-dom";
 import { BreathContext} from '../context';
 import Logo from "../Assets/Image/logo2.svg";
 import { HomeIcon, LibraryIcon, SettingIcon }  from "./icons";
-import Notification from "../Assets/Image/Notification.svg";
 import UserPlaceholder from "../Assets/Image/user_placeholder.png";
 import DownArrow from "../Assets/Image/down-arrow.svg";
 
 const Navigation = () => {
     const {singleHistory, singleFavorite, setDefaultStep} = useContext(BreathContext);
-
-    // const geSingleHistoryData = localStorage.getItem('singleHistoryData') ? localStorage.getItem('singleHistoryData') : 1;
-    // const geSingleFavoriteData = localStorage.getItem('singleFavoriteData') ? localStorage.getItem('singleFavoriteData') : 1;
 
     const historyId = singleHistory.id;
     const FavoriteId = singleFavorite.id;
