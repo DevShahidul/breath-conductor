@@ -7,7 +7,7 @@ import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
 
 class HistoryPage extends Component {
     static contextType = BreathContext;
-    _isMounted = false;
+    //_isMounted = false;
 
     constructor(props){
         super(props);
@@ -72,9 +72,9 @@ class HistoryPage extends Component {
         }
     }
 
-    componentWillMount(){
-        this._isMounted = false;
-    }
+    // componentWillMount(){
+    //     this._isMounted = false;
+    // }
 
 
     // Get History Data
