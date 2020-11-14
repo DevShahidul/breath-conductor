@@ -118,12 +118,13 @@ class HistoryPage extends Component {
     
 
     render() {
+        const {closeProfileDropdown} = this.context;
         const { isHistory, HistoryContents, loading} = this.state;
         return (
             <Fragment>
                 <Navigation/>
                 {/* History page elements */}
-                <div className="container">
+                <div className="container" onClick={closeProfileDropdown}>
                     <div className="library-inner">
                         <LibraryLinks>
                             <li className="nav-item">

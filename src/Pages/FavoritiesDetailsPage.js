@@ -173,7 +173,7 @@ class FavoritiesDetailsPage extends Component {
 
 
     render(){
-        const { modalShown, handleShareModal } =  this.context;
+        const { modalShown, handleShareModal, closeProfileDropdown } =  this.context;
 
         const { title, goal, theme, duration_minutes, narration} = this.state.exercise_detail;
         const {loading, id, exercise_detail} = this.state;
@@ -187,7 +187,7 @@ class FavoritiesDetailsPage extends Component {
         return (
             <Fragment>
                 <Navigation/>
-                    <div className="container library-single">
+                    <div className="container library-single" onClick={closeProfileDropdown}>
                         <div className="library-inner">
                             <LibraryLinks>
                                 <li className="nav-item active">

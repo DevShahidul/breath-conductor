@@ -7,12 +7,10 @@ import UserPlaceholder from "../Assets/Image/user_placeholder.png";
 import DownArrow from "../Assets/Image/down-arrow.svg";
 
 const Navigation = () => {
-    const {singleHistory, singleFavorite, setDefaultStep} = useContext(BreathContext);
+    const {singleHistory, singleFavorite, setDefaultStep, handleProfileDropdown, expanded} = useContext(BreathContext);
 
     const historyId = singleHistory.id;
     const FavoriteId = singleFavorite.id;
-
-    const [expanded, setExpanded] = useState(false);
     
     const [state, setState] = useState({
         navItems: {
@@ -53,9 +51,9 @@ const Navigation = () => {
 
     let userName = localStorage.getItem('username');
 
-    const handleClick = () => {
-        setExpanded(!expanded)
-    }
+    // const handleClick = () => {
+    //     setExpanded(!expanded)
+    // }
 
     const { pathname } = useLocation();
         
@@ -90,7 +88,7 @@ const Navigation = () => {
                     })}
                 </ul>
             </nav>
-            <div className="user" onClick={handleClick}>
+            <div className="user" onClick={handleProfileDropdown}>
                 {/* <Link to="setting"></Link> */}
                 <img className="userPlaceholder" src={UserPlaceholder} alt="User icon"/>
                 <p>{userName}</p>

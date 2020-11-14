@@ -217,7 +217,7 @@ class HistoryDetailsPage extends Component{
         const { title, goal, theme, duration_minutes, narration} = this.state.exercise_history_detail;
         const {loading, focus, exerciseHistoryID, is_favorite, exerciseID, exercise_history_detail} = this.state;
         //const trailer_video = this.state.exercise_history_detail.exercise.trailer_video.trailer
-        const { modalShown, handleShareModal } = this.context;
+        const { modalShown, handleShareModal, closeProfileDropdown } = this.context;
         const trailerInfo = {...exercise_history_detail.trailer_video}
         const shareText = "Let's try! ";
         const videoUrl = trailerInfo.trailer
@@ -227,7 +227,7 @@ class HistoryDetailsPage extends Component{
         return (
             <Fragment>
                 <Navigation/>
-                <div className="container library-single">
+                <div className="container library-single" onClick={closeProfileDropdown}>
                     <div className="library-inner">
                         <LibraryLinks>
                             <li className="nav-item">

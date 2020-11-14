@@ -236,7 +236,7 @@ class Setting extends Component {
         if(this.state.redirect){
             return (<Redirect to="/" />)
         }
-        const { handleShareModal, modalShown } = this.context;
+        const { handleShareModal, modalShown, closeProfileDropdown } = this.context;
         const {userName, passWord, email, appUrl, confirmPassword, acountDelete, message, error, warning} = this.state;
         const shareText = "Let's try! ";
 
@@ -244,7 +244,7 @@ class Setting extends Component {
         
         return (
             <Fragment>
-                <div className="container">
+                <div className="container" onClick={closeProfileDropdown}>
                     <div className="setting-inner large">
                         <h2 className="section-title">Settings</h2>
                         <div className="setting-container">

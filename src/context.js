@@ -14,6 +14,7 @@ class BreathProvider extends Component {
             sowoFeelOption: false,
             showTutorial: false,
             showReplay: false,
+            expanded: false,
 
             // Exercise data
             generalList: [],
@@ -83,6 +84,8 @@ class BreathProvider extends Component {
         this.updateComponentFromHome = this.updateComponentFromHome.bind(this) // Update componetn for duplicate function
         this.handleShareModal = this.handleShareModal.bind(this) // Update componetn for duplicate function
         this.hideActionButtons = this.hideActionButtons.bind(this) // Update componetn for duplicate function
+        this.handleProfileDropdown = this.handleProfileDropdown.bind(this) // Update componetn for duplicate function
+        this.closeProfileDropdown = this.closeProfileDropdown.bind(this) // Update componetn for duplicate function
 
     }
 
@@ -118,6 +121,21 @@ class BreathProvider extends Component {
     //     .catch(error => console.log('error', error));
     // }
 
+    // Profile dropdown function
+    handleProfileDropdown = () => {
+        this.setState({
+            expanded: !this.state.expanded
+        })
+        console.log("I'm clicked")
+    }
+
+    closeProfileDropdown = () => {
+        if(this.state.expanded){
+            this.setState({
+                expanded: false
+            })
+        }
+    }
     
     // Handle share option popup
     handleShareModal = () => {
@@ -558,6 +576,8 @@ class BreathProvider extends Component {
                 updateComponentFromHome: this.updateComponentFromHome,
                 handleShareModal: this.handleShareModal,
                 hideActionButtons: this.hideActionButtons,
+                handleProfileDropdown: this.handleProfileDropdown,
+                closeProfileDropdown: this.closeProfileDropdown,
             }}>
                 {this.props.children}
             </BreathContext.Provider>

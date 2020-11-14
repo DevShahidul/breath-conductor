@@ -6,12 +6,12 @@ class HomePage extends Component {
     static contextType = BreathContext;
 
     render() {
-        const {showWelcome, sowoFeelOption, showTutorial, showReplay} = this.context;
+        const {showWelcome, sowoFeelOption, showTutorial, showReplay, closeProfileDropdown} = this.context;
         
         return ( 
             <Fragment>
                 <Navigation/>
-                <div className="home-contents container">
+                <div className="home-contents container" onClick={closeProfileDropdown}>
                     {showWelcome ? <Welcome/> : <Home/> && sowoFeelOption ? <FeelControl /> : <Home/> && showTutorial ? <Tutorial /> : <Home/> && showReplay ? <FeedbackSubmit /> : <Home/> }
                 </div>
             </Fragment>

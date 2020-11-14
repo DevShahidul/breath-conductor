@@ -98,12 +98,13 @@ class LibraryPage extends Component {
     }
 
     render() {
+        const {closeProfileDropdown} = this.context;
         const { isFavorite, FavoriteContents, loading} = this.state;
         return (
             <Fragment>
                 <Navigation/>
                 {/* Library page elements */}
-                <div className="container">
+                <div className="container" onClick={closeProfileDropdown}>
                     <div className="library-inner">
                         <LibraryLinks>
                             <li className="nav-item active">
