@@ -37,6 +37,7 @@ class BreathProvider extends Component {
             exerciseTitle: '',
             previousFeel: 3,
             afterFeel: 3,
+            hideActionButton: false,
 
             // History
             isHistory: true,
@@ -51,7 +52,8 @@ class BreathProvider extends Component {
             singleFavorite: {},
             deleteMessage: '',
             loading: false,
-            modalShown: false
+            modalShown: false,
+
 
         }
         this.handleConfirmation = this.handleConfirmation.bind(this); // Handle confirmation 
@@ -80,6 +82,7 @@ class BreathProvider extends Component {
         this.afterFeelOnChange = this.afterFeelOnChange.bind(this) // Toggle Favorite function
         this.updateComponentFromHome = this.updateComponentFromHome.bind(this) // Update componetn for duplicate function
         this.handleShareModal = this.handleShareModal.bind(this) // Update componetn for duplicate function
+        this.hideActionButtons = this.hideActionButtons.bind(this) // Update componetn for duplicate function
 
     }
 
@@ -466,6 +469,12 @@ class BreathProvider extends Component {
         })
     }
 
+    hideActionButtons = () => {
+        this.setState({
+            hideActionButton: true
+        })
+    }
+
 
     // Handle function after video playing end 
     handleEndVideo = () => {
@@ -548,6 +557,7 @@ class BreathProvider extends Component {
                 afterFeelOnChange: this.afterFeelOnChange,
                 updateComponentFromHome: this.updateComponentFromHome,
                 handleShareModal: this.handleShareModal,
+                hideActionButtons: this.hideActionButtons,
             }}>
                 {this.props.children}
             </BreathContext.Provider>

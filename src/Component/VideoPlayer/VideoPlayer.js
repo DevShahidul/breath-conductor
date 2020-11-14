@@ -24,7 +24,7 @@ const formate = (seconds) => {
 }
 
 export const VideoPlayer = (props) => {
-    const { handleEndVideo, intro_duration } = useContext(BreathContext);
+    const { handleEndVideo, intro_duration, hideActionButtons } = useContext(BreathContext);
 
     const [state, setState] = useState({
         playing: false,
@@ -205,6 +205,7 @@ export const VideoPlayer = (props) => {
         setSkiptIntro({
           hideSkipIntro: false
         })
+        hideActionButtons();
         //console.log('This will run after 1 second!')
       }, 1000);
       return () => clearTimeout(timer);

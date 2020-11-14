@@ -24,6 +24,7 @@ export const ControlWrapMiddle = styled.div`
     align-items: center;
     justify-content: center;
     color: white;
+    cursor: pointer;
     &.played{
         &>button{
             transition: all .3s ease-in;

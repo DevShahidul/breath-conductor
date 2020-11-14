@@ -3,7 +3,7 @@ import { makeStyles, withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid'
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
-import { PlayArrow, Pause, SkipNext, SkipPrevious, VolumeOff, VolumeDown, VolumeUp, Fullscreen, FullscreenExit } from '@material-ui/icons';
+import { PlayArrow, Pause, VolumeOff, VolumeDown, VolumeUp, Fullscreen, FullscreenExit } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { ControlsWrapper, ControlWrapMiddle, ControlWrapBottom, SkipIntro } from './PlayerContorls.element';
@@ -140,16 +140,16 @@ export const PlayerControls = ({
 
     return (
         <ControlsWrapper>
-            <ControlWrapMiddle className={playing ? 'middle-control played' : 'middle-control paused'}>
-                <IconButton onClick={onRewind} className={`${classes.controlIcons} ${classes.skipPreviousIcon}`} aria-label="reqind">
+            <ControlWrapMiddle onClick={onPlayPause} className={playing ? 'middle-control played' : 'middle-control paused'}>
+                {/* <IconButton onClick={onRewind} className={`${classes.controlIcons} ${classes.skipPreviousIcon}`} aria-label="reqind">
                     <SkipPrevious fontSize="inherit"/>
-                </IconButton>
-                <IconButton onClick={onPlayPause} className={classes.controlIconsPlay} aria-label="reqind">
+                </IconButton> */}
+                <IconButton className={classes.controlIconsPlay} aria-label="reqind">
                     {playing ? <Pause fontSize="inherit" /> : <PlayArrow fontSize="inherit"/>}
                 </IconButton>
-                <IconButton onClick={onForward} className={classes.controlIcons} aria-label="reqind">
+                {/* <IconButton onClick={onForward} className={classes.controlIcons} aria-label="reqind">
                     <SkipNext fontSize="inherit"/>
-                </IconButton>
+                </IconButton> */}
             </ControlWrapMiddle>
             <ControlWrapBottom>
                 <Grid container direction="row" justify="space-between" alignItems="center">

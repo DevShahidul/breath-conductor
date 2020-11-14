@@ -20,7 +20,7 @@ class Tutorial extends Component {
     static contextType = BreathContext;
     
     render() {
-        const { backToPrev, toggleFavorite, modalShown, exerciseVideo, handleShareModal, handleEdit, is_favorite, exercise_id } = this.context;
+        const { backToPrev, toggleFavorite, modalShown, exerciseVideo, handleShareModal, handleEdit, is_favorite, exercise_id, hideActionButton } = this.context;
         let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         const shareText = "Let's try! ";
         return (
@@ -32,11 +32,11 @@ class Tutorial extends Component {
                     <div className="section-title">
                         <h2>Tutorial</h2>
                     </div>
-                    <div className="actionRow">
+                    {!hideActionButton ?<div className="actionRow">
                         <button onClick={() => toggleFavorite(exercise_id)}>{is_favorite === 1 ? <HeartFill /> : <HeartOutline />}</button>
                         <button onClick={() => handleShareModal()}><RiShareLine /></button>
                         <button onClick={handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
-                    </div>
+                    </div> : null}
                 </div>
                 <VideoPlayer url={proxyurl+exerciseVideo} />
                 {modalShown ? 
