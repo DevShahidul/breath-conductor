@@ -23,8 +23,8 @@ const formate = (seconds) => {
   return `${mm}:${ss}`
 }
 
-export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
-    const { handleEndVideo, exerciseVideo, intro_duration } = useContext(BreathContext);
+export const VideoPlayer = (props) => {
+    const { handleEndVideo, intro_duration } = useContext(BreathContext);
 
     const [state, setState] = useState({
         playing: false,
@@ -230,14 +230,13 @@ export const VideoPlayer = ({onSyllabusToggle, syllabusExpanded, header}) => {
       return () => clearTimeout(timer);
     }
 
-    let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
 
     return (
-    <PlayerWrap className={header ? 'headerShown' : ''} header={header} syllabusToggle={onSyllabusToggle} syllabusExpanded={syllabusExpanded} ref={playerContainerRef}>
+    <PlayerWrap ref={playerContainerRef}>
         {loading ? <PlayerLoader src={LoadingGif} alt="Loader image" /> : null }
         <ReactPlayer
           className='react-player'
-          url={proxyurl+exerciseVideo}
+          url={props.url}
           width='100%'
           height='100%'
           muted={muted}

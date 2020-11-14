@@ -5,11 +5,24 @@ import editeIcon from "../Assets/Image/edit.svg";
 import { RiShareLine } from "react-icons/ri";
 import { VideoPlayer } from './VideoPlayer/VideoPlayer';
 import {HeartFill, HeartOutline} from '../Component/icons';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
 class Tutorial extends Component {
     static contextType = BreathContext;
+    
     render() {
-        const { backToPrev, toggleFavorite, handleShare, handleEdit, is_favorite, exercise_id } = this.context;
+        const { backToPrev, toggleFavorite, modalShown, exerciseVideo, handleShareModal, handleEdit, is_favorite, exercise_id } = this.context;
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+        const shareText = "Let's try! ";
         return (
             <div className="tutorial-wrap">
                 <div className="tutorial-top">
@@ -21,11 +34,39 @@ class Tutorial extends Component {
                     </div>
                     <div className="actionRow">
                         <button onClick={() => toggleFavorite(exercise_id)}>{is_favorite === 1 ? <HeartFill /> : <HeartOutline />}</button>
-                        <button onClick={handleShare}><RiShareLine /></button>
+                        <button onClick={() => handleShareModal()}><RiShareLine /></button>
                         <button onClick={handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
                     </div>
                 </div>
-                <VideoPlayer />
+                <VideoPlayer url={proxyurl+exerciseVideo} />
+                {modalShown ? 
+                    <div className="share-modal">
+                        <div className="share-modal-inner">
+                            <button className="modal-close" onClick={() => handleShareModal()}></button>
+                            <div>
+                                <h3>Please share your result!</h3>
+                                <div className="share-buttons-row">
+                                    <FacebookShareButton url={exerciseVideo}>
+                                        <FacebookIcon />
+                                        <span>Facebook</span>
+                                    </FacebookShareButton>
+                                    <TwitterShareButton url={exerciseVideo} title={shareText}>
+                                        <TwitterIcon />
+                                        <span>Twitter</span>
+                                    </TwitterShareButton>
+                                    <LinkedinShareButton url={exerciseVideo} title={shareText}>
+                                        <LinkedinIcon />
+                                        <span>Linkedin</span>
+                                    </LinkedinShareButton>
+                                    <WhatsappShareButton url={exerciseVideo} title={shareText}>
+                                        <WhatsappIcon />
+                                        <span>Whatsapp</span>
+                                    </WhatsappShareButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div> : 
+                null }
             </div>
         );
     }

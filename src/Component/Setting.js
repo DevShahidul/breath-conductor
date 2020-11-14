@@ -1,15 +1,26 @@
 import React, {Component, Fragment} from 'react';
 import {Link, Redirect} from "react-router-dom";
 import ShareIcon from "../Assets/Image/share.svg";
-import FacebookIcon from "../Assets/Image/facebookIcon.svg";
+import facebookIcon from "../Assets/Image/facebookIcon.svg";
 import InstagramIcon from "../Assets/Image/instagram.svg";
 import YoutubeIcon from "../Assets/Image/youtube.svg";
 import TiktokIcon from "../Assets/Image/tik-tok.svg";
 import Button from './Button';
 import { FormField } from '../Component';
 import { BreathContext } from '../context';
-import { Facebook, Twitter} from 'react-sharingbuttons';
-import 'react-sharingbuttons/dist/main.css';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
+
+// import { Facebook, Twitter} from 'react-sharingbuttons';
+// import 'react-sharingbuttons/dist/main.css';
 import { confirmAlert } from 'react-confirm-alert'; // Import confirm alert
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
@@ -254,10 +265,30 @@ class Setting extends Component {
                                         <div className="social-section">
                                             <h2 className="title">Community</h2>
                                             {modalShown ? 
-                                                <div className="share-modal" onClick={() => handleShareModal()}>
+                                                <div className="share-modal">
                                                     <div className="share-modal-inner">
-                                                        <Facebook url={appUrl} />
-                                                        <Twitter url={appUrl} shareText={shareText} />
+                                                        <button onClick={() => handleShareModal()} className="modal-close"></button>
+                                                        <div>
+                                                            <h3>Please share your result!</h3>
+                                                            <div className="share-buttons-row">
+                                                                <FacebookShareButton url={appUrl}>
+                                                                    <FacebookIcon />
+                                                                    <span>Facebook</span>
+                                                                </FacebookShareButton>
+                                                                <TwitterShareButton url={appUrl} title={shareText}>
+                                                                    <TwitterIcon />
+                                                                    <span>Twitter</span>
+                                                                </TwitterShareButton>
+                                                                <LinkedinShareButton url={appUrl} title={shareText}>
+                                                                    <LinkedinIcon />
+                                                                    <span>Linkedin</span>
+                                                                </LinkedinShareButton>
+                                                                <WhatsappShareButton url={appUrl} title={shareText}>
+                                                                    <WhatsappIcon />
+                                                                    <span>Whatsapp</span>
+                                                                </WhatsappShareButton>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div> : 
                                             null }
@@ -266,20 +297,20 @@ class Setting extends Component {
                                                 <p>Share</p>
                                             </div>
                                             <div className="social">
-                                                <img src={FacebookIcon} alt="Facebook icon"/>
-                                                <Link to="//https://www.facebook.com/breathc" rel="noreferrer" target="_blank"> <p>Facebook</p></Link>
+                                                <img src={facebookIcon} alt="Facebook icon"/>
+                                                <Link to="//www.facebook.com/breathc" rel="noreferrer" target="_blank"> <p>Facebook</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={InstagramIcon} alt="Instagram icon"/>
-                                                <Link to="//https://www.instagram.com/breath_conductor/" rel="noreferrer" target="_blank"><p>Instagram</p></Link>
+                                                <Link to="//www.instagram.com/breath_conductor/" rel="noreferrer" target="_blank"><p>Instagram</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={YoutubeIcon} alt="Youtube icon"/>
-                                                <Link to="//https://www.youtube.com/channel/UC6___6bu16g5OILS04WzYdw" rel="noreferrer" target="_blank"><p>Youtube</p></Link>
+                                                <Link to="//www.youtube.com/channel/UC6___6bu16g5OILS04WzYdw" rel="noreferrer" target="_blank"><p>Youtube</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={TiktokIcon} alt="Tiktok icon"/>
-                                                <Link to="//https://www.tiktok.com/@breathconductor" rel="noreferrer" target="_blank"><p>TikTok</p></Link>
+                                                <Link to="//www.tiktok.com/@breathconductor" rel="noreferrer" target="_blank"><p>TikTok</p></Link>
                                             </div>
                                         </div>
                                         <div className="mydata">

@@ -9,8 +9,16 @@ import ThemeIcon from "../Assets/Image/Theme.svg";
 import { Navigation, IconicButton, LibraryOptionsItem, LibraryLinks, LibraryDetailTop } from '../Component';
 import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
 import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
-import { Facebook, Twitter} from 'react-sharingbuttons';
-import 'react-sharingbuttons/dist/main.css';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
@@ -207,10 +215,30 @@ class FavoritiesDetailsPage extends Component {
                                         <IconicButton type="danger" text="Remove from Favorites" icon={RiDeleteBinLine} click={ () => this.onRemoveFavorites(id) }/>
                                     </div>
                                     {modalShown ? 
-                                        <div className="share-modal" onClick={() => handleShareModal()}>
+                                        <div className="share-modal">
                                             <div className="share-modal-inner">
-                                                <Facebook url={videoUrl} />
-                                                <Twitter url={videoUrl} shareText={shareText} />
+                                                <button className="modal-close" onClick={() => handleShareModal()}></button>
+                                                <div>
+                                                    <h3>Please share your result!</h3>
+                                                    <div className="share-buttons-row">
+                                                        <FacebookShareButton url={videoUrl}>
+                                                            <FacebookIcon />
+                                                            <span>Facebook</span>
+                                                        </FacebookShareButton>
+                                                        <TwitterShareButton url={videoUrl} title={shareText}>
+                                                            <TwitterIcon />
+                                                            <span>Twitter</span>
+                                                        </TwitterShareButton>
+                                                        <LinkedinShareButton url={videoUrl} title={shareText}>
+                                                            <LinkedinIcon />
+                                                            <span>Linkedin</span>
+                                                        </LinkedinShareButton>
+                                                        <WhatsappShareButton url={videoUrl} title={shareText}>
+                                                            <WhatsappIcon />
+                                                            <span>Whatsapp</span>
+                                                        </WhatsappShareButton>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div> : 
                                     null }

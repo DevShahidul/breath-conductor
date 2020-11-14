@@ -193,10 +193,6 @@ class BreathProvider extends Component {
         console.log(exerciseID)
     }
 
-    // Handle share button
-    handleShare = () => {
-
-    }
 
     // handle confirmation for welcome screen
     handleFeelOption = () => {
@@ -423,6 +419,7 @@ class BreathProvider extends Component {
         myHeaders.append("device-type", "1");
 
         var requestOptions = {
+            //credentials: 'include',
             method: 'GET',
             headers: myHeaders,
             redirect: 'follow'
