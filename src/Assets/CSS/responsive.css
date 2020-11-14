@@ -77,7 +77,7 @@
     }
 
     .user{
-        
+        margin-left: auto;
     }
 
     .user p{
@@ -390,6 +390,23 @@
         margin-right: 15px;
     }
 
+    .modal-inner,
+    .share-modal-inner{
+        max-width: calc(100% - 40px);
+        height: 200px;
+        width: 390px;
+    }
+
+    .share-buttons-row button{
+        margin: 0 10px;
+    }
+
+    .tutorial-top .section-title,
+    .share-buttons-row button span{
+        display: none
+    }
+    
+
 
 }
 
@@ -409,6 +426,7 @@
         justify-content: space-between;
         padding: 15px 50px;
     }
+    
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1024px){

@@ -94,7 +94,7 @@ const Navigation = () => {
                 {/* <Link to="setting"></Link> */}
                 <img className="userPlaceholder" src={UserPlaceholder} alt="User icon"/>
                 <p>{userName}</p>
-                <img className="downArrow" src={DownArrow} alt="Down arrow"/>
+                <img className={expanded ? "downArrow expanded" : "downArrow" } src={DownArrow} alt="Down arrow"/>
             </div>
             <ul className={expanded ? 'userDropdown expanded' : 'userDropdown'} >
                 <li><Link to="setting">Setting profile</Link></li>
