@@ -4,6 +4,16 @@ import { RiShareLine } from "react-icons/ri";
 import { MdReplay } from "react-icons/md";
 import { BreathContext } from '../context';
 import {HeartFill, HeartOutline} from '../Component/icons';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
 export default class FeedbackSubmit extends Component {
     static contextType = BreathContext;
@@ -25,12 +35,13 @@ export default class FeedbackSubmit extends Component {
     }
 
     render() {
-        const { handleReplayFromFeedback, handleFeedback, exercise_id , toggleFavorite, is_favorite, afterFeel, afterFeelOnChange} = this.context;
+        const { handleReplayFromFeedback, handleFeedback, exercise_id , toggleFavorite, is_favorite, afterFeel, afterFeelOnChange, modalShown, handleShareModal, exerciseVideo} = this.context;
+        const shareText = "Let's try! ";
         return (
             <div className="feedbackInner">
                 <div className="actionRow">
                     <button onClick={() => toggleFavorite(exercise_id)}>{is_favorite === 1 ? <HeartFill /> : <HeartOutline />}</button>
-                    <button onClick={this.handleShare}><RiShareLine /></button>
+                    <button onClick={() => handleShareModal()}><RiShareLine /></button>
                     <button onClick={this.handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
                 </div>
                 <div className="controlWrap">
@@ -65,6 +76,34 @@ export default class FeedbackSubmit extends Component {
                     </div>
                     <button onClick={handleReplayFromFeedback} className="replay"><MdReplay /> Replay</button>
                 </div>
+                {modalShown ? 
+                    <div className="share-modal">
+                        <div className="share-modal-inner">
+                            <button className="modal-close" onClick={() => handleShareModal()}></button>
+                            <div>
+                                <h3>Please share your result!</h3>
+                                <div className="share-buttons-row">
+                                    <FacebookShareButton url={exerciseVideo}>
+                                        <FacebookIcon />
+                                        <span>Facebook</span>
+                                    </FacebookShareButton>
+                                    <TwitterShareButton url={exerciseVideo} title={shareText}>
+                                        <TwitterIcon />
+                                        <span>Twitter</span>
+                                    </TwitterShareButton>
+                                    <LinkedinShareButton url={exerciseVideo} title={shareText}>
+                                        <LinkedinIcon />
+                                        <span>Linkedin</span>
+                                    </LinkedinShareButton>
+                                    <WhatsappShareButton url={exerciseVideo} title={shareText}>
+                                        <WhatsappIcon />
+                                        <span>Whatsapp</span>
+                                    </WhatsappShareButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div> : 
+                null }
             </div>
         )
     }

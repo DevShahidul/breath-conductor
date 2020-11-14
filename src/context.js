@@ -14,7 +14,7 @@ class BreathProvider extends Component {
             sowoFeelOption: false,
             showTutorial: false,
             showReplay: false,
-            expanded: false,
+            expanded: false, // Profile Dropdown
 
             // Exercise data
             generalList: [],
@@ -126,11 +126,11 @@ class BreathProvider extends Component {
         this.setState({
             expanded: !this.state.expanded
         })
-        console.log("I'm clicked")
     }
 
     closeProfileDropdown = () => {
-        if(this.state.expanded){
+        const {expanded} = this.state;
+        if(expanded === true){
             this.setState({
                 expanded: false
             })
