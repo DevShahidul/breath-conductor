@@ -76,7 +76,7 @@ class FavoritiesDetailsPage extends Component {
                 this.setState({
                     loading: false
                 })
-                console.log(data)
+                //console.log(data)
             })
             .catch(error => {
                 this.setState({
@@ -100,7 +100,12 @@ class FavoritiesDetailsPage extends Component {
             exercise_detail,
             exerciseID
         })
-        console.log(data);
+
+        // if(exerciseID){
+        //     localStorage.setItem('exerciseID', exerciseID)
+        // }
+
+        //console.log(exerciseID);
     }
 
 

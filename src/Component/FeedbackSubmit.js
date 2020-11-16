@@ -29,20 +29,20 @@ export default class FeedbackSubmit extends Component {
         console.log("I'm added on share");
     }
 
-    handleEdit = (e) => {
-        e.preventDefault();
-        console.log("I'm added on edit");
-    }
+    // handleEdit = (e) => {
+    //     e.preventDefault();
+    //     console.log("I'm added on edit");
+    // }
 
     render() {
-        const { handleReplayFromFeedback, handleFeedback, exercise_id , toggleFavorite, is_favorite, afterFeel, afterFeelOnChange, modalShown, handleShareModal, exerciseVideo} = this.context;
+        const { handleReplayFromFeedback, handleFeedback, exercise_id , toggleFavorite, is_favorite, afterFeel, afterFeelOnChange, modalShown, handleShareModal, exerciseVideo, handleFeedbackMessage } = this.context;
         const shareText = "Let's try! ";
         return (
             <div className="feedbackInner">
                 <div className="actionRow">
                     <button onClick={() => toggleFavorite(exercise_id)}>{is_favorite === 1 ? <HeartFill /> : <HeartOutline />}</button>
                     <button onClick={() => handleShareModal()}><RiShareLine /></button>
-                    <button onClick={this.handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
+                    <button onClick={handleFeedbackMessage}><img src={editeIcon} alt="Edit icon" /></button>
                 </div>
                 <div className="controlWrap">
                     <div className="container-inner feel-control">

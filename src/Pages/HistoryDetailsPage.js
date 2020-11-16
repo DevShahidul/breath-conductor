@@ -101,7 +101,10 @@ class HistoryDetailsPage extends Component{
             action,
             loading: false
         })
-        //console.log(data)
+        //console.log(exerciseHistoryID)
+        // if(exerciseHistoryID){
+        //     localStorage.setItem('exerciseHistoryID', exerciseHistoryID)
+        // }
     }
 
     handleDuplicate = () => {

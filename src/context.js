@@ -14,6 +14,7 @@ class BreathProvider extends Component {
             sowoFeelOption: false,
             showTutorial: false,
             showReplay: false,
+            feedback: false,
             expanded: false, // Profile Dropdown
 
             // Exercise data
@@ -55,6 +56,11 @@ class BreathProvider extends Component {
             loading: false,
             modalShown: false,
 
+            feedbackMessage: '',
+            errorMessage: '',
+            error: false,
+            warning: false,
+            processing: false
 
         }
         this.handleConfirmation = this.handleConfirmation.bind(this); // Handle confirmation 
@@ -82,10 +88,14 @@ class BreathProvider extends Component {
         this.beforeFeelOnChange = this.beforeFeelOnChange.bind(this) // Toggle Favorite function
         this.afterFeelOnChange = this.afterFeelOnChange.bind(this) // Toggle Favorite function
         this.updateComponentFromHome = this.updateComponentFromHome.bind(this) // Update componetn for duplicate function
-        this.handleShareModal = this.handleShareModal.bind(this) // Update componetn for duplicate function
-        this.hideActionButtons = this.hideActionButtons.bind(this) // Update componetn for duplicate function
-        this.handleProfileDropdown = this.handleProfileDropdown.bind(this) // Update componetn for duplicate function
-        this.closeProfileDropdown = this.closeProfileDropdown.bind(this) // Update componetn for duplicate function
+        this.handleShareModal = this.handleShareModal.bind(this) // Handle share model
+        this.hideActionButtons = this.hideActionButtons.bind(this) // Hide action buttons
+        this.handleProfileDropdown = this.handleProfileDropdown.bind(this) // Handle profile dropdown
+        this.closeProfileDropdown = this.closeProfileDropdown.bind(this) // Close provide dropdown
+        this.handleFeedbackMessage = this.handleFeedbackMessage.bind(this) // Open feedback message
+        this.closeFeedbackMessage = this.closeFeedbackMessage.bind(this) // Close feedback message
+        this.submitFeedbackMessage = this.submitFeedbackMessage.bind(this) // Close feedback message
+        this.handleMessageOnChange = this.handleMessageOnChange.bind(this) // Close feedback message
 
     }
 
@@ -512,6 +522,81 @@ class BreathProvider extends Component {
         })
     }
 
+    // Handle feedback message from video 
+    handleFeedbackMessage = () => {
+        this.setState({
+            showTutorial: false,
+            showReplay: false,
+            feedback: true,
+        })
+    }
+
+    // Close feedback message 
+    closeFeedbackMessage = () => {
+        this.setState({
+            showTutorial: false,
+            feedback: false,
+            showReplay: true,
+        })
+    }
+
+    handleMessageOnChange = (e) => {
+        let value = e.target.value;
+        this.setState({
+            feedbackMessage: value,
+        });
+        console.log(value)
+    }
+
+    submitFeedbackMessage = (e) => {
+        e.preventDefault();
+        const {feedbackMessage, exercise_id} = this.state;
+        let token = localStorage.getItem('token');
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+        let fetchUrl = "https://www.breathconductor.com/api_v1/exercise/feedback"
+
+        var myHeaders = new Headers();
+        myHeaders.append("device-id", "1");
+        myHeaders.append("timezone", "UTC");
+        myHeaders.append("device-type", "1");
+        myHeaders.append("Authorization", `Bearer ${token}`);
+
+        var formdata = new FormData();
+        formdata.append("exercise_id", exercise_id);
+        formdata.append("description", feedbackMessage);
+
+        var requestOptions = {
+        method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+        if(feedbackMessage !== ""){  
+            this.setState({
+                errorMessage: "processing your request please wait",
+                processing: true
+            }) 
+            fetch(proxyurl + fetchUrl, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                let errorStatus = result.status === "error" ? true : false;
+                this.closeFeedbackMessage();
+                this.setState({
+                    errorMessage: result.message,
+                    error: errorStatus,
+                    processing: false
+                });
+                console.log(result)
+            })
+            .catch(error => console.log('error', error));
+        }else{
+            this.setState({
+                errorMessage: 'Please write some feedback!'
+            })
+        }
+            
+    }
+
     //handleFeedback 
     handleFeedback = () => {
         this.setState({
@@ -533,10 +618,11 @@ class BreathProvider extends Component {
             sowoFeelOption: false,
             showTutorial: false,
             showReplay: false,
+            feedback: false,
             setFeeling: 3,
         });
-        this.reSetSession()
-        localStorage.removeItem('sessionData')
+        this.reSetSession();
+        localStorage.removeItem('sessionData');
     }
 
     render() {
@@ -578,6 +664,10 @@ class BreathProvider extends Component {
                 hideActionButtons: this.hideActionButtons,
                 handleProfileDropdown: this.handleProfileDropdown,
                 closeProfileDropdown: this.closeProfileDropdown,
+                handleFeedbackMessage: this.handleFeedbackMessage,
+                closeFeedbackMessage: this.closeFeedbackMessage,
+                handleMessageOnChange: this.handleMessageOnChange,
+                submitFeedbackMessage: this.submitFeedbackMessage,
             }}>
                 {this.props.children}
             </BreathContext.Provider>
