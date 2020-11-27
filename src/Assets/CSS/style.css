@@ -390,9 +390,17 @@ input:focus {
     flex-basis: 30%;
 }
 
+.col-3 button{
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+}
+
 .col-3 img {
     width: 100%;
-    cursor: pointer;
+    display: block;
 }
 
 .signup-text {

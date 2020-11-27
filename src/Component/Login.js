@@ -8,6 +8,7 @@ import Apple from '../Assets/Image/apple.JPG';
 import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 import FormField from './FormField';
 import {BreathContext} from '../context';
+import SocialButton from './SocialButton';
 
 class Login extends Component {
     static contextType = BreathContext;
@@ -107,6 +108,14 @@ class Login extends Component {
         //console.log("coming here")
     }
 
+    handleSocialLogin = (user) => {
+        console.log(user)
+    }
+    
+    handleSocialLoginFailure = (err) => {
+        console.error(err)
+    }
+
 
     render() {
         if(this.state.redirect){
@@ -138,14 +147,24 @@ class Login extends Component {
                         <div className="text-divider">or</div>
                         <div className="social-login">
                             <div className="col-3">
-                                <div className="social-img">
+                                <SocialButton
+                                provider='facebook'
+                                appId='1049863315426881'
+                                onLoginSuccess={this.handleSocialLogin}
+                                onLoginFailure={this.handleSocialLoginFailure}
+                                >
                                     <img src={Facebook} alt="Facebook icon"/>
-                                </div>
+                                </SocialButton>
                             </div>
                             <div className="col-3">
-                                <div className="social-img">
+                                <SocialButton
+                                provider='google'
+                                clientId='734812129749-p2f4dn8g8fd3hdvp4fvoee5n6k640r4t.apps.googleusercontent.com'
+                                onLoginSuccess={this.handleSocialLogin}
+                                onLoginFailure={this.handleSocialLoginFailure}
+                                >
                                     <img src={Google} alt="Google icon"/>
-                                </div>
+                                </SocialButton>                                
                             </div>
                             <div className="col-3">
                                 <div className="social-img">

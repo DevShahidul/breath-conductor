@@ -29,13 +29,13 @@ class Home extends Component {
                         <PopUp title="Select theme" selectOptions={themeOptions} optionName={theme} name="theme" handleChange={handleChange} handlePopUpAction={handleThemePopUpAction} />
                     ) : null}
                     {goalPopup ? (
-                        <PopUp title="Select theme" selectOptions={goalOptions} optionName={goal} name="goal" handleChange={() => goalHandleChange()} handlePopUpAction={handleGoalPopUpAction} />
+                        <PopUp title="Select Goal" selectOptions={goalOptions} optionName={goal} name="goal" handleChange={() => goalHandleChange()} handlePopUpAction={handleGoalPopUpAction} />
                     ) : null}
                     {timePopup ? (
-                        <PopUp title="Select theme" selectOptions={timeOptions} optionName={time} name="time" handleChange={handleChange} handlePopUpAction={handleTimePopUpAction} />
+                        <PopUp title="Select Time" selectOptions={timeOptions} optionName={time} name="time" handleChange={handleChange} handlePopUpAction={handleTimePopUpAction} />
                     ) : null}
                     {narrationPopup ? (
-                        <PopUp title="Select theme" selectOptions={narrationOptions} optionName={narration} name="narration" handleChange={handleChange} handlePopUpAction={handlenarrationPopUpAction} />
+                        <PopUp title="Select narration" selectOptions={narrationOptions} optionName={narration} name="narration" handleChange={handleChange} handlePopUpAction={handlenarrationPopUpAction} />
                     ) : null}
                     
                     {/* <Link to="/feel"></Link> */}
