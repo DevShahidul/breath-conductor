@@ -131,7 +131,7 @@ class LibraryPage extends Component {
                                                 </Link>
                                             </div>
                                         )
-                                    }) : <p className="emptyMessage">Favorite not added yet</p>
+                                    }) : <p className="emptyMessage">No favorites added yet</p>
                                 }
                             </div>
                         }

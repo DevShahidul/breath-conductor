@@ -2,9 +2,12 @@ import React from 'react'
 import Radio from './Radio';
 
 const PopUp = (props) => {
-    const {title, selectOptions, optionName, name, handleChange, handlePopUpAction} = props;
+    const {title, selectOptions, optionName, name, handleChange} = props;
+    const stopAction = (e) => {
+        e.stopPropagation();
+    }
     return (
-        <div className="pop-up">
+        <div className="pop-up" onClick={stopAction}>
             <h4>{title}</h4>
             <ul>
                 {selectOptions.map((option, index) => (
@@ -13,10 +16,6 @@ const PopUp = (props) => {
                     </li>
                 ))}
             </ul>
-            <div className="button-row">
-                <button onClick={() => handlePopUpAction('Cancel')}>Cancel</button>
-                <button onClick={() => handlePopUpAction('Done')}>Done</button>
-            </div>
         </div>
     )
 }

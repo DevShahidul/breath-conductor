@@ -13,10 +13,10 @@ class Home extends Component {
     }
 
     render() {
-        const {handleHomeStart, handleThemePopUpAction, handleGoalPopUpAction, handleTimePopUpAction, handlenarrationPopUpAction, handleChange, themeOptions, timeOptions, goalOptions, narrationOptions, theme, goal, time, narration, themePopup,  goalPopup, timePopup, narrationPopup, handleGoalPopUp, handleTimePopUp, handleThemePopUp, handlenarrationPopUp, goalHandleChange } = this.context;
+        const {handleHomeStart, handlePopUpAction, handleChange, themeOptions, timeOptions, goalOptions, narrationOptions, theme, goal, time, narration, themePopup,  goalPopup, timePopup, narrationPopup, handleGoalPopUp, handleTimePopUp, handleThemePopUp, handlenarrationPopUp } = this.context;
         
         return (
-            <div className="container-inner session-container">
+            <div className="container-inner session-container" onClick={handlePopUpAction}>
                 <div className="contents-wrap">
                     <h2 className="session-title ">Session Design</h2>
                     <TaskList title="Goal" contentText={goal} onClick={handleGoalPopUp} />
@@ -26,16 +26,16 @@ class Home extends Component {
                     
                     {/* Beginning Popup components */}
                     {themePopup ? (
-                        <PopUp title="Select theme" selectOptions={themeOptions} optionName={theme} name="theme" handleChange={handleChange} handlePopUpAction={handleThemePopUpAction} />
+                        <PopUp title="Select theme" selectOptions={themeOptions} optionName={theme} name="theme" handleChange={handleChange} />
                     ) : null}
                     {goalPopup ? (
-                        <PopUp title="Select Goal" selectOptions={goalOptions} optionName={goal} name="goal" handleChange={() => goalHandleChange()} handlePopUpAction={handleGoalPopUpAction} />
+                        <PopUp title="Select Goal" selectOptions={goalOptions} optionName={goal} name="goal" handleChange={handleChange} />
                     ) : null}
                     {timePopup ? (
-                        <PopUp title="Select Time" selectOptions={timeOptions} optionName={time} name="time" handleChange={handleChange} handlePopUpAction={handleTimePopUpAction} />
+                        <PopUp title="Select Time" selectOptions={timeOptions} optionName={time} name="time" handleChange={handleChange} />
                     ) : null}
                     {narrationPopup ? (
-                        <PopUp title="Select narration" selectOptions={narrationOptions} optionName={narration} name="narration" handleChange={handleChange} handlePopUpAction={handlenarrationPopUpAction} />
+                        <PopUp title="Select narration" selectOptions={narrationOptions} optionName={narration} name="narration" handleChange={handleChange} />
                     ) : null}
                     
                     {/* <Link to="/feel"></Link> */}

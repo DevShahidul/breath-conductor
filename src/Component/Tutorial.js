@@ -38,7 +38,7 @@ class Tutorial extends Component {
                         <button onClick={handleEdit}><img src={editeIcon} alt="Edit icon" /></button>
                     </div> : null}
                 </div>
-                <VideoPlayer url={proxyurl+exerciseVideo} />
+                <VideoPlayer url={'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'} />
                 {modalShown ? 
                     <div className="share-modal">
                         <div className="share-modal-inner">
