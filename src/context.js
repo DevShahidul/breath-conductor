@@ -355,10 +355,10 @@ class BreathProvider extends Component {
             intro_duration: '',
             exerciseTitle: '',
             is_favorite: 0,
-            goal: "Relax",
-            time: "2 min",
-            theme: "Sunrise",
-            narration: "None",            
+            goal: "Select",
+            time: "Select",
+            theme: "Select",
+            narration: "Select",            
         })
     }
 
