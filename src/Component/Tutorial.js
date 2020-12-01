@@ -20,7 +20,7 @@ class Tutorial extends Component {
     static contextType = BreathContext;
     
     render() {
-        const { backToPrev, toggleFavorite, modalShown, exerciseVideo, handleShareModal, handleEdit, is_favorite, exercise_id, hideActionButton, handleEndVideo } = this.context;
+        const { backToPrev, toggleFavorite, modalShown, exerciseVideo, handleShareModal, handleEdit, is_favorite, exercise_id, hideActionButton, handleEndVideo, infinity } = this.context;
         let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         const shareText = "Let's try! ";
         return (
@@ -69,7 +69,7 @@ class Tutorial extends Component {
                         </div> : 
                     null }
                 </div>
-                <button onClick={handleEndVideo} className="btn btn-primary">End</button>
+                {infinity ? <button onClick={handleEndVideo} className="btn btn-primary">End</button> : null}
             </div>
         );
     }

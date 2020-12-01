@@ -8,7 +8,10 @@ import Apple from '../Assets/Image/apple.JPG';
 import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 import FormField from './FormField';
 import {BreathContext} from '../context';
-import SocialButton from './SocialButton';
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+
+//import SocialButton from './SocialButton';
 
 class Login extends Component {
     static contextType = BreathContext;
@@ -108,13 +111,68 @@ class Login extends Component {
         //console.log("coming here")
     }
 
-    handleSocialLogin = (user) => {
-        console.log(user)
+    onSubmitSocial = () => {
+        this.setState({
+            message: "processing your request please wait",
+            processing: true
+        })
     }
+
+    responseGoogle = (response) => {
+        let userData = response.profileObj;
+        let oauthToken = response.accessToken;
+        if(userData){
+            localStorage.setItem('token', oauthToken);
+            localStorage.setItem('email', userData.email);
+            localStorage.setItem('username', userData.name);
+            localStorage.setItem('userID', userData.googleId);
+            localStorage.setItem('userPhoto', userData.imageUrl);
+
+            this.setState({
+                redirect: true,
+            });
+        }else{
+            this.setState({
+                message: "Something went wrong! Please try again",
+                processing: false
+            })
+        }
+
+        //console.log(response);
+        //console.log(response.profileObj)
+    }
+
+    responseFacebook = (response) => {
+        let res = response.status
+        if(res !== 'unknown'){
+            let userData = response;
+            let oauthToken = response.accessToken;
+
+            localStorage.setItem('token', oauthToken);
+            localStorage.setItem('email', userData.email);
+            localStorage.setItem('username', userData.name);
+            localStorage.setItem('userID', userData.userID);
+            localStorage.setItem('userPhoto', userData.picture.data.url);
+
+            this.setState({
+                redirect: true,
+            });
+        }else{
+            this.setState({
+                message: "Something went wrong! Please try again",
+                processing: false
+            })
+        }
+        //console.log(response.status)
+    }
+
+    // handleSocialLogin = (user) => {
+    //     console.log(user)
+    // }
     
-    handleSocialLoginFailure = (err) => {
-        console.error(err)
-    }
+    // handleSocialLoginFailure = (err) => {
+    //     console.error(err)
+    // }
 
 
     render() {
@@ -147,24 +205,28 @@ class Login extends Component {
                         <div className="text-divider">or</div>
                         <div className="social-login">
                             <div className="col-3">
-                                <SocialButton
-                                provider='facebook'
-                                appId='1049863315426881'
-                                onLoginSuccess={this.handleSocialLogin}
-                                onLoginFailure={this.handleSocialLoginFailure}
-                                >
-                                    <img src={Facebook} alt="Facebook icon"/>
-                                </SocialButton>
+                                <FacebookLogin
+                                    appId="1049863315426881"
+                                    autoLoad={false}
+                                    fields="name,email,picture"
+                                    callback={this.responseFacebook}
+                                    onClick={this.onSubmitSocial}
+                                    render={renderProps => (
+                                        <button onClick={renderProps.onClick}><img src={Facebook} alt="Facebook icon"/></button>
+                                    )}
+                                />
                             </div>
                             <div className="col-3">
-                                <SocialButton
-                                provider='google'
-                                clientId='734812129749-p2f4dn8g8fd3hdvp4fvoee5n6k640r4t.apps.googleusercontent.com'
-                                onLoginSuccess={this.handleSocialLogin}
-                                onLoginFailure={this.handleSocialLoginFailure}
-                                >
-                                    <img src={Google} alt="Google icon"/>
-                                </SocialButton>                                
+                                <GoogleLogin
+                                    clientId="156485572267-a0cmv3oqs67g6b47fpf22hr0tgulveeq.apps.googleusercontent.com"
+                                    onSuccess={this.responseGoogle}
+                                    onFailure={this.responseGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                    onClick={this.onSubmitSocial}
+                                    render={renderProps => (
+                                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Google} alt="Google icon"/></button>
+                                    )}
+                                />
                             </div>
                             <div className="col-3">
                                 <div className="social-img">

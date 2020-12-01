@@ -392,11 +392,20 @@ input:focus {
 }
 
 .col-3 button{
-    width: 100%;
-    display: block;
-    cursor: pointer;
-    border: 0;
-    background: transparent;
+    width: 100% !important;
+    display: block !important;
+    cursor: pointer !important;
+    border: 0 !important;
+    background: transparent !important;
+    opacity: 1 !important;
+}
+
+.col-3 button > div{
+    display: none;
+}
+
+.col-3 button > span{
+    padding: 0 !important;
 }
 
 .col-3 img {

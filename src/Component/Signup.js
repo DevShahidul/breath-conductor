@@ -10,6 +10,8 @@ import Google from '../Assets/Image/google.svg';
 import Apple from '../Assets/Image/apple.JPG';
 import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 import FormField from './FormField';
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 class Signup extends Component {
     constructor(props){
@@ -110,6 +112,61 @@ class Signup extends Component {
         //console.log("coming here")
     }
 
+    onSubmitSocial = () => {
+        this.setState({
+            message: "processing your request please wait",
+            processing: true
+        })
+    }
+
+    responseGoogle = (response) => {
+        let userData = response.profileObj;
+        let oauthToken = response.accessToken;
+        if(userData){
+            localStorage.setItem('token', oauthToken);
+            localStorage.setItem('email', userData.email);
+            localStorage.setItem('username', userData.name);
+            localStorage.setItem('userID', userData.googleId);
+            localStorage.setItem('userPhoto', userData.imageUrl);
+
+            this.setState({
+                redirect: true,
+            });
+        }else{
+            this.setState({
+                message: "Something went wrong! Please try again",
+                processing: false
+            })
+        }
+
+        //console.log(response);
+        //console.log(response.profileObj)
+    }
+
+    responseFacebook = (response) => {
+        let res = response.status
+        if(res !== 'unknown'){
+            let userData = response;
+            let oauthToken = response.accessToken;
+
+            localStorage.setItem('token', oauthToken);
+            localStorage.setItem('email', userData.email);
+            localStorage.setItem('username', userData.name);
+            localStorage.setItem('userID', userData.userID);
+            localStorage.setItem('userPhoto', userData.picture.data.url);
+
+            this.setState({
+                redirect: true,
+            });
+        }else{
+            this.setState({
+                message: "Something went wrong! Please try again",
+                processing: false
+            })
+        }
+        //console.log(response.status)
+    }
+
     render() {
         if(this.state.redirect){
             return (<Redirect to="/login" />)
@@ -143,18 +200,34 @@ class Signup extends Component {
                             <div className="text-divider">or</div>
                             <div className="social-login">
                                 <div className="col-3">
+                                    <FacebookLogin
+                                        appId="1049863315426881"
+                                        autoLoad={false}
+                                        fields="name,email,picture"
+                                        callback={this.responseFacebook}
+                                        onClick={this.onSubmitSocial}
+                                        render={renderProps => (
+                                            <button onClick={renderProps.onClick}><img src={Facebook} alt="Facebook icon"/></button>
+                                        )}
+                                    />
+                                </div>
+                                <div className="col-3">
+                                    <GoogleLogin
+                                        clientId="156485572267-a0cmv3oqs67g6b47fpf22hr0tgulveeq.apps.googleusercontent.com"
+                                        onSuccess={this.responseGoogle}
+                                        onFailure={this.responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                        onClick={this.onSubmitSocial}
+                                        render={renderProps => (
+                                            <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Google} alt="Google icon"/></button>
+                                        )}
+                                    />
+                                </div>
+                                <div className="col-3">
                                     <div className="social-img">
-                                        <img src={Facebook} alt="Facebook icon"/>
+                                        <img src={Apple} alt="Apple icon"/>
                                     </div>
-                                </div><div className="col-3">
-                                <div className="social-img">
-                                    <img src={Google} alt="Google icon"/>
                                 </div>
-                            </div><div className="col-3">
-                                <div className="social-img">
-                                    <img src={Apple} alt="Apple icon"/>
-                                </div>
-                            </div>
                             </div>
 
                             <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>

@@ -40,6 +40,7 @@ class BreathProvider extends Component {
             previousFeel: 3,
             afterFeel: 3,
             hideActionButton: false,
+            infinity: false,
 
             // History
             isHistory: true,
