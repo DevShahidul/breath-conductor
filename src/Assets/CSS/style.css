@@ -291,18 +291,45 @@ input:-webkit-autofill {
     color: darkgreen;
 }
 
-.form-field {
+.form-field,
+.react-tel-input {
     margin: 20px 0px;
     display: flex;
     width: 100%;
     background: #262b31;
-    overflow: hidden;
+    /* overflow: hidden; */
     height: 45px;
     padding: 5px 20px;
     align-items: center;
     border-radius: 5px;
 }
 
+.react-tel-input .form-control{
+    width: 100% !important;
+}
+
+.react-tel-input .selected-flag{
+    padding-left: 0 !important;
+}
+
+.react-tel-input .form-control,
+.react-tel-input .selected-flag:hover,
+.react-tel-input .selected-flag:focus,
+.react-tel-input .flag-dropdown,
+.react-tel-input .flag-dropdown.open,
+.react-tel-input .flag-dropdown.open .selected-flag {
+    border: 0 !important;
+    background: transparent !important;
+}
+
+.react-tel-input .selected-flag .arrow{
+    border-top: 4px solid #ffffff !important;
+}
+
+.react-tel-input .selected-flag .arrow.up {
+    border-top: none !important;
+    border-bottom: 4px solid #ffffff !important;
+}
 
 input {
     width: 95%;
@@ -1703,3 +1730,16 @@ a:visited,
 .feedback-wrap .actionRow button img{
     display: block;
 }
+
+
+/* .signup-popup{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0; 
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: ;
+} */

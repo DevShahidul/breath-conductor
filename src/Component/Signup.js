@@ -12,6 +12,8 @@ import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 import FormField from './FormField';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 class Signup extends Component {
     constructor(props){
@@ -21,12 +23,17 @@ class Signup extends Component {
             email: '',
             password: '',
             confirmPassword: '',
+            dialCode: '1',
+            countryCode: 'us',
             phoneNumber: '',
+            social_id: '',
+            social_type: '',
             redirect: false,
             message: '',
             error: false,
             warning: false,
-            processing: false
+            processing: false,
+            signupPopup: false
         }
         this.signUp = this.signUp.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -112,59 +119,124 @@ class Signup extends Component {
         //console.log("coming here")
     }
 
-    onSubmitSocial = () => {
-        this.setState({
-            message: "processing your request please wait",
-            processing: true
-        })
-    }
 
     responseGoogle = (response) => {
+        console.log(response);
         let userData = response.profileObj;
-        let oauthToken = response.accessToken;
         if(userData){
-            localStorage.setItem('token', oauthToken);
-            localStorage.setItem('email', userData.email);
-            localStorage.setItem('username', userData.name);
-            localStorage.setItem('userID', userData.googleId);
-            localStorage.setItem('userPhoto', userData.imageUrl);
-
             this.setState({
-                redirect: true,
+                email: userData.email,
+                social_type: 1,
+                social_id: userData.googleId,
+                userPhoto: userData.imageUrl,
+                signupPopup: true
             });
         }else{
             this.setState({
                 message: "Something went wrong! Please try again",
-                processing: false
+                processing: false,
+                signupPopup: false
             })
         }
 
-        //console.log(response);
-        //console.log(response.profileObj)
+        console.log(response);
     }
 
     responseFacebook = (response) => {
         let res = response.status
         if(res !== 'unknown'){
             let userData = response;
-            let oauthToken = response.accessToken;
-
-            localStorage.setItem('token', oauthToken);
-            localStorage.setItem('email', userData.email);
-            localStorage.setItem('username', userData.name);
-            localStorage.setItem('userID', userData.userID);
-            localStorage.setItem('userPhoto', userData.picture.data.url);
 
             this.setState({
-                redirect: true,
+                //redirect: true,
+                email: userData.email,
+                social_type: 2,
+                social_id: userData.userID,
+                userPhoto: userData.picture.data.url,
+                signupPopup: true
             });
         }else{
             this.setState({
                 message: "Something went wrong! Please try again",
+                processing: false,
+                signupPopup: false
+            })
+        }
+        console.log(response.status)
+    }
+
+    handleOnChange = (value, data, event, formattedValue) => {
+        console.log(data)
+        this.setState({ 
+            rawPhone: value.slice(data.dialCode.length) 
+        })
+    }
+
+
+    socialSignup = (e) => {
+        const { username, email, phoneNumber, social_type, social_id, dialCode, countryCode } = this.state;
+        e.preventDefault();
+        if(username && phoneNumber){
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            let BaseUrl = 'https://www.breathconductor.com/api/v1/auth/social-signup';
+
+            var myHeaders = new Headers();
+            myHeaders.append("device-id", "1");
+            myHeaders.append("timezone", "UTC");
+            myHeaders.append("device-type", "1");
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("username", username);
+            urlencoded.append("email", email);
+            urlencoded.append("country_code", countryCode);
+            urlencoded.append("phone_dial_code", dialCode);
+            urlencoded.append("phone_number", phoneNumber);
+            urlencoded.append("social_id", social_id);
+            urlencoded.append("social_type", social_type);
+            urlencoded.append("firebase_token", "BD43813E-CFC5-4EEB-ABE2-94562A6E76CA");
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+            };
+
+            this.setState({
+                message: "processing your request please wait",
+                processing: true
+            })
+
+            fetch(proxyurl+BaseUrl, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                let message = result.message
+                let status = result.status === "error" ? true : false;
+                //let token = result.data.auth_token
+                this.setState({
+                    message,
+                    error: status,
+                    processing: false
+                })
+                if(result.status_code === 200){
+                    //localStorage.setItem('token', token);
+                    this.setState({
+                        redirect: true,
+                    })
+                }
+                console.log(result)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+        }else{
+            this.setState({
+                message: 'User name and Phone Number is Required!',
+                warning: true,
                 processing: false
             })
         }
-        //console.log(response.status)
     }
 
     render() {
@@ -177,60 +249,92 @@ class Signup extends Component {
 
         const statusClass = this.state.error !== false ? 'message error' : 'message' || this.state.warning ? "message waring" : "message";
 
-        const {username, email, password,confirmPassword, phoneNumber} = this.state;
+        const {username, email, password,confirmPassword, phoneNumber, signupPopup} = this.state;
 
         return (
             <Fragment>
                 <div className="container signup-box">
                     <div className="container-inner small">
                         <div className="contents-wrap">
-                            <div className="sign-in sign-up">
-                                <h2 className="title">Sign Up to Breath Conductor</h2>
-                                <p className="details">Enter your details below</p>
-                                <form onSubmit={this.signUp}>
-                                    <FormField type="text" placeholder="User Name" name="username" required={true} onChange={this.handleChange} value={username} icon={Username}/>
-                                    <FormField type="email" placeholder="Email Address" name="email" required={true} onChange={this.handleChange} value={email} reactIcon={FiAtSign}/>
-                                    <FormField type="number" placeholder="Phone Number" name="phoneNumber" required={true} onChange={this.handleChange} value={phoneNumber} icon={Phone}/>
-                                    <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
-                                    <FormField type="password" placeholder="Confirm Password" name="confirmPassword" required={true} onChange={this.handleChange} value={confirmPassword} icon={ConfirmPassword}/>
-                                    <button className="btn btn-primary">Sign Up</button>
-                                </form>
-                                <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
-                            </div>
-                            <div className="text-divider">or</div>
-                            <div className="social-login">
-                                <div className="col-3">
-                                    <FacebookLogin
-                                        appId="1049863315426881"
-                                        autoLoad={false}
-                                        fields="name,email,picture"
-                                        callback={this.responseFacebook}
-                                        onClick={this.onSubmitSocial}
-                                        render={renderProps => (
-                                            <button onClick={renderProps.onClick}><img src={Facebook} alt="Facebook icon"/></button>
-                                        )}
-                                    />
-                                </div>
-                                <div className="col-3">
-                                    <GoogleLogin
-                                        clientId="156485572267-a0cmv3oqs67g6b47fpf22hr0tgulveeq.apps.googleusercontent.com"
-                                        onSuccess={this.responseGoogle}
-                                        onFailure={this.responseGoogle}
-                                        cookiePolicy={'single_host_origin'}
-                                        onClick={this.onSubmitSocial}
-                                        render={renderProps => (
-                                            <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Google} alt="Google icon"/></button>
-                                        )}
-                                    />
-                                </div>
-                                <div className="col-3">
-                                    <div className="social-img">
-                                        <img src={Apple} alt="Apple icon"/>
+                            {signupPopup?
+                                <div className="sign-in sign-up social-signup">
+                                    <h2 className="title">Sign Up to Breath Conductor</h2>
+                                    <form onSubmit={this.socialSignup}>
+                                        <FormField type="text" placeholder="User Name" name="username" required={true} onChange={this.handleChange} value={username} icon={Username}/>
+                                        <FormField type="email" placeholder="Email Address" name="email" required={true} onChange={this.handleChange} value={email} reactIcon={FiAtSign}/>
+                                        <PhoneInput
+                                        country={'us'}
+                                        value={phoneNumber}
+                                        onChange={
+                                            (value, country) => {
+                                                let dialCode = country.dialCode
+                                                let countryCode = country.countryCode
+                                                // console.log(dialCode);
+                                                // console.log(countryCode);
+                                                this.setState({ 
+                                                    phoneNumber: value,
+                                                    dialCode,
+                                                    countryCode
+                                                })
+                                            }
+                                        }
+                                        />
+                                        {/* <FormField type="number" placeholder="Phone Number" name="phoneNumber" required={true} onChange={this.handleChange} value={phoneNumber} icon={Phone}/> */}
+                                        <button className="btn btn-primary">Sign Up</button>
+                                    </form>
+                                    <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
+                                </div>: (
+                                    <>
+                                    <div className="sign-in sign-up">
+                                        <h2 className="title">Sign Up to Breath Conductor</h2>
+                                        <p className="details">Enter your details below</p>
+                                        <form onSubmit={this.signUp}>
+                                            <FormField type="text" placeholder="User Name" name="username" required={true} onChange={this.handleChange} value={username} icon={Username}/>
+                                            <FormField type="email" placeholder="Email Address" name="email" required={true} onChange={this.handleChange} value={email} reactIcon={FiAtSign}/>
+                                            <FormField type="number" placeholder="Phone Number" name="phoneNumber" required={true} onChange={this.handleChange} value={phoneNumber} icon={Phone}/>
+                                            <FormField type="password" placeholder="Password" name="password" required={true} onChange={this.handleChange} value={password} icon={Password}/>
+                                            <FormField type="password" placeholder="Confirm Password" name="confirmPassword" required={true} onChange={this.handleChange} value={confirmPassword} icon={ConfirmPassword}/>
+                                            <button className="btn btn-primary">Sign Up</button>
+                                        </form>
+                                        <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
                                     </div>
-                                </div>
-                            </div>
+                                    <div className="text-divider">or</div>
+                                    <div className="social-login">
+                                        <div className="col-3">
+                                            <FacebookLogin
+                                                appId="1049863315426881"
+                                                autoLoad={false}
+                                                fields="name,email,picture"
+                                                callback={this.responseFacebook}
+                                                //onClick={this.onSubmitSocial}
+                                                render={renderProps => (
+                                                    <button onClick={renderProps.onClick}><img src={Facebook} alt="Facebook icon"/></button>
+                                                )}
+                                            />
+                                        </div>
+                                        <div className="col-3">
+                                            <GoogleLogin
+                                                clientId="156485572267-a0cmv3oqs67g6b47fpf22hr0tgulveeq.apps.googleusercontent.com"
+                                                onSuccess={this.responseGoogle}
+                                                onFailure={this.responseGoogle}
+                                                cookiePolicy={'single_host_origin'}
+                                                //onClick={this.onSubmitSocial}
+                                                render={renderProps => (
+                                                    <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Google} alt="Google icon"/></button>
+                                                )}
+                                            />
+                                        </div>
+                                        <div className="col-3">
+                                            <div className="social-img">
+                                                <img src={Apple} alt="Apple icon"/>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>
+                                    <p className="signup-text">Already have an account?<Link to="/login"> <span className="text-primary">Sign In</span> </Link> </p>
+                                    </>
+                                )
+                            }
                         </div>
                     </div>
                 </div>

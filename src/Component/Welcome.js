@@ -12,10 +12,12 @@ class Welcome extends Component {
     }
 
     componentDidMount(){
+        const { closeProfileDropdown } = this.context;
         const userName = localStorage.getItem('username');
         this.setState({
             userName
         })
+        closeProfileDropdown()
     }
 
     render() {

@@ -150,6 +150,7 @@ class Setting extends Component {
                         acountDelete: true,
                         redirect: true
                     })
+                    alert(resultjson.message)
                 }
             })
             .catch(error => console.log('error', error));

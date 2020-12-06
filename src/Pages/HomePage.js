@@ -4,7 +4,6 @@ import {Home, Navigation, Welcome, FeelControl, Tutorial, FeedbackSubmit, Feedba
 
 class HomePage extends Component {
     static contextType = BreathContext;
-
     render() {
         const {showWelcome, sowoFeelOption, showTutorial, showReplay, closeProfileDropdown, feedback} = this.context;
         

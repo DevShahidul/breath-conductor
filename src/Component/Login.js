@@ -10,6 +10,7 @@ import FormField from './FormField';
 import {BreathContext} from '../context';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import AppleLogin from 'react-apple-login'
 
 //import SocialButton from './SocialButton';
 
@@ -71,11 +72,15 @@ class Login extends Component {
 
                     // Get user data from responsejson
                     let userData = responsejson.data.user_details;
+                    let profilePicture = userData.profile_picture
                     if(userData){
                         localStorage.setItem('token', userData.auth_token);
                         localStorage.setItem('email', userData.email);
                         localStorage.setItem('username', userData.username);
                         localStorage.setItem('userID', userData.userID);
+                        if(profilePicture){
+                            localStorage.setItem('userPhoto', profilePicture);
+                        }
 
                         this.setState({
                             redirect: true,
@@ -118,19 +123,11 @@ class Login extends Component {
         })
     }
 
+    // Google signup
     responseGoogle = (response) => {
         let userData = response.profileObj;
-        let oauthToken = response.accessToken;
         if(userData){
-            localStorage.setItem('token', oauthToken);
-            localStorage.setItem('email', userData.email);
-            localStorage.setItem('username', userData.name);
-            localStorage.setItem('userID', userData.googleId);
-            localStorage.setItem('userPhoto', userData.imageUrl);
-
-            this.setState({
-                redirect: true,
-            });
+            this.checkSocialLogin(userData.email, userData.googleId, 1, userData.imageUrl)
         }else{
             this.setState({
                 message: "Something went wrong! Please try again",
@@ -138,41 +135,90 @@ class Login extends Component {
             })
         }
 
-        //console.log(response);
-        //console.log(response.profileObj)
+        console.log(response);
     }
 
+    // Facebook signup
     responseFacebook = (response) => {
         let res = response.status
         if(res !== 'unknown'){
             let userData = response;
-            let oauthToken = response.accessToken;
-
-            localStorage.setItem('token', oauthToken);
-            localStorage.setItem('email', userData.email);
-            localStorage.setItem('username', userData.name);
-            localStorage.setItem('userID', userData.userID);
-            localStorage.setItem('userPhoto', userData.picture.data.url);
-
-            this.setState({
-                redirect: true,
-            });
+            this.checkSocialLogin(userData.email, userData.userID, 2, userData.picture.data.url)
         }else{
             this.setState({
-                message: "Something went wrong! Please try again",
+                message: "Something went wrong in facebook! Please try again",
                 processing: false
             })
         }
-        //console.log(response.status)
+
+        console.log(response)
     }
 
-    // handleSocialLogin = (user) => {
-    //     console.log(user)
-    // }
-    
-    // handleSocialLoginFailure = (err) => {
-    //     console.error(err)
-    // }
+    responseApple = (response) =>{
+        console.log(response)
+    }
+
+    checkSocialLogin = (email, userID, social_type, picture) => {
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+        let BaseUrl = "https://www.breathconductor.com/api/v1/auth/check-social-signup";
+        
+        var myHeaders = new Headers();
+        myHeaders.append("device-id", "1");
+        myHeaders.append("timezone", "UTC");
+        myHeaders.append("device-type", "1");
+
+        var formdata = new FormData();
+        formdata.append("email", email);
+        formdata.append("social_id", userID);
+        formdata.append("social_type", social_type);
+        formdata.append("firebase_token", "BD43813E-CFC5-4EEB-ABE2-94562A6E76CA");
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        this.setState({
+            message: "processing your request please wait",
+            processing: true
+        })
+
+        fetch(proxyurl+BaseUrl, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+
+            let userData = result.data.user_details;
+            let socialStatus = result.data.social_status;
+            let status = result.status === "error" ? true : false;
+            this.setState({
+                message: result.message,
+                error: status,
+                processing: false
+            });
+
+            // Get user data from result
+            if(socialStatus === 1){
+                localStorage.setItem('token', userData.auth_token);
+                localStorage.setItem('email', userData.email);
+                localStorage.setItem('username', userData.username);
+                localStorage.setItem('userID', userData.userID);
+                localStorage.setItem('userPhoto', picture);
+
+                this.setState({
+                    redirect: true,
+                });
+            }else{
+                this.setState({
+                    message: result.message
+                })
+                //console.log(result.message)
+            }
+        })
+        .catch(error => console.log('error', error));
+    }
 
 
     render() {
@@ -229,9 +275,14 @@ class Login extends Component {
                                 />
                             </div>
                             <div className="col-3">
-                                <div className="social-img">
-                                    <img src={Apple} alt="Apple icon"/>
-                                </div>
+                                <AppleLogin 
+                                    clientId="YGT24URKF9" 
+                                    redirectURI="http://localhost:3001" 
+                                    callback={this.responseApple}
+                                    render={renderProps => (
+                                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Apple} alt="Apple icon"/></button>
+                                    )}
+                                />
                             </div>
                         </div>
                         <p className="signup-text">Don't have an account?<Link to="signup"> <span className="text-primary"> Sign Up </span> </Link></p>

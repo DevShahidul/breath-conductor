@@ -74,6 +74,7 @@ class BreathProvider extends Component {
         this.handleGoBack = this.handleGoBack.bind(this); // Go back previous
         this.handleFeedback = this.handleFeedback.bind(this); // Clear all history
         this.setDefaultStep = this.setDefaultStep.bind(this); // Clear all history
+        this.setWelcome = this.setWelcome.bind(this); // Go on welcome screen
         this.handleChange = this.handleChange.bind(this);
         this.handlePopUpAction = this.handlePopUpAction.bind(this) // close popup
 
@@ -100,7 +101,8 @@ class BreathProvider extends Component {
     handleProfileDropdown = () => {
         this.setState({
             expanded: !this.state.expanded
-        })
+        });
+        //console.log("I'm clicked");
     }
 
     closeProfileDropdown = () => {
@@ -211,12 +213,17 @@ class BreathProvider extends Component {
             timePopup: false,
             narrationPopup: false,
         })
+        if(e.target.value === "Infinity"){
+            this.setState({
+                narration: 'No narration'
+            })
+        }
     }
 
     // Handle theme popup show
     handleThemePopUp = () => {
         const {narration} = this.state;
-        if(narration === "Select") return false;
+        if(narration === "Select" || narration === 'No narration') return false;
         this.setState({
             themePopup: true
         });
@@ -568,6 +575,18 @@ class BreathProvider extends Component {
         });
         this.reSetSession();
         localStorage.removeItem('sessionData');
+        this.closeProfileDropdown()
+    }
+
+    setWelcome = () => {
+        this.setState({
+            showWelcome: true,
+            goHome: false,
+            sowoFeelOption: false,
+            showTutorial: false,
+            showReplay: false,
+            feedback: false,
+        });
     }
 
     render() {
@@ -590,6 +609,7 @@ class BreathProvider extends Component {
                 handleGoBack: this.handleGoBack,
                 handleFeedback: this.handleFeedback,
                 setDefaultStep: this.setDefaultStep,
+                setWelcome: this.setWelcome,
 
                 handleChange: this.handleChange,
                 handlePopUpAction: this.handlePopUpAction,

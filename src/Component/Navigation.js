@@ -7,7 +7,7 @@ import UserPlaceholder from "../Assets/Image/user_placeholder.png";
 import DownArrow from "../Assets/Image/down-arrow.svg";
 
 const Navigation = () => {
-    const {singleHistory, singleFavorite, setDefaultStep, handleProfileDropdown, expanded} = useContext(BreathContext);
+    const {singleHistory, singleFavorite, setDefaultStep, handleProfileDropdown, expanded, setWelcome} = useContext(BreathContext);
 
     const historyId = singleHistory.id;
     const FavoriteId = singleFavorite.id;
@@ -39,6 +39,7 @@ const Navigation = () => {
     const {navItems, redirect} = state;
 
     const logOut = () => {
+        setWelcome();
         let token = localStorage.getItem('token');
         if(token){
             sessionStorage.clear();
@@ -47,6 +48,7 @@ const Navigation = () => {
                 redirect: true
             })
         }
+        
     }
 
     let userName = localStorage.getItem('username');
@@ -89,7 +91,7 @@ const Navigation = () => {
                     })}
                 </ul>
             </nav>
-            <div className="user" onClick={handleProfileDropdown}>
+            <div className="user" onClick={() => handleProfileDropdown()}>
                 {/* <Link to="setting"></Link> */}
                 <img className="userPlaceholder" src={userPhoto ? userPhoto : UserPlaceholder} alt="User icon"/>
                 <p>{userName}</p>
