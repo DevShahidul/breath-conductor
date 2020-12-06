@@ -131,13 +131,14 @@ class Signup extends Component {
                 userPhoto: userData.imageUrl,
                 signupPopup: true
             });
-        }else{
-            this.setState({
-                message: "Something went wrong! Please try again",
-                processing: false,
-                signupPopup: false
-            })
         }
+        // else{
+        //     this.setState({
+        //         message: "Something went wrong! Please try again",
+        //         processing: false,
+        //         signupPopup: false
+        //     })
+        // }
 
         console.log(response);
     }
@@ -154,13 +155,14 @@ class Signup extends Component {
                 userPhoto: userData.picture.data.url,
                 signupPopup: true
             });
-        }else{
-            this.setState({
-                message: "Something went wrong! Please try again",
-                processing: false,
-                signupPopup: false
-            })
         }
+        //else{
+        //     this.setState({
+        //         message: "Something went wrong! Please try again",
+        //         processing: false,
+        //         signupPopup: false
+        //     })
+        // }
         console.log(response.status)
     }
 

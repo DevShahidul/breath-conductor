@@ -116,24 +116,25 @@ class Login extends Component {
         //console.log("coming here")
     }
 
-    onSubmitSocial = () => {
-        this.setState({
-            message: "processing your request please wait",
-            processing: true
-        })
-    }
+    // onSubmitSocial = () => {
+    //     this.setState({
+    //         message: "processing your request please wait",
+    //         processing: true
+    //     })
+    // }
 
     // Google signup
     responseGoogle = (response) => {
         let userData = response.profileObj;
         if(userData){
             this.checkSocialLogin(userData.email, userData.googleId, 1, userData.imageUrl)
-        }else{
-            this.setState({
-                message: "Something went wrong! Please try again",
-                processing: false
-            })
         }
+        // else{
+        //     this.setState({
+        //         message: "Something went wrong! Please try again",
+        //         processing: false
+        //     })
+        // }
 
         console.log(response);
     }
@@ -144,12 +145,13 @@ class Login extends Component {
         if(res !== 'unknown'){
             let userData = response;
             this.checkSocialLogin(userData.email, userData.userID, 2, userData.picture.data.url)
-        }else{
-            this.setState({
-                message: "Something went wrong in facebook! Please try again",
-                processing: false
-            })
         }
+        // else{
+        //     this.setState({
+        //         message: "Something went wrong in facebook! Please try again",
+        //         processing: false
+        //     })
+        // }
 
         console.log(response)
     }
@@ -256,7 +258,7 @@ class Login extends Component {
                                     autoLoad={false}
                                     fields="name,email,picture"
                                     callback={this.responseFacebook}
-                                    onClick={this.onSubmitSocial}
+                                    //onClick={this.onSubmitSocial}
                                     render={renderProps => (
                                         <button onClick={renderProps.onClick}><img src={Facebook} alt="Facebook icon"/></button>
                                     )}
@@ -268,7 +270,7 @@ class Login extends Component {
                                     onSuccess={this.responseGoogle}
                                     onFailure={this.responseGoogle}
                                     cookiePolicy={'single_host_origin'}
-                                    onClick={this.onSubmitSocial}
+                                    //onClick={this.onSubmitSocial}
                                     render={renderProps => (
                                         <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Google} alt="Google icon"/></button>
                                     )}
