@@ -291,7 +291,7 @@ class Signup extends Component {
                                     <div className="social-login">
                                         <div className="col-3">
                                             <FacebookLogin
-                                                appId="1049863315426881"
+                                                appId="1583199195220849"
                                                 autoLoad={false}
                                                 fields="name,email,picture"
                                                 callback={this.responseFacebook}
@@ -302,7 +302,7 @@ class Signup extends Component {
                                         </div>
                                         <div className="col-3">
                                             <GoogleLogin
-                                                clientId="156485572267-a0cmv3oqs67g6b47fpf22hr0tgulveeq.apps.googleusercontent.com"
+                                                clientId="734812129749-p2f4dn8g8fd3hdvp4fvoee5n6k640r4t.apps.googleusercontent.com"
                                                 onSuccess={this.responseGoogle}
                                                 onFailure={this.responseGoogle}
                                                 cookiePolicy={'single_host_origin'}
