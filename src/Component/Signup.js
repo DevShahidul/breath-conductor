@@ -148,7 +148,6 @@ class Signup extends Component {
             let userData = response;
 
             this.setState({
-                //redirect: true,
                 email: userData.email,
                 social_type: 2,
                 social_id: userData.userID,
@@ -165,14 +164,7 @@ class Signup extends Component {
         console.log(response.status)
     }
 
-    handleOnChange = (value, data, event, formattedValue) => {
-        console.log(data)
-        this.setState({ 
-            rawPhone: value.slice(data.dialCode.length) 
-        })
-    }
-
-
+    // Social signup function
     socialSignup = (e) => {
         const { username, email, phoneNumber, social_type, social_id, dialCode, countryCode } = this.state;
         e.preventDefault();
@@ -213,14 +205,12 @@ class Signup extends Component {
             .then(result => {
                 let message = result.message
                 let status = result.status === "error" ? true : false;
-                //let token = result.data.auth_token
                 this.setState({
                     message,
                     error: status,
                     processing: false
                 })
                 if(result.status_code === 200){
-                    //localStorage.setItem('token', token);
                     this.setState({
                         redirect: true,
                     })
@@ -279,7 +269,6 @@ class Signup extends Component {
                                             }
                                         }
                                         />
-                                        {/* <FormField type="number" placeholder="Phone Number" name="phoneNumber" required={true} onChange={this.handleChange} value={phoneNumber} icon={Phone}/> */}
                                         <button className="btn btn-primary">Sign Up</button>
                                     </form>
                                     <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
@@ -306,7 +295,6 @@ class Signup extends Component {
                                                 autoLoad={false}
                                                 fields="name,email,picture"
                                                 callback={this.responseFacebook}
-                                                //onClick={this.onSubmitSocial}
                                                 render={renderProps => (
                                                     <button onClick={renderProps.onClick}><img src={Facebook} alt="Facebook icon"/></button>
                                                 )}
@@ -318,7 +306,6 @@ class Signup extends Component {
                                                 onSuccess={this.responseGoogle}
                                                 onFailure={this.responseGoogle}
                                                 cookiePolicy={'single_host_origin'}
-                                                //onClick={this.onSubmitSocial}
                                                 render={renderProps => (
                                                     <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Google} alt="Google icon"/></button>
                                                 )}
