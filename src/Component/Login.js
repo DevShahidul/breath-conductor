@@ -270,6 +270,7 @@ class Login extends Component {
                                     onSuccess={this.responseGoogle}
                                     onFailure={this.responseGoogle}
                                     cookiePolicy={'single_host_origin'}
+                                    disabled={false}
                                     //onClick={this.onSubmitSocial}
                                     render={renderProps => (
                                         <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Google} alt="Google icon"/></button>

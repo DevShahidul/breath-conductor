@@ -19,14 +19,14 @@ class BreathProvider extends Component {
 
             // Exercise data
             generalList: [],
-            goalOptions: [{id:1, name:"Relax"}],
+            goalOptions: [{id:1, name:"Relax"}, {id:3, name:"Relax"}],
             timeOptions: [{id:1, name:"Infinity"}, {id: 2, name:"1 min"}, {id: 3, name: "2 min"}, {id:4, name:"5 min"}],
             narrationOptions: [{id:1, name: "None"}, {id:1, name:"Full"}],
             themeOptions: [{id:1, name: "Sunrise"}, {id: 2, name: "Earth"}, {id: 3, name:"Moon"}],
-            goal: "Select",
-            time: "Select",
-            theme: "Select",
-            narration: "Select",
+            goal: "Relax",
+            time: "1 min",
+            theme: "Earth",
+            narration: "Full",
             themePopup: false,
             goalPopup: false,
             timePopup: false,
@@ -96,6 +96,92 @@ class BreathProvider extends Component {
         this.handleMessageOnChange = this.handleMessageOnChange.bind(this) // Close feedback message
 
     }
+
+    componentDidMount(){
+        var token = localStorage.getItem('token');
+        var userId = localStorage.getItem('userID');
+        if(token){
+
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            let BaseUrl = `https://www.breathconductor.com/api/v2/general/list?user_id=${userId}`;
+
+            var myHeaders = new Headers();
+            myHeaders.append("device-id", "1");
+            myHeaders.append("timezone", "UTC");
+            myHeaders.append("device-type", "1");
+            myHeaders.append("Authorization", `Bearer ${token}`);
+
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch(proxyurl+BaseUrl, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                this.setGeneralList(result.data)
+            })
+            .catch(error => console.log('error', error));
+        }
+
+        const timer = setTimeout(() => {
+            this.checkInfinity(this.state.goal);
+            this.setState({
+                time: "1 min",
+                narration: "Full"
+            })
+        }, 1000);
+        return () => clearTimeout(timer);
+    }
+
+    setGeneralList = (data) => {
+        let goal_list = data.goal_list;
+        let narration_list = data.narration_list;
+        let time_list = data.duration_minutes;
+        let theme_list = data.theme_list;
+        //Get goal options
+        let goalOptions = goal_list.map(item => {
+            let id = item.goalID;
+            let name = item.title;
+            const goalList = {id, name, ...item}
+            return goalList;
+        })
+        //Get time options
+        let timeOptions = time_list.map(item => {
+            let id = item.durationMinuteID;
+            let name = item.minute === '-1' ? "Infinity" : item.minute+' min'
+            //let infinity = item.minute === '-1' ? "Infinity" : item.minute+' min'
+            const goalList = {id, name, ...item}
+            return goalList;
+        })
+        //Get narration options
+        let narrationOptions = narration_list.map(item => {
+            let id = item.narrationID;
+            let name = item.title;
+            const goalList = {id, name, ...item}
+            return goalList;
+        })
+        //Get theme options
+        let themeOptions = theme_list.map(item => {
+            let id = item.themeID;
+            let name = item.title;
+            const goalList = {id, name, ...item}
+            return goalList;
+        })
+        this.setState({
+            generalList: data,
+            goalOptions,
+            timeOptions,
+            narrationOptions,
+            themeOptions
+        })
+        //console.log(goalOptions, timeOptions, narrationOptions, themeOptions)
+    }
+
+
+
 
     // Profile dropdown function
     handleProfileDropdown = () => {
@@ -204,6 +290,28 @@ class BreathProvider extends Component {
         });
     }
 
+    checkInfinity = (value) => {
+        if(value === "Relax"){
+            const newtimeOptions = this.state.timeOptions.filter(option => option.name !== "Infinity");
+            this.setState({
+                timeOptions: newtimeOptions,
+                time: "Select",
+                narration: "Select",
+                theme: "Select"
+            })
+        }else if(value === "Balance"){
+            const timeOptions = this.state.timeOptions;
+            const newTimeOption = [...timeOptions, {id:1, name:"Infinity"}];
+            this.setState({
+                timeOptions: newTimeOption,
+                time: "Select",
+                narration: "Select",
+                theme: "Select"
+            })
+        }
+        //console.log("I'm working");
+    }
+
     handleChange = (e) => {
         const value = e.target.value;
         this.setState({
@@ -213,9 +321,21 @@ class BreathProvider extends Component {
             timePopup: false,
             narrationPopup: false,
         })
-        if(e.target.value === "Infinity"){
+        this.checkInfinity(value);
+        if(value === "Infinity"){
             this.setState({
-                narration: 'No narration'
+                narration: 'No narration',
+                theme: "Select"
+            })
+        }else if(value === "1 min" || value === "2 min" || value === "5 min"){
+            this.setState({
+                //[e.target.name]: value,
+                narration: "Select",
+                theme: "Select"
+            })
+        }else{
+            this.setState({
+                [e.target.name]: value
             })
         }
     }
@@ -320,7 +440,6 @@ class BreathProvider extends Component {
     }
 
 
-
     // Get conent from library
     getFavoriteData = () => {
         return localStorage.getItem('singleFavoriteData') ? JSON.parse(localStorage.getItem('singleFavoriteData')) : {}
@@ -363,11 +482,20 @@ class BreathProvider extends Component {
             intro_duration: '',
             exerciseTitle: '',
             is_favorite: 0,
-            goal: "Select",
-            time: "Select",
-            theme: "Select",
-            narration: "Select",            
+            goal: "Relax",
+            time: "1 min",
+            theme: "Earth",
+            narration: "Full",            
         })
+    }
+
+    getId = (optionArray, optionName) => {
+        const returnOption = optionArray.filter(option => {
+            let selectedOption = option.name === optionName;
+            const getOptions = selectedOption;
+            return getOptions;
+        })
+        return returnOption;
     }
 
     // handle confirmation for welcome screen
@@ -382,16 +510,29 @@ class BreathProvider extends Component {
             });
 
 
-            const golId = goal === "Relax" ? 1 : 0;
-            const timeId = time === "Infinity" ? 9 : 1 && time === "1 min" ? 1 : 1 && time === "2 min" ? 2 : 1 && time === "5 min" ? 8 : 1;
-            const themeId = theme === "Sunrise" ? 1 : 2 && theme === "Earth" ? 2 : 1 && theme === "Moon" ? 3 : 1;
-            const narrationId = narration === "None" ? 1 : 3 && narration === "Full" ? 3 : 1 ;
 
-            //console.log('Goal == ' + golId + ' time = ' + timeId + ' theme = ' + themeId + ' narration =' + narrationId)
+
+            // get goal id
+            const goalOption = this.getId(this.state.goalOptions, goal);
+            const goalId = goalOption[0].id;
+
+            // get time id
+            const timeOption = this.getId(this.state.timeOptions, time);
+            const timeId = timeOption[0].id;
+            
+            // get narration id
+            const narrationOption = this.getId(this.state.narrationOptions, narration);
+            const narrationId = narrationOption[0].id;
+
+            // get theme id
+            const themeOption = this.getId(this.state.themeOptions, theme);
+            const themeId = themeOption[0].id;
+
+            console.log(goalId, narrationId, themeId, timeId);
 
             let token = localStorage.getItem('token');
             let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
-            let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${golId}&narration_id=${narrationId}&theme_id=${themeId}&duration_minute_id=${timeId}`;
+            let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${goalId}&narration_id=${narrationId}&theme_id=${themeId}&duration_minute_id=${timeId}`;
 
             var myHeaders = new Headers();
             myHeaders.append("Authorization", `Bearer ${token}`);
@@ -556,9 +697,9 @@ class BreathProvider extends Component {
             showTutorial: false,
             goHome: true,
             goal: "Relax",
-            time: "2 min",
-            theme: "Sunrise",
-            narration: "None",
+            time: "1 min",
+            theme: "Earth",
+            narration: "Full",
         })
     }
 
@@ -571,7 +712,7 @@ class BreathProvider extends Component {
             showTutorial: false,
             showReplay: false,
             feedback: false,
-            setFeeling: 3,
+            setFeeling: 3
         });
         this.reSetSession();
         localStorage.removeItem('sessionData');

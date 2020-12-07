@@ -12,6 +12,7 @@ import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 import FormField from './FormField';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import AppleLogin from 'react-apple-login'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -166,6 +167,11 @@ class Signup extends Component {
         console.log(response.status)
     }
 
+    // Apple signup
+    responseApple = (response) =>{
+        console.log(response)
+    }
+
     // Social signup function
     socialSignup = (e) => {
         const { username, email, phoneNumber, social_type, social_id, dialCode, countryCode } = this.state;
@@ -308,15 +314,21 @@ class Signup extends Component {
                                                 onSuccess={this.responseGoogle}
                                                 onFailure={this.responseGoogle}
                                                 cookiePolicy={'single_host_origin'}
+                                                disabled={false}
                                                 render={renderProps => (
                                                     <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Google} alt="Google icon"/></button>
                                                 )}
                                             />
                                         </div>
                                         <div className="col-3">
-                                            <div className="social-img">
-                                                <img src={Apple} alt="Apple icon"/>
-                                            </div>
+                                            <AppleLogin 
+                                                clientId="YGT24URKF9" 
+                                                redirectURI="http://localhost:3001" 
+                                                callback={this.responseApple}
+                                                render={renderProps => (
+                                                    <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Apple} alt="Apple icon"/></button>
+                                                )}
+                                            />
                                         </div>
                                     </div>
 
