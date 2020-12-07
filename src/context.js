@@ -223,7 +223,7 @@ class BreathProvider extends Component {
     // Handle theme popup show
     handleThemePopUp = () => {
         const {narration} = this.state;
-        if(narration === "Select" || narration === 'No narration') return false;
+        if(narration === "Select") return false;
         this.setState({
             themePopup: true
         });
@@ -240,8 +240,8 @@ class BreathProvider extends Component {
 
     // Handle time popup show
     handlenarrationPopUp = () => {
-        const {time} = this.state
-        if(time === 'Select') return false;
+        const {time, narration} = this.state
+        if(time === 'Select' || narration === 'No narration') return false;
         this.setState({
             narrationPopup: true
         });
