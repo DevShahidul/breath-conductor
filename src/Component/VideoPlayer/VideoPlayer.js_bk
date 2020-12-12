@@ -1,0 +1,297 @@
+import React, { Component } from 'react';
+import {BreathContext} from '../../context'
+import ReactPlayer from 'react-player';
+import screenfull from 'screenfull';
+import { PlayerWrap, PlayerLoader} from './VideoPlayer.elements';
+import PlayerControls from './playerControls';
+import LoadingGif from '../../Assets/Image/gif/loading-circle.gif';
+
+// const formate = (seconds) => {
+//   if(isNaN(seconds)){
+//     return '00:00';
+//   }
+//   const date = new Date(seconds * 1000 );
+//   const hh = date.getUTCHours();
+//   const mm = date.getUTCMinutes();
+//   const ss = date.getUTCSeconds();
+  
+//   if(hh){
+//     return `${hh}:${mm.toString().padStart(2, "0")}:${ss}`
+//   }
+
+//   return `${mm}:${ss}`
+// }
+
+class VideoPlayer extends Component {
+    static contextType = BreathContext;
+
+    constructor(props){
+      super(props)
+      this.state = {
+          playing: false,
+          muted: false,
+          volume: 0.5,
+          fullScreenStatus: false,
+          played: 0,
+          loaded: 0,
+          duration: 0,
+          seeking: false,
+          timeDisplayFormate: 'normal',
+          volumeTop: false,
+          loading: true,
+          hideSkipIntro: false,
+      }
+      this.myRef = React.createRef();
+    }
+   
+
+    // Handle change display formate
+    handleChangeTimeDisplayFormate = () => {
+      const {timeDisplayFormate} = this.state;
+      this.setState({
+        timeDisplayFormate: timeDisplayFormate === 'normal' ? 'remaining' : 'normal'
+      })
+    }
+
+    // Handle seek change
+    handleSeekChange = (e) => {
+      // this.setState({
+      //   played: parseFloat(newValue / 100)
+      // })
+      this.setState({ 
+        played: parseFloat(e.target.value) 
+      })
+    }
+
+    // Handle Seek mouse down
+    handleSeekMouseDown = () => {
+      this.setState({
+        seeking: true
+      })
+    }
+
+    // Handle Seek mouse up
+    handleSeekMouseUp = (e) => {
+      // this.setState({
+      //   seeking: false
+      // })
+      // const { current } = this.myRef;
+      // current.seekTo(newValue / 100);
+      this.setState({ 
+        seeking: false 
+      })
+      this.player.seekTo(parseFloat(e.target.value))
+    }
+
+    // Handle progress time
+    handleProgress = (changeState) => {
+      const { intro_duration} = this.context;
+      const { seeking, played, loaded, duration } = this.state;
+      const { current } = this.myRef;
+      const skiptedDuration =  intro_duration.split(':').reduce((acc,time) => (60 * acc) + +time);
+      console.log('onProgress', changeState)
+      if(!seeking){
+        this.setState({
+          ...changeState
+        })
+      }
+
+      // let getCurrentPlayingTime = current.getCurrentTime();
+      
+      // if(getCurrentPlayingTime >= skiptedDuration){
+      //   this.setState({
+      //     hideSkipIntro: true
+      //   })
+      // }
+
+
+    }
+
+    // Handle full screen function 
+    handleToggleFullScreen = () => {
+      const {fullScreenStatus} = this.state;
+      const playerContainerRef = this.myRef;
+      this.setState({
+        fullScreenStatus: !fullScreenStatus
+      })
+      screenfull.toggle(playerContainerRef.current);
+    }
+
+    // Volume change function
+    handleVolumeChange = (e, newValue) => {
+      this.setState({
+        volume: parseFloat(newValue/100),
+        muted: newValue === 0 ? true : false,
+        volumeTop: newValue >= 80 ? true : false
+      })
+    }
+    // Volume seek down function
+    handleVolumeSeekUp = (e, newValue) => {
+      this.setState({
+        volume: parseFloat(newValue/100),
+        muted: newValue === 0 ? true : false
+      })
+    }
+    // Handle Mute function
+    handleOnMuted = () => {
+      const { muted } = this.state;
+      this.setState({
+        muted: !muted,
+        volume: muted === false ? 0 : 0.5
+      })
+    }
+
+    // Handle Rewind function
+    handleRewind = () => {
+      const { current } = this.myRef;
+      current.seekTo(current.getCurrentTime() - 10);
+      const timer = setTimeout(() => {
+        this.setState({
+          playing: true
+        })
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+    // Handle Forward function
+    handleForward = () => {
+      const { current } = this.myRef;
+      current.seekTo(current.getCurrentTime() + 10);
+      const timer = setTimeout(() => {
+        this.setState({
+          playing: true
+        })
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  
+
+    handleOnSkip = () => {
+      const { intro_duration} = this.context;
+      const { current } = this.myRef;
+      const skiptedDuration =  intro_duration.split(':').reduce((acc,time) => (60 * acc) + +time);
+      current.seekTo(0 + skiptedDuration );
+      const timer = setTimeout(() => {
+        this.setState({
+          playing: true,
+          hideSkipIntro: true,
+        })
+
+        //console.log('This will run after 1 second!')
+      }, 1000);
+      return () => clearTimeout(timer);
+      
+    }
+
+    handleOnReady = () => {
+      this.setState({
+        loading: false,
+        playing: true
+      })
+    }
+
+    handleOnstart = () => {
+      this.setState({
+        playing: true
+      })
+
+      const timer = setTimeout(() => {
+        const { hideActionButtons } = this.context;
+        this.setState({
+          hideSkipIntro: false
+        })
+        hideActionButtons();
+        //console.log('This will run after 1 second!')
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+
+    // Handle play pause function
+    handlePlayPause = () => {
+      const { playing } = this.state;
+      this.setState({
+        playing: !playing,
+      })
+    }
+
+    // Handle OnBuffer
+    handleOnBuffer = () => {
+      const timer = setTimeout(() => {
+        this.setState({
+          playing: true
+        })
+        //console.log('This will run after 1 second!')
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+
+    render(){
+      const { handleEndVideo } = this.context;
+
+      const { playing, muted, volume, fullScreenStatus, played, timeDisplayFormate, volumeTop, loading, hideSkipIntro} = this.state;
+
+      const { current } = this.myRef;
+
+      // const currentTime = current ? current.getCurrentTime() : "00:00";
+      // const duration = current ? current.getDuration() : "00:00";
+
+      // const elapsedTime = timeDisplayFormate === 'normal' ? formate(currentTime) : `-${formate(duration - currentTime)}`;
+      // const totalDuration = formate(duration);
+
+      return (
+        <PlayerWrap>
+            {loading ? <PlayerLoader src={LoadingGif} alt="Loader image" /> : null }
+            <ReactPlayer
+              className='react-player'
+              url={this.props.url}
+              width='100%'
+              height='100%'
+              muted={muted}
+              playing={playing}
+              ref={current}
+              volume={volume}
+              onReady={this.handleOnReady}
+              onProgress={this.handleProgress}
+              onBuffer={this.handleOnBuffer}
+              onEnded={handleEndVideo}
+              onStart={this.handleOnstart}
+              config={{
+                file:{
+                  attributes:{
+                    crossOrigin: "anonymous"
+                  }
+                }
+              }}
+            />
+            {!loading ? 
+            <PlayerControls 
+              onPlayPause={this.handlePlayPause} 
+              playing={playing} 
+              onRewind={this.handleRewind} 
+              onForward={this.handleForward} 
+              muted={muted} 
+              onMute={this.handleOnMuted} 
+              volume={volume}
+              VolumeHigh={volumeTop}
+              onVolumeChange={this.handleVolumeChange} 
+              onVolumeSeekUp={this.handleVolumeSeekUp} 
+              onToggleFullScreen={this.handleToggleFullScreen}
+              toggleFullScreen={fullScreenStatus}
+              played={played}
+              onSeek={this.handleSeekChange}
+              onSeekMouseDown={this.handleSeekMouseDown}
+              onSeekMouseUp={this.handleSeekMouseUp}
+              // elapsedTime={elapsedTime}
+              // totalDuration={totalDuration}
+              onChangeTimeDisplayFormate={this.handleChangeTimeDisplayFormate}
+              onSkipIntro={this.handleOnSkip}
+              hideIntroSkipBtn={hideSkipIntro}
+            /> : null }
+        </PlayerWrap>
+      )
+    }
+}
+
+export default VideoPlayer;
+
+
+

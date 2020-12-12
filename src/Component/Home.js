@@ -7,8 +7,14 @@ class Home extends Component {
     static contextType = BreathContext;
 
     componentDidMount(){
-        const { updateComponentFromHome } = this.context;
-        updateComponentFromHome()
+        const { updateComponentFromHome, getGeneralList, checkInfinity, goal } = this.context;
+        updateComponentFromHome();
+        getGeneralList();
+        const timer = setTimeout(() => {
+            checkInfinity(goal);
+            updateComponentFromHome();
+        }, 1050);
+        return () => clearTimeout(timer);
         //console.log("I'm loaded from home component")
     }
 

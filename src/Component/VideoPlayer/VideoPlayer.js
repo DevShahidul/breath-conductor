@@ -24,7 +24,7 @@ const formate = (seconds) => {
 }
 
 export const VideoPlayer = (props) => {
-    const { handleEndVideo, intro_duration, hideActionButtons } = useContext(BreathContext);
+    const { handleEndVideo, intro_duration, hideActionButtons, timeId, videoFallback, hasVideo} = useContext(BreathContext);
 
     const [state, setState] = useState({
         playing: false,
@@ -231,11 +231,13 @@ export const VideoPlayer = (props) => {
       return () => clearTimeout(timer);
     }
 
+    const loopMode = timeId === 9 ? true : false
+
 
     return (
     <PlayerWrap ref={playerContainerRef}>
-        {loading ? <PlayerLoader src={LoadingGif} alt="Loader image" /> : null }
-        <ReactPlayer
+        {loading && hasVideo ? <PlayerLoader src={LoadingGif} alt="Loader image" /> : null }
+        {hasVideo ? <ReactPlayer
           className='react-player'
           url={props.url}
           width='100%'
@@ -249,6 +251,7 @@ export const VideoPlayer = (props) => {
           onBuffer={handleOnBuffer}
           onEnded={handleEndVideo}
           onStart={handleOnstart}
+          loop={loopMode}
           config={{
             file:{
               attributes:{
@@ -256,7 +259,7 @@ export const VideoPlayer = (props) => {
               }
             }
           }}
-        />
+        /> : <h2 className="video-fallback">{videoFallback}</h2>}
         {!loading ? 
         <PlayerControls 
           onPlayPause={handlePlayPause} 

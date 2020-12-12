@@ -1731,6 +1731,15 @@ a:visited,
     display: block;
 }
 
+.video-fallback{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    color: #fff;
+}
+
 
 /* .signup-popup{
     position: fixed;

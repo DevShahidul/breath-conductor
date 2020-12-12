@@ -19,14 +19,16 @@ class BreathProvider extends Component {
 
             // Exercise data
             generalList: [],
-            goalOptions: [{id:1, name:"Relax"}, {id:3, name:"Relax"}],
-            timeOptions: [{id:1, name:"Infinity"}, {id: 2, name:"1 min"}, {id: 3, name: "2 min"}, {id:4, name:"5 min"}],
+            goalOptions: [{id:1, name:"Relax"}, {id:3, name:"Balance"}],
+            timeOptionsArray: [],
+            timeOptions: [{id: 2, name:"1 min"}, {id: 3, name: "2 min"}, {id:4, name:"5 min"}],
             narrationOptions: [{id:1, name: "None"}, {id:1, name:"Full"}],
             themeOptions: [{id:1, name: "Sunrise"}, {id: 2, name: "Earth"}, {id: 3, name:"Moon"}],
             goal: "Relax",
             time: "1 min",
             theme: "Earth",
             narration: "Full",
+            timeId: 0,
             themePopup: false,
             goalPopup: false,
             timePopup: false,
@@ -35,6 +37,7 @@ class BreathProvider extends Component {
             exerciseVideo: '',
             exercise_id: '',
             videoFallback: '',
+            hasVideo: true,
             intro_duration: '',
             exerciseTitle: '',
             previousFeel: 3,
@@ -94,10 +97,16 @@ class BreathProvider extends Component {
         this.closeFeedbackMessage = this.closeFeedbackMessage.bind(this) // Close feedback message
         this.submitFeedbackMessage = this.submitFeedbackMessage.bind(this) // Close feedback message
         this.handleMessageOnChange = this.handleMessageOnChange.bind(this) // Close feedback message
+        this.getGeneralList = this.getGeneralList.bind(this) // Get general list
+        this.checkInfinity = this.checkInfinity.bind(this) // Check infinity value
 
     }
 
-    componentDidMount(){
+    // componentDidMount(){
+        
+    // }
+
+    getGeneralList = () => {
         var token = localStorage.getItem('token');
         var userId = localStorage.getItem('userID');
         if(token){
@@ -127,10 +136,10 @@ class BreathProvider extends Component {
         }
 
         const timer = setTimeout(() => {
-            this.checkInfinity(this.state.goal);
             this.setState({
                 time: "1 min",
-                narration: "Full"
+                narration: "Full",
+                theme: "Earth"
             })
         }, 1000);
         return () => clearTimeout(timer);
@@ -145,35 +154,36 @@ class BreathProvider extends Component {
         let goalOptions = goal_list.map(item => {
             let id = item.goalID;
             let name = item.title;
-            const goalList = {id, name, ...item}
-            return goalList;
+            const optionList = {id, name, ...item}
+            return optionList;
         })
         //Get time options
         let timeOptions = time_list.map(item => {
             let id = item.durationMinuteID;
             let name = item.minute === '-1' ? "Infinity" : item.minute+' min'
             //let infinity = item.minute === '-1' ? "Infinity" : item.minute+' min'
-            const goalList = {id, name, ...item}
-            return goalList;
+            const optionList = {id, name, ...item}
+            return optionList;
         })
         //Get narration options
         let narrationOptions = narration_list.map(item => {
             let id = item.narrationID;
             let name = item.title;
-            const goalList = {id, name, ...item}
-            return goalList;
+            const optionList = {id, name, ...item}
+            return optionList;
         })
         //Get theme options
         let themeOptions = theme_list.map(item => {
             let id = item.themeID;
             let name = item.title;
-            const goalList = {id, name, ...item}
-            return goalList;
+            const optionList = {id, name, ...item}
+            return optionList;
         })
         this.setState({
             generalList: data,
             goalOptions,
             timeOptions,
+            timeOptionsArray: timeOptions,
             narrationOptions,
             themeOptions
         })
@@ -290,9 +300,12 @@ class BreathProvider extends Component {
         });
     }
 
-    checkInfinity = (value) => {
+    //Check infinity on change/Reset session data
+    resetSessionData = (value) => {
+        const { timeOptionsArray } = this.state;
         if(value === "Relax"){
-            const newtimeOptions = this.state.timeOptions.filter(option => option.name !== "Infinity");
+            const newtimeOptions = timeOptionsArray.filter(option => option.name !== "Infinity");
+            console.log(newtimeOptions)
             this.setState({
                 timeOptions: newtimeOptions,
                 time: "Select",
@@ -300,16 +313,29 @@ class BreathProvider extends Component {
                 theme: "Select"
             })
         }else if(value === "Balance"){
-            const timeOptions = this.state.timeOptions;
-            const newTimeOption = [...timeOptions, {id:1, name:"Infinity"}];
             this.setState({
-                timeOptions: newTimeOption,
+                timeOptions: timeOptionsArray,
                 time: "Select",
                 narration: "Select",
                 theme: "Select"
             })
         }
-        //console.log("I'm working");
+    }
+
+    // Check infinity on load component
+    checkInfinity = (value) => {
+        const { timeOptionsArray } = this.state;
+        if(value === "Relax"){
+            const newtimeOptions = timeOptionsArray.filter(option => option.name !== "Infinity");
+            console.log(newtimeOptions)
+            this.setState({
+                timeOptions: newtimeOptions
+            })
+        }else if(value === "Balance"){
+            this.setState({
+                timeOptions: timeOptionsArray
+            })
+        }
     }
 
     handleChange = (e) => {
@@ -321,7 +347,7 @@ class BreathProvider extends Component {
             timePopup: false,
             narrationPopup: false,
         })
-        this.checkInfinity(value);
+        this.resetSessionData(value); // Reset session data
         if(value === "Infinity"){
             this.setState({
                 narration: 'No narration',
@@ -509,9 +535,6 @@ class BreathProvider extends Component {
                 sowoFeelOption: true
             });
 
-
-
-
             // get goal id
             const goalOption = this.getId(this.state.goalOptions, goal);
             const goalId = goalOption[0].id;
@@ -522,13 +545,12 @@ class BreathProvider extends Component {
             
             // get narration id
             const narrationOption = this.getId(this.state.narrationOptions, narration);
-            const narrationId = narrationOption[0].id;
+            const narrationId = time === "Infinity" ? 1 : narrationOption[0].id;
 
             // get theme id
             const themeOption = this.getId(this.state.themeOptions, theme);
             const themeId = themeOption[0].id;
 
-            console.log(goalId, narrationId, themeId, timeId);
 
             let token = localStorage.getItem('token');
             let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
@@ -540,6 +562,7 @@ class BreathProvider extends Component {
             myHeaders.append("timezone", "UTC");
             myHeaders.append("device-type", "1");
 
+            
             var requestOptions = {
                 //credentials: 'include',
                 method: 'GET',
@@ -547,13 +570,23 @@ class BreathProvider extends Component {
                 redirect: 'follow'
             };
 
+            
+
             fetch(proxyurl + fetchUrl, requestOptions)
             .then(response => response.text())
             .then(result => {
                 let resultjson = JSON.parse(result);
-                let status = resultjson.data.data_found;
-                
-                if(status){
+                let hasVideo = resultjson.data.data_found;
+                let message = resultjson.message;
+
+                console.log(goalId, timeId, narrationId, themeId);
+
+                this.setState({
+                    timeId,
+                    hasVideo
+                })
+
+                if(hasVideo){
                     let id = resultjson.data.exercise.exerciseID;
                     let intro_duration = resultjson.data.exercise.intro_duration;
                     let title = resultjson.data.exercise.title;
@@ -565,11 +598,11 @@ class BreathProvider extends Component {
                         intro_duration,
                         exerciseTitle: title,
                         is_favorite,
-                        action: changeActionState
+                        action: changeActionState,
                     })
                 }else{
                     this.setState({
-                        videoFallback: "No data found",
+                        videoFallback: message,
                     });
                 }
                 console.log(resultjson)
@@ -771,6 +804,8 @@ class BreathProvider extends Component {
                 closeFeedbackMessage: this.closeFeedbackMessage,
                 handleMessageOnChange: this.handleMessageOnChange,
                 submitFeedbackMessage: this.submitFeedbackMessage,
+                getGeneralList: this.getGeneralList,
+                checkInfinity: this.checkInfinity,
             }}>
                 {this.props.children}
             </BreathContext.Provider>
