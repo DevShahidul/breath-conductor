@@ -537,19 +537,20 @@ class BreathProvider extends Component {
 
             // get goal id
             const goalOption = this.getId(this.state.goalOptions, goal);
-            const goalId = goalOption[0].id;
+            const goalId = goalOption[0].id ? goalOption[0].id : null;
 
             // get time id
             const timeOption = this.getId(this.state.timeOptions, time);
-            const timeId = timeOption[0].id;
+            const timeId = timeOption[0].id ? timeOption[0].id : null;
             
             // get narration id
             const narrationOption = this.getId(this.state.narrationOptions, narration);
-            const narrationId = time === "Infinity" ? 1 : narrationOption[0].id;
+            const nId = narrationOption[0].id ? narrationOption[0].id : null;
+            const narrationId = time === "Infinity" ? 1 : nId;
 
             // get theme id
             const themeOption = this.getId(this.state.themeOptions, theme);
-            const themeId = themeOption[0].id;
+            const themeId = themeOption[0].id ? themeOption[0].id : null;
 
 
             let token = localStorage.getItem('token');

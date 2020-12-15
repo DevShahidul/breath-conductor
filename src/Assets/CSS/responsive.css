@@ -410,6 +410,10 @@
         padding: 30px 0 0;
     }
 
+    .tutorialContainer{
+        width: 100%;
+    }
+
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px){
