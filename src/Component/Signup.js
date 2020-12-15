@@ -84,9 +84,16 @@ class Signup extends Component {
                         processing: false
                     });
                     let userData = responsejson.data.user_details;
+                    let profilePicture = userData.profile_picture;
                     //console.log(responsejson)
                     if(userData){
                         localStorage.setItem('token', userData.auth_token);
+                        localStorage.setItem('email', userData.email);
+                        localStorage.setItem('username', userData.username);
+                        localStorage.setItem('userID', userData.userID);
+                        if(profilePicture){
+                            localStorage.setItem('userPhoto', profilePicture);
+                        }
                         this.setState({
                             redirect: true,
                         })

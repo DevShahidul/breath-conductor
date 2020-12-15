@@ -84,14 +84,18 @@ class Setting extends Component {
     handleDeleteAccount = () => {
         //prompt('Are you sure want to delet your account?')
         this.setState({
-            acountDelete: true
+            acountDelete: true,
+            //confirmPassword: ''
         })
     }
 
     // Handle calcel delete account
     handleCancelDelete = () => {
         this.setState({
-            acountDelete: false
+            acountDelete: false,
+            confirmPassword: '',
+            message: ''
+
         })
     }
 
@@ -139,6 +143,7 @@ class Setting extends Component {
                 let success = resultjson.status === "success";
                 console.log(resultjson.message)
                 this.setState({
+                    confirmPassword: '',
                     message: resultjson.message,
                     error: errorStatus,
                     //processing: false
@@ -148,6 +153,7 @@ class Setting extends Component {
                     localStorage.clear();
                     this.setState({
                         acountDelete: true,
+                        confirmPassword: '',
                         redirect: true
                     })
                     alert(resultjson.message)
