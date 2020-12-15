@@ -7,7 +7,7 @@ class Welcome extends Component {
         super(props);
         this.state = {
             userName: 'User',
-            welcomeText: 'When is the best time for you to practice self-care?'
+            welcomeText: 'Would you like daily reminders to practice self care?'
         }
     }
 
