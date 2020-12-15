@@ -511,7 +511,11 @@ class BreathProvider extends Component {
             goal: "Relax",
             time: "1 min",
             theme: "Earth",
-            narration: "Full",            
+            narration: "Full",   
+            themePopup: false,
+            timePopup: false,
+            goalPopup: false,
+            narrationPopup: false         
         })
     }
 
