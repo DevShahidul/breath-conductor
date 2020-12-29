@@ -58,6 +58,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-image: url(../Image/backgroung.jpg);
     background-repeat: no-repeat;
+    background-repeat-y: repeat;
     background-size: cover;
     background-position: center;
     background-color: #010e1e;
@@ -812,11 +813,12 @@ li.nav-item.active a {
     padding: 0px 30px 30px 30px;
     align-content: center;
     align-items: center;
+    position: relative
 }
 
 
 .library-single .library-content {
-    min-height: 100px;
+    min-height: 400px;
     padding-bottom: 80px;
 }
 
@@ -1505,6 +1507,17 @@ a:visited,
     max-width: 100%;
 }
 
+.loader{
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 .loader-gif{
     max-width: 100%;
     max-height: 250px;
@@ -1740,6 +1753,37 @@ a:visited,
     color: #fff;
 }
 
+.page-container{
+    width: 1270px;
+    background: transparent !important;
+}
+
+.inner-container{
+    color: #b9b9ba;
+    background-color: rgba(0, 0, 0, 0.65);
+    padding: 50px;
+    border-radius: 15px;
+}
+
+.inner-container h2{
+    margin-bottom: 20px;
+    margin-top: 40px;
+    color: #ffffff;
+}
+
+.inner-container h2:first-child{
+    margin-top: 20px;
+}
+
+.inner-container p{
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.support .title{
+    text-align: center;
+    margin-bottom: 30px;
+}
 
 /* .signup-popup{
     position: fixed;

@@ -8,7 +8,7 @@ import VoiceIcon from "../Assets/Image/Voice.svg";
 import ThemeIcon from "../Assets/Image/Theme.svg";
 import { Navigation, IconicButton, LibraryOptionsItem, LibraryLinks, LibraryDetailTop } from '../Component';
 import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
-import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
+//import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
 import {HeartFill, HeartOutline} from '../Component/icons';
 import {
   FacebookShareButton,
@@ -22,6 +22,7 @@ import {
 } from "react-share";
 import { confirmAlert } from 'react-confirm-alert'; // Import confirm alert
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import Loader from '../Component/loader/Loader';
 
 class HistoryDetailsPage extends Component{
     static contextType = BreathContext;
@@ -225,7 +226,7 @@ class HistoryDetailsPage extends Component{
         const shareText = "Let's try! ";
         const videoUrl = trailerInfo.trailer
     
-        console.log(videoUrl)
+        console.log("Video Url- ", videoUrl)
     
         return (
             <Fragment>
@@ -241,7 +242,7 @@ class HistoryDetailsPage extends Component{
                             </li>
                         </LibraryLinks>
                         <div className={loading ? `library-content library-inner loading` : `library-content library-inner`}>
-                            { loading ? <img className="loader-gif" src={LoadingGif} alt="Loading gif" /> : (
+                            { loading ? <Loader /> : (
                             <>
                             <LibraryDetailTop title={title} date={focus} onClick={this.HandleGoback} onAddFavorite={ () => this.toggleFavorite(exerciseID) } togglerFavorite={true} favoriteIcon={is_favorite === 1 ? <HeartFill /> : <HeartOutline />}/>
                             <div className="details-items">
@@ -264,7 +265,7 @@ class HistoryDetailsPage extends Component{
                                         <div>
                                             <h3>Please share your result!</h3>
                                             <div className="share-buttons-row">
-                                                <FacebookShareButton url={videoUrl}>
+                                                <FacebookShareButton url={"https://www.facebook.com/BreathConductr"}>
                                                     <FacebookIcon />
                                                     <span>Facebook</span>
                                                 </FacebookShareButton>
@@ -272,7 +273,7 @@ class HistoryDetailsPage extends Component{
                                                     <TwitterIcon />
                                                     <span>Twitter</span>
                                                 </TwitterShareButton>
-                                                <LinkedinShareButton url={videoUrl} title={shareText}>
+                                                <LinkedinShareButton url={"https://www.breathconductor.com/"} title={shareText}>
                                                     <LinkedinIcon />
                                                     <span>Linkedin</span>
                                                 </LinkedinShareButton>

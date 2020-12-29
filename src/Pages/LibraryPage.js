@@ -3,7 +3,8 @@ import {BreathContext} from '../context';
 import { Navigation, LibraryLinks } from "../Component";
 import {Link} from "react-router-dom";
 import NextPlay from "../Assets/Image/next.svg";
-import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
+import Loader from '../Component/loader/Loader';
+//import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
 
 class LibraryPage extends Component {
     static contextType = BreathContext;
@@ -94,7 +95,8 @@ class LibraryPage extends Component {
             singleFavorite: {...singleItem},
             loading: false
         })
-        //console.log(`set signle library ${JSON.stringify(singleItem)}`)
+        //console.log(`set signle library- ${id}`)
+        localStorage.setItem('FavoriteDataID', id)
     }
 
     render() {
@@ -114,7 +116,7 @@ class LibraryPage extends Component {
                                 <Link to="/history">History</Link>
                             </li>
                         </LibraryLinks>
-                        {loading ? <img className="loading-img" src={LoadingGif} alt="Loading ..." /> : 
+                        {loading ? <div className="library-content"><Loader /></div> : 
                             <div className="library-content">
                                 { isFavorite ? 
                                     FavoriteContents.map((item, index) => {

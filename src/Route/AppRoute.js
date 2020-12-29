@@ -12,6 +12,8 @@ import FavoritiesDetailsPage from "../Pages/FavoritiesDetailsPage";
 import HistoryDetailsPage from "../Pages/HistoryDetailsPage";
 import { ErrorPage } from "../Pages/ErrorPage";
 import { Protected } from '../Component';
+import { TermsOfService } from '../Pages/TermsOfService';
+import Support from '../Pages/Support';
 
 class AppRoute extends Component {
     render() {
@@ -33,6 +35,12 @@ class AppRoute extends Component {
                 <Route exact path='/history/:id' component={HistoryDetailsPage} />
                 <Route exact path="/setting">
                     <Protected page={SettingPage} />
+                </Route>
+                <Route exact path="/terms">
+                    <Protected page={TermsOfService} />
+                </Route>
+                <Route exact path="/support">
+                    <Protected page={Support} />
                 </Route>
                 <Route component={ErrorPage} />
             </Switch>        

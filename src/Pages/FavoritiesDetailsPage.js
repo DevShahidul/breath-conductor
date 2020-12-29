@@ -8,7 +8,7 @@ import VoiceIcon from "../Assets/Image/Voice.svg";
 import ThemeIcon from "../Assets/Image/Theme.svg";
 import { Navigation, IconicButton, LibraryOptionsItem, LibraryLinks, LibraryDetailTop } from '../Component';
 import { RiShareLine, RiDeleteBinLine } from "react-icons/ri";
-import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
+//import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -22,6 +22,7 @@ import {
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import Loader from '../Component/loader/Loader';
 
 class FavoritiesDetailsPage extends Component {
     static contextType = BreathContext;
@@ -138,7 +139,7 @@ class FavoritiesDetailsPage extends Component {
         .catch(error => {
             console.log('error', error)
         });
-        console.log(id);
+        console.log('Removed Id -', id);
     }
 
     // On remove
@@ -203,7 +204,7 @@ class FavoritiesDetailsPage extends Component {
                                 </li>
                             </LibraryLinks>
                             <div className={loading ? `library-content library-inner loading` : `library-content library-inner`}>
-                                { loading ? <img className="loader-gif" src={LoadingGif} alt="Loading gif" /> : (
+                                { loading ? <Loader />  : (
                                 <>
                                     <LibraryDetailTop title={title} onClick={this.HandleGoback} />
                                     <div className="details-items">

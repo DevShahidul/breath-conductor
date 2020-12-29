@@ -7,10 +7,10 @@ import UserPlaceholder from "../Assets/Image/user_placeholder.png";
 import DownArrow from "../Assets/Image/down-arrow.svg";
 
 const Navigation = () => {
-    const {singleHistory, singleFavorite, setDefaultStep, handleProfileDropdown, expanded, setWelcome} = useContext(BreathContext);
+    const {setDefaultStep, handleProfileDropdown, expanded, setWelcome} = useContext(BreathContext);
 
-    const historyId = singleHistory.id;
-    const FavoriteId = singleFavorite.id;
+    const historyId = localStorage.getItem('HistoryDataID');
+    const FavoriteId = localStorage.getItem('FavoriteDataID');
     
     const [state, setState] = useState({
         navItems: {

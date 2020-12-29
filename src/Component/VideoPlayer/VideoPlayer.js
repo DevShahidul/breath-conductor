@@ -2,9 +2,10 @@ import React, { useState, useRef, useContext } from 'react';
 import {BreathContext} from '../../context'
 import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
-import { PlayerWrap, PlayerLoader} from './VideoPlayer.elements';
+import { PlayerWrap} from './VideoPlayer.elements';
 import PlayerControls from './playerControls';
-import LoadingGif from '../../Assets/Image/gif/loading-circle.gif';
+import Loader from '../loader/Loader';
+//import LoadingGif from '../../Assets/Image/gif/loading-circle.gif';
 
 
 const formate = (seconds) => {
@@ -236,7 +237,7 @@ export const VideoPlayer = (props) => {
 
     return (
     <PlayerWrap ref={playerContainerRef}>
-        {loading && hasVideo ? <PlayerLoader src={LoadingGif} alt="Loader image" /> : null }
+        {loading && hasVideo ? <Loader /> : null }
         {hasVideo ? <ReactPlayer
           className='react-player'
           url={props.url}

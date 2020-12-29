@@ -3,7 +3,8 @@ import {BreathContext} from '../context';
 import { Navigation, LibraryLinks } from "../Component";
 import {Link} from "react-router-dom";
 import NextPlay from "../Assets/Image/next.svg";
-import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
+//import LoadingGif from '../Assets/Image/gif/loading-circle.gif';
+import Loader from '../Component/loader/Loader';
 
 class HistoryPage extends Component {
     static contextType = BreathContext;
@@ -103,6 +104,7 @@ class HistoryPage extends Component {
             loading: false
         })
         //console.log(singleHistoryItem)
+        localStorage.setItem('HistoryDataID', id)
     }
 
     // Remove favorite data from localStorage
@@ -134,7 +136,7 @@ class HistoryPage extends Component {
                                 <Link onClick={this.deletFavoriteData} to="/history">History</Link>
                             </li>
                         </LibraryLinks>
-                        {loading ? <img className="loading-img" src={LoadingGif} alt="Loading ..." /> : 
+                        {loading ? <div className="library-content"><Loader /> </div> : 
                             <div className="library-content">
                                 { isHistory ? 
                                     HistoryContents.map((item, index) => {

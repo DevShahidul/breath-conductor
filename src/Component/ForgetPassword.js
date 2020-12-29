@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import Username from '../Assets/Image/username.svg';
-import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
+//import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 import FormField from './FormField';
+import Loader from './loader/Loader';
 
 class ResetPassword extends Component {
     constructor(props){
@@ -107,7 +108,7 @@ class ResetPassword extends Component {
                                 <button className="btn btn-primary"> Reset</button>
                             </form>
                             { message !== '' ?
-                            <p className={statusClass}>{processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {message}</p> : null}
+                            <p className={statusClass}>{processing ? (<Loader />) : ''} {message}</p> : null}
                         </div>
                         <p className="signup-text">Don't have an account?<Link to="/signup"> <span className="text-primary"> Sign Up </span> </Link></p>
                     </div>
