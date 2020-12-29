@@ -35,7 +35,7 @@ class Support extends Component{
         return (
             <>
             <Navigation />
-            <div className="container">
+            <div className="container support-page-containr">
                 <div className="container-inner small">
                     <div className="support contents-wrap">
                         <h2 class="title">Support</h2>

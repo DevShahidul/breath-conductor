@@ -5,6 +5,7 @@ export const TermsOfService = () => {
     return (
         <>
         <Navigation />
+        <div className="container">
         <div className="container-inner page-container">
             <div className="inner-container">
                 <h2>Terms &amp; Conditions</h2>
@@ -49,6 +50,7 @@ export const TermsOfService = () => {
 
                 <p>If you have any questions or suggestions about our Terms and Conditions, do not hesitate to contact us at contact@breathconductor.com.</p>
             </div>
+        </div>
         </div>
         </>
     )

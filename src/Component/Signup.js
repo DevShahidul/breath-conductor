@@ -8,7 +8,7 @@ import Phone from '../Assets/Image/phone number.svg';
 import Facebook from '../Assets/Image/facebook.svg';
 import Google from '../Assets/Image/google.svg';
 import Apple from '../Assets/Image/apple.JPG';
-//import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
+import loadingGif from '../Assets/Image/gif/loading-arrow.gif';
 import FormField from './FormField';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
@@ -301,7 +301,7 @@ class Signup extends Component {
                                             <FormField type="password" placeholder="Confirm Password" name="confirmPassword" required={true} onChange={this.handleChange} value={confirmPassword} icon={ConfirmPassword}/>
                                             <button className="btn btn-primary">Sign Up</button>
                                         </form>
-                                        <p className={statusClass}>{this.state.processing ? (<Loader />) : ''} {this.state.message}</p>
+                                        <p className={statusClass}>{this.state.processing ? (<img src={loadingGif} alt="Loading gif" />) : ''} {this.state.message}</p>
                                     </div>
                                     <div className="text-divider">or</div>
                                     <div className="social-login">

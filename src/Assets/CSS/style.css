@@ -1755,27 +1755,20 @@ a:visited,
 
 .page-container{
     width: 1270px;
-    background: transparent !important;
-}
-
-.inner-container{
     color: #b9b9ba;
-    background-color: rgba(0, 0, 0, 0.65);
-    padding: 50px;
-    border-radius: 15px;
 }
 
-.inner-container h2{
+.page-container h2{
     margin-bottom: 20px;
     margin-top: 40px;
     color: #ffffff;
 }
 
-.inner-container h2:first-child{
+.page-container h2:first-child{
     margin-top: 20px;
 }
 
-.inner-container p{
+.page-container p{
     margin-bottom: 15px;
     line-height: 1.4;
 }
