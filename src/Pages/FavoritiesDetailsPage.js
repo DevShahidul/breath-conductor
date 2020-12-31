@@ -227,7 +227,7 @@ class FavoritiesDetailsPage extends Component {
                                                 <div>
                                                     <h3>Please share your result!</h3>
                                                     <div className="share-buttons-row">
-                                                        <FacebookShareButton url={videoUrl}>
+                                                        <FacebookShareButton url={"https://www.facebook.com/BreathConductr"}>
                                                             <FacebookIcon />
                                                             <span>Facebook</span>
                                                         </FacebookShareButton>
@@ -235,7 +235,7 @@ class FavoritiesDetailsPage extends Component {
                                                             <TwitterIcon />
                                                             <span>Twitter</span>
                                                         </TwitterShareButton>
-                                                        <LinkedinShareButton url={videoUrl} title={shareText}>
+                                                        <LinkedinShareButton url={"https://www.breathconductor.com/"} title={shareText}>
                                                             <LinkedinIcon />
                                                             <span>Linkedin</span>
                                                         </LinkedinShareButton>
