@@ -161,6 +161,21 @@ input:-webkit-autofill {
     -webkit-text-fill-color: #ffffff !important;
 }
 
+textarea{
+    width: 100%;
+    height: 250px;
+    background: transparent;
+    border: 0;
+    resize: none;
+    outline: none;
+    color: #fff;
+}
+
+textarea:focus{
+    outline: none;
+}
+
+
 /* styles for login and signup page */
 .row {
     padding: 25px 0px;
@@ -303,6 +318,12 @@ input:-webkit-autofill {
     padding: 5px 20px;
     align-items: center;
     border-radius: 5px;
+}
+
+
+.message-wrap{
+    height: auto;
+    padding: 20px;
 }
 
 .react-tel-input .form-control{

@@ -9,6 +9,7 @@ class Support extends Component{
             emailto: '',
             ccb: '',
             subject: '',
+            supportMessage: '',
             password: '',
             redirect: false,
             message: '',
@@ -31,7 +32,7 @@ class Support extends Component{
     }
     render(){
         const statusClass = this.state.error !== false ? 'message error' : 'message' || this.state.warning ? "message waring" : "message";
-        const {emailto, ccb, subject} = this.state;
+        const {emailto, ccb, subject, supportMessage} = this.state;
         return (
             <>
             <Navigation />
@@ -43,6 +44,12 @@ class Support extends Component{
                             <FormField type="email" label="To" placeholder="Email" name="emailto"  required={true} onChange={this.handleChange} value={emailto} />
                             <FormField type="email" label="Cc/Bcc:" placeholder="Cc/Bcc Email" name="ccb"  required={true} onChange={this.handleChange} value={ccb} />
                             <FormField type="text" label="Subject:" placeholder="Enter subject" name="subject"  required={true} onChange={this.handleChange} value={subject} />
+                            <label>
+                                <p>Message</p>
+                                <div className="form-field message-wrap">
+                                    <textarea name="supportMessage" value={supportMessage} onChange={this.handleChange} placeholder="Message"></textarea>
+                                </div>
+                            </label>
                             <button className="btn btn-primary">Submit</button>
                         </form>
                         { this.state.message !== '' ?

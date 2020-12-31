@@ -180,16 +180,18 @@
         display: inherit;
         padding: 30px 35px;
     }
+    
     .session-title {
         font-size: 20px;
     }
+
     .task-list p {
         font-size: 16px;
     }
+
     .radio-text p {
         font-size: 14px;
     }
-
 
     /* feel page css here */
     .feel-container {
