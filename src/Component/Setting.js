@@ -305,11 +305,11 @@ class Setting extends Component {
                                             </div>
                                             <div className="social">
                                                 <img src={facebookIcon} alt="Facebook icon"/>
-                                                <Link to="//www.facebook.com/breathc" rel="noreferrer" target="_blank"> <p>Facebook</p></Link>
+                                                <Link to="//www.facebook.com/BreathConductr" rel="noreferrer" target="_blank"> <p>Facebook</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={InstagramIcon} alt="Instagram icon"/>
-                                                <Link to="//www.instagram.com/breath_conductor/" rel="noreferrer" target="_blank"><p>Instagram</p></Link>
+                                                <Link to="//www.instagram.com/breathconductor/" rel="noreferrer" target="_blank"><p>Instagram</p></Link>
                                             </div>
                                             <div className="social">
                                                 <img src={YoutubeIcon} alt="Youtube icon"/>
