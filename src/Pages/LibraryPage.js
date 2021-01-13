@@ -27,7 +27,7 @@ class LibraryPage extends Component {
         //console.log(token)
 
         if(token){
-            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             
             var myHeaders = new Headers();
             myHeaders.append("userID", userId);
@@ -45,7 +45,7 @@ class LibraryPage extends Component {
             //Favorite Exerscise API
             let FavoriteExersizeUrl = 'https://www.breathconductor.com/api_v1/library/favoriteExercise';
 
-            fetch(proxyurl + FavoriteExersizeUrl, requestOptions)
+            fetch(FavoriteExersizeUrl, requestOptions)
             .then(responseData => responseData.text())
             .then(favoriteExRes => {
                 const favoriteExDatajson = JSON.parse(favoriteExRes);

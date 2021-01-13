@@ -44,7 +44,7 @@ class Signup extends Component {
     signUp = (e) =>{
         e.preventDefault();
         if(this.state.username && this.state.password){
-            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let BaseUrl = 'https://www.breathconductor.com/api_v1/auth/signup';
 
             var myHeaders = new Headers();
@@ -75,7 +75,7 @@ class Signup extends Component {
                 processing: true
             })
 
-            fetch(proxyurl + BaseUrl, requestOptions)
+            fetch(BaseUrl, requestOptions)
                 .then((response) => response.json())
                 .then((responsejson) => {
                     let status = responsejson.status === "error" ? true : false;
@@ -185,7 +185,7 @@ class Signup extends Component {
         const { username, email, phoneNumber, social_type, social_id, dialCode, countryCode } = this.state;
         e.preventDefault();
         if(username && phoneNumber){
-            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let BaseUrl = 'https://www.breathconductor.com/api/v1/auth/social-signup';
 
             var myHeaders = new Headers();
@@ -216,7 +216,7 @@ class Signup extends Component {
                 processing: true
             })
 
-            fetch(proxyurl+BaseUrl, requestOptions)
+            fetch(BaseUrl, requestOptions)
             .then(response => response.json())
             .then(result => {
                 let message = result.message

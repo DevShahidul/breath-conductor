@@ -34,7 +34,7 @@ class Login extends Component {
     login = (e) => {
         e.preventDefault();
         if(this.state.username && this.state.password){
-            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let BaseUrl = 'https://www.breathconductor.com/api_v1/auth/login';
 
             var myHeaders = new Headers();
@@ -60,7 +60,7 @@ class Login extends Component {
                 processing: true
             })
 
-            fetch(proxyurl + BaseUrl, requestOptions)
+            fetch(BaseUrl, requestOptions)
                 .then((response) => response.json())
                 .then((responsejson) => {
                     let errorStatus = responsejson.status === "error" ? true : false;
@@ -161,7 +161,7 @@ class Login extends Component {
     }
 
     checkSocialLogin = (email, userID, social_type, picture) => {
-        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+        //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let BaseUrl = "https://www.breathconductor.com/api/v1/auth/check-social-signup";
         
         var myHeaders = new Headers();
@@ -187,7 +187,7 @@ class Login extends Component {
             processing: true
         })
 
-        fetch(proxyurl+BaseUrl, requestOptions)
+        fetch(BaseUrl, requestOptions)
         .then(response => response.json())
         .then(result => {
             console.log(result)
