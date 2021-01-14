@@ -28,7 +28,7 @@ class HistoryPage extends Component {
         //console.log(token)
 
         if(token){
-            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             
             var myHeaders = new Headers();
             myHeaders.append("userID", userId);
@@ -45,7 +45,7 @@ class HistoryPage extends Component {
 
             // Exercise history
             let ExersizeHistoryUrl = 'https://www.breathconductor.com/api_v1/library/exerciseHistory';
-            fetch(ExersizeHistoryUrl, requestOptions)
+            fetch(proxyurl + ExersizeHistoryUrl, requestOptions)
             .then(response => response.text())
             .then(result => {
                 const datajson = JSON.parse(result);

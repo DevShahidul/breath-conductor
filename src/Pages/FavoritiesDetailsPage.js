@@ -49,7 +49,7 @@ class FavoritiesDetailsPage extends Component {
         const {id} = this.state;
 
         if(token){
-            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExerciseDetail/${id}`;
             
             var myHeaders = new Headers();
@@ -68,7 +68,7 @@ class FavoritiesDetailsPage extends Component {
                 redirect: 'follow'
             };
 
-            fetch(fetchUrl, requestOptions)
+            fetch(proxyurl + fetchUrl, requestOptions)
             .then(response => response.text())
             .then(result => {
                 let jsonResult = JSON.parse(result);
@@ -115,7 +115,7 @@ class FavoritiesDetailsPage extends Component {
         let token = localStorage.getItem('token');
        
 
-        //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${id}?action=0`;
 
         var myHeaders = new Headers();
@@ -130,7 +130,7 @@ class FavoritiesDetailsPage extends Component {
             redirect: 'follow'
         };
 
-        fetch(fetchUrl, requestOptions)
+        fetch(proxyurl + fetchUrl, requestOptions)
         .then(response => response.text())
         .then(result => {
             console.log(result) 

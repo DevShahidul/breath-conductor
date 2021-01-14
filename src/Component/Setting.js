@@ -119,7 +119,7 @@ class Setting extends Component {
 
         if(confirmPassword){
 
-            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let fetchurl = `https://www.breathconductor.com/api_v1/user/deleteAccount?user_id=${userId}&password=${confirmPassword}`;
 
             // Header 
@@ -135,7 +135,7 @@ class Setting extends Component {
                 redirect: 'follow'
             };
 
-            fetch(fetchurl, requestOptions)
+            fetch(proxyurl + fetchurl, requestOptions)
             .then(response => response.text())
             .then(result => {
                 let resultjson = JSON.parse(result)
@@ -178,7 +178,7 @@ class Setting extends Component {
         let userId = localStorage.getItem('userID');
 
         if(token){
-            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let clearHistoryUrl = "https://www.breathconductor.com/api_v1/library/exerciseHistoryClear";
 
             var myHeaders = new Headers();
@@ -194,7 +194,7 @@ class Setting extends Component {
                 redirect: 'follow'
             };
 
-            fetch(clearHistoryUrl, requestOptions)
+            fetch(proxyurl + clearHistoryUrl, requestOptions)
             .then(response => response.text())
             .then(result => {
                 const datajson = JSON.parse(result);

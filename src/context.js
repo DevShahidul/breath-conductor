@@ -22,7 +22,7 @@ class BreathProvider extends Component {
             goalOptions: [{id:1, name:"Relax"}, {id:3, name:"Balance"}],
             timeOptionsArray: [],
             timeOptions: [{id: 2, name:"1 min"}, {id: 3, name: "2 min"}, {id:4, name:"5 min"}],
-            narrationOptions: [{id:1, name: "None"}, {id:1, name:"Full"}],
+            narrationOptions: [{id:1, name: "None"}, {id:3, name:"Full"}],
             themeOptions: [{id:1, name: "Sunrise"}, {id: 2, name: "Earth"}, {id: 3, name:"Moon"}],
             goal: "Relax",
             time: "1 min",
@@ -351,7 +351,10 @@ class BreathProvider extends Component {
         if(value === "Infinity"){
             this.setState({
                 narration: 'No narration',
-                theme: "Select"
+                theme: "Select",
+                narrationOptions: [
+                    {id: "NULL", name: "No narration"}
+                ]
             })
         }else if(value === "1 min" || value === "2 min" || value === "5 min"){
             this.setState({
@@ -549,17 +552,22 @@ class BreathProvider extends Component {
             
             // get narration id
             const narrationOption = this.getId(this.state.narrationOptions, narration);
+            
+            console.log('Narration Option: ', narrationOption);
+            
             const nId = narrationOption[0].id ? narrationOption[0].id : null;
-            const narrationId = time === "Infinity" ? 1 : nId;
+            const narrationId = time === "Infinity" ? "NULL" : nId;
 
             // get theme id
             const themeOption = this.getId(this.state.themeOptions, theme);
             const themeId = themeOption[0].id ? themeOption[0].id : null;
-
+            
 
             let token = localStorage.getItem('token');
             let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
-            let fetchUrl = `https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${goalId}&narration_id=${narrationId}&theme_id=${themeId}&duration_minute_id=${timeId}`;
+            let fetchUrl = `https://www.breathconductor.com/api/v2/exercise/search?goal_id=${goalId}&narration_id=${narrationId}&theme_id=${themeId}&duration_minute_id=${timeId}&output=EXERCISE`;
+
+            // https://www.breathconductor.com/api_v1/exercise/search_exercise?goal_id=${goalId}&narration_id=${narrationId}&theme_id=${themeId}&duration_minute_id=${timeId}
 
             var myHeaders = new Headers();
             myHeaders.append("Authorization", `Bearer ${token}`);
@@ -575,8 +583,6 @@ class BreathProvider extends Component {
                 redirect: 'follow'
             };
 
-            
-
             fetch(proxyurl + fetchUrl, requestOptions)
             .then(response => response.text())
             .then(result => {
@@ -584,7 +590,7 @@ class BreathProvider extends Component {
                 let hasVideo = resultjson.data.data_found;
                 let message = resultjson.message;
 
-                console.log(goalId, timeId, narrationId, themeId);
+                console.log('goal Id: ', goalId, 'time id: ', timeId, 'narration Id: ', narrationId, 'theme Id: ', themeId);
 
                 this.setState({
                     timeId,

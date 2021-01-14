@@ -49,7 +49,7 @@ class HistoryDetailsPage extends Component{
         const {id} = this.state;
 
         if(token){
-            //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+            let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
             let fetchUrl = `https://www.breathconductor.com/api_v1/library/exerciseHistoryDetail/${id}`;
 
             var myHeaders = new Headers();
@@ -65,7 +65,7 @@ class HistoryDetailsPage extends Component{
                 redirect: 'follow'
             };
 
-            fetch(fetchUrl, requestOptions)
+            fetch(proxyurl + fetchUrl, requestOptions)
             .then(response => response.text())
             .then(result => {
                 let jsonResult = JSON.parse(result);
@@ -133,7 +133,7 @@ class HistoryDetailsPage extends Component{
     // // Remove from history function
     removeFromHistory = (historyid) => {
         let token = localStorage.getItem('token');
-        //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let fetchUrl = `https://www.breathconductor.com/api_v1/library/exerciseHistory/${historyid}?action=1`;
 
         var myHeaders = new Headers();
@@ -148,7 +148,7 @@ class HistoryDetailsPage extends Component{
             redirect: 'follow'
         };
 
-        fetch(fetchUrl, requestOptions)
+        fetch(proxyurl + fetchUrl, requestOptions)
         .then(response => response.text())
         .then(result => {
             console.log(result)
@@ -189,7 +189,7 @@ class HistoryDetailsPage extends Component{
         });
         
         //console.log(actionId)
-        //let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
+        let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         let fetchUrl = `https://www.breathconductor.com/api_v1/library/favoriteExercise/${actionId}?action=${action}`;
 
         var myHeaders = new Headers();
@@ -204,7 +204,7 @@ class HistoryDetailsPage extends Component{
             redirect: 'follow'
         };
 
-        fetch(fetchUrl, requestOptions)
+        fetch(proxyurl + fetchUrl, requestOptions)
         .then(response => response.text())
         .then(result => {
             console.log(result)
