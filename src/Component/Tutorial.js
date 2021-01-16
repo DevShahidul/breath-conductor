@@ -20,7 +20,7 @@ class Tutorial extends Component {
     static contextType = BreathContext;
     
     render() {
-        const { backToPrev, toggleFavorite, modalShown, exerciseVideo, handleShareModal, handleEdit, is_favorite, exercise_id, hideActionButton, handleEndVideo, infinity } = this.context;
+        const { backToPrev, toggleFavorite, modalShown, exerciseTitle, exerciseVideo, handleShareModal, handleEdit, is_favorite, exercise_id, hideActionButton, handleEndVideo, infinity } = this.context;
         let proxyurl = "https://quiet-retreat-79741.herokuapp.com/";
         const shareText = "Let's try! ";
         return (
@@ -31,7 +31,7 @@ class Tutorial extends Component {
                             <button onClick={backToPrev}><img src={BackIcon} alt="Back arrow"/></button>
                         </div>
                         <div className="section-title">
-                            <h2>Tutorial</h2>
+                            <h2>{exerciseTitle}</h2>
                         </div>
                         {!hideActionButton ?<div className="actionRow">
                             <button onClick={() => toggleFavorite(exercise_id)}>{is_favorite === 1 ? <HeartFill /> : <HeartOutline />}</button>
