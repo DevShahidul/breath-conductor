@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link, Redirect} from "react-router-dom";
+import MetaTags from 'react-meta-tags';
 import Password from '../Assets/Image/password.svg';
 import Username from '../Assets/Image/username.svg';
 import Facebook from '../Assets/Image/facebook.svg';
@@ -236,6 +237,11 @@ class Login extends Component {
         const {username, password} = this.state;
         return (
             <div className="container login-box">
+                <MetaTags>
+                    <title>Log In</title>
+                    <meta name="description" content="Breath conductor app sign in page" />
+                    <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;" />
+                </MetaTags>
                 <div className="container-inner small">
                     <div className="contents-wrap">
                         <div className="sign-in">
@@ -280,7 +286,7 @@ class Login extends Component {
                             <div className="col-3">
                                 <AppleLogin 
                                     clientId="YGT24URKF9" 
-                                    redirectURI="http://localhost:3001" 
+                                    redirectURI="https://breathconductor.netlify.app" 
                                     callback={this.responseApple}
                                     render={renderProps => (
                                         <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Apple} alt="Apple icon"/></button>
