@@ -336,7 +336,7 @@ class Signup extends Component {
                                         </div>
                                         <div className="col-3">
                                             <AppleLogin 
-                                                clientId="YGT24URKF9" 
+                                                clientId="com.mindiii.BreathConductorNew" 
                                                 redirectURI="https://breathconductor.netlify.app" 
                                                 callback={this.responseApple}
                                                 render={renderProps => (
