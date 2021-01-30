@@ -243,7 +243,7 @@ class Login extends Component {
                     <meta httpEquiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;" />
                     <meta name="appleid-signin-client-id" content="com.mindiii.breathWeb" />
                     <meta name="appleid-signin-scope" content="name email" />
-                    <meta name="appleid-signin-redirect-uri" content="https://breathconductor.netlify.app" />
+                    <meta name="appleid-signin-redirect-uri" content="https://breathconductor.netlify.app/apple/callback" />
                     {/* <meta name="appleid-signin-state" content="[STATE]" />
                     <meta name="appleid-signin-nonce" content="[NONCE]" /> */}
                     <meta name="appleid-signin-use-popup" content="true" />
@@ -293,7 +293,7 @@ class Login extends Component {
                             <div className="col-3">
                                 <AppleLogin 
                                     clientId="com.mindiii.breathWeb" 
-                                    redirectURI="https://breathconductor.netlify.app" 
+                                    redirectURI="https://breathconductor.netlify.app/apple/callback" 
                                     callback={this.responseApple}
                                     render={renderProps => (
                                         <button onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={Apple} alt="Apple icon"/></button>

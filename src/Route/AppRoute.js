@@ -14,12 +14,14 @@ import { ErrorPage } from "../Pages/ErrorPage";
 import { Protected } from '../Component';
 import { TermsOfService } from '../Pages/TermsOfService';
 import Support from '../Pages/Support';
+import AppleCallback from '../Pages/AppleCallback';
 
 class AppRoute extends Component {
     render() {
         return (
             <Switch>
                 <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/apple/callback" component={AppleCallback} />
                 <Route exact path="/resetpassword" component={ResetPasswordPage} />
                 <Route exact path="/signup" component={SignupPage} />
                 <Route exact path="/">
