@@ -264,6 +264,12 @@ class Signup extends Component {
                     <title>Sign up</title>
                     <meta name="description" content="Breath conductor app sign up page" />
                     <meta httpEquiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;" />
+                    <meta name="appleid-signin-client-id" content="com.mindiii.breathWeb" />
+                    <meta name="appleid-signin-scope" content="name email" />
+                    <meta name="appleid-signin-redirect-uri" content="https://breathconductor.netlify.app" />
+                    {/* <meta name="appleid-signin-state" content="[STATE]" />
+                    <meta name="appleid-signin-nonce" content="[NONCE]" /> */}
+                    <meta name="appleid-signin-use-popup" content="true" />
                 </MetaTags>
                 <div className="container signup-box">
                     <div className="container-inner small">
@@ -336,7 +342,7 @@ class Signup extends Component {
                                         </div>
                                         <div className="col-3">
                                             <AppleLogin 
-                                                clientId="com.mindiii.BreathConductorNew" 
+                                                clientId="com.mindiii.breathWeb" 
                                                 redirectURI="https://breathconductor.netlify.app" 
                                                 callback={this.responseApple}
                                                 render={renderProps => (
