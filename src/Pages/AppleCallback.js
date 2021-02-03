@@ -1,9 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react';
+import {BreathContext} from '../context';
 
 const AppleCallback = () => {
+const {closeProfileDropdown} = useContext(BreathContext);
     return (
-        <div>
-            <h1>This is apple call page</h1>
+        <div className="container" onClick={closeProfileDropdown}>
+            <div className="container-inner">
+                <div className="contents-wrap">
+                    <h1 style={{color: "white"}}>This is apple callback page</h1>
+                </div>
+            </div>
         </div>
     )
 }

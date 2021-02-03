@@ -179,6 +179,15 @@ class Signup extends Component {
     // Apple signup
     responseApple = (response) =>{
         console.log(response)
+        // let userData = response;
+
+        // this.setState({
+        //     email: userData.email,
+        //     social_type: 2,
+        //     social_id: userData.userID,
+        //     userPhoto: userData.picture.data.url,
+        //     signupPopup: true
+        // });
     }
 
     // Social signup function
