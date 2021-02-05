@@ -211,6 +211,10 @@ textarea:focus{
     margin: 0 auto;
 }
 
+.contents-wrap form label {
+    width: 100%;
+}
+
 .container > .small {
     width: 560px;
 }
