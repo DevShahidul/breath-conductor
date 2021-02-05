@@ -19,14 +19,27 @@ firebase.initializeApp(firebaseConfig);
 // Retrieve firebase messaging
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(function(payload) {
-  console.log('Received background message ', payload);
 
+// messaging.onBackgroundMessage(function(payload) {
+//   console.log('Received background message ', payload);
+
+//   const notificationTitle = payload.notification.title;
+//   const notificationBody = payload.notification.body;
+
+//   self.registration.showNotification(notificationTitle, notificationBody);
+// });
+
+
+messaging.onBackgroundMessage(function(payload) {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
-    body: payload.notification.body,
+    body: payload.notification.body
   };
+  return self.registration.showNotification(notificationTitle, notificationOptions);
+});
 
-  self.registration.showNotification(notificationTitle,
-    notificationOptions);
+self.addEventListener('notificationclick', event => {
+  console.log(event)
+  return event;
 });
