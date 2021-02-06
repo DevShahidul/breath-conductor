@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import { BreathContext } from '../context';
 import { PopUp, TaskList } from '../Component';
+import Loader from './loader/Loader'
 
 
 class Home extends Component {
     static contextType = BreathContext;
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         loading: true
+    //     }
+    // }
 
     componentDidMount(){
         const { updateComponentFromHome, getGeneralList, checkInfinity, goal } = this.context;
@@ -19,10 +26,11 @@ class Home extends Component {
     }
 
     render() {
-        const {handleHomeStart, handlePopUpAction, handleChange, themeOptions, timeOptions, goalOptions, narrationOptions, theme, goal, time, narration, themePopup,  goalPopup, timePopup, narrationPopup, handleGoalPopUp, handleTimePopUp, handleThemePopUp, handlenarrationPopUp } = this.context;
+        const {handleHomeStart, handlePopUpAction, handleChange, themeOptions, timeOptions, goalOptions, narrationOptions, theme, goal, time, narration, themePopup,  goalPopup, timePopup, narrationPopup, handleGoalPopUp, handleTimePopUp, handleThemePopUp, handlenarrationPopUp, loading } = this.context;
         
         return (
             <div className="container-inner session-container" onClick={handlePopUpAction}>
+                {loading ? <Loader /> :
                 <div className="contents-wrap">
                     <h2 className="session-title ">Session Design</h2>
                     <TaskList title="Goal" contentText={goal} onClick={handleGoalPopUp} />
@@ -46,7 +54,7 @@ class Home extends Component {
                     
                     {/* <Link to="/feel"></Link> */}
                     <button onClick={handleHomeStart} className="btn btn-primary">Start</button>
-                </div>
+                </div> }
             </div>
         );
     }

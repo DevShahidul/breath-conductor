@@ -126,11 +126,20 @@ class BreathProvider extends Component {
                 redirect: 'follow'
             };
 
+            this.setState({
+                ...this.state,
+                loading: true
+            })
+
             fetch(proxyurl+BaseUrl, requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result)
                 this.setGeneralList(result.data)
+                this.setState({
+                    ...this.state,
+                    loading: false
+                })
             })
             .catch(error => console.log('error', error));
         }
