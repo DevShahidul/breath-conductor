@@ -4,14 +4,16 @@ importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
- var firebaseConfig = {
-    apiKey: "AIzaSyBJpzH70J_sqxJvnMW5ZWUszSYxzv0aVGg",
-    authDomain: "breath-conductor-297306.firebaseapp.com",
-    projectId: "breath-conductor-297306",
-    storageBucket: "breath-conductor-297306.appspot.com",
-    messagingSenderId: "156485572267",
-    appId: "1:156485572267:web:95d29a09ec15a1dbd609ee"
-  };
+var firebaseConfig = {
+  apiKey: "AIzaSyCpKgLeqb9aZlwLRFX0J_sTHqwWWvpaMmI",
+  authDomain: "breath-conductor.firebaseapp.com",
+  databaseURL: "https://breath-conductor.firebaseio.com",
+  projectId: "breath-conductor",
+  storageBucket: "breath-conductor.appspot.com",
+  messagingSenderId: "734812129749",
+  appId: "1:734812129749:web:7e4ea3741e8977c02e155c",
+  measurementId: "G-50ZJC44HMM"
+};
 
 firebase.initializeApp(firebaseConfig);
 //firebase.analytics();
