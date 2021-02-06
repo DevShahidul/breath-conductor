@@ -25,7 +25,7 @@ const formate = (seconds) => {
 }
 
 export const VideoPlayer = (props) => {
-    const { handleEndVideo, intro_duration, hideActionButtons, timeId, videoFallback, hasVideo} = useContext(BreathContext);
+    const { handleEndVideo, intro_duration, hideActionButtons, timeId, videoFallback, hasVideo } = useContext(BreathContext);
 
     const [state, setState] = useState({
         playing: false,
@@ -55,6 +55,8 @@ export const VideoPlayer = (props) => {
     const totalDuration = formate(duration);
 
     const skiptedDuration =  intro_duration.split(':').reduce((acc,time) => (60 * acc) + +time);
+    
+    const loopMode = timeId === 9 ? true : false
 
     // Handle change display formate
     const handleChangeTimeDisplayFormate = () => {
@@ -85,10 +87,16 @@ export const VideoPlayer = (props) => {
       })
       playerRef.current.seekTo(newValue / 100);
     }
-
-    // const handleEndVideo = () => {
-    //   console.log(" I'm working!!!!!")
-    // }
+    
+    const onEndVideo = () => {
+      //console.log(timeId);
+      if(timeId === "9"){
+        playerRef.current.seekTo(0)
+        //console.log("I'm working!");
+      }else{
+        handleEndVideo();
+      }
+    }
 
     // Handle progress time
     const handleProgress = (changeState) => {
@@ -232,7 +240,6 @@ export const VideoPlayer = (props) => {
       return () => clearTimeout(timer);
     }
 
-    const loopMode = timeId === 9 ? true : false
 
 
     return (
@@ -250,7 +257,7 @@ export const VideoPlayer = (props) => {
           onReady={handleOnReady}
           onProgress={handleProgress}
           onBuffer={handleOnBuffer}
-          onEnded={handleEndVideo}
+          onEnded={onEndVideo}
           onStart={handleOnstart}
           loop={loopMode}
           config={{
@@ -284,6 +291,8 @@ export const VideoPlayer = (props) => {
           onChangeTimeDisplayFormate={handleChangeTimeDisplayFormate}
           onSkipIntro={handleOnSkip}
           hideIntroSkipBtn={skiptIntro.hideSkipIntro}
+          timeId={timeId}
+          endVideo={handleEndVideo}
         /> : null }
     </PlayerWrap>
     )

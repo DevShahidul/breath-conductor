@@ -133,9 +133,15 @@ export const PlayerControls = ({
     onChangeTimeDisplayFormate,
     VolumeHigh,
     onSkipIntro,
-    hideIntroSkipBtn
+    hideIntroSkipBtn,
+    timeId,
+    endVideo
 }) => {
     const classes = useStyles();
+
+    const handleEnd = () => {
+        endVideo();
+    }
 
 
     return (
@@ -152,6 +158,8 @@ export const PlayerControls = ({
                 </IconButton> */}
             </ControlWrapMiddle>
             <ControlWrapBottom>
+                { timeId !== "9" ?
+                <>
                 <Grid container direction="row" justify="space-between" alignItems="center">
                     <Grid item xs={12}> 
                         <PrettoSlider 
@@ -191,9 +199,11 @@ export const PlayerControls = ({
                             onChangeCommitted={onVolumeSeekUp}
                             aria-labelledby="continuous-slider" />
                         </Grid>
-                    </Grid>
+                    </Grid> 
                 </Grid>
-                {!hideIntroSkipBtn ? <SkipIntro onClick={onSkipIntro}>Skip intro</SkipIntro> : null}
+                {!hideIntroSkipBtn ? <SkipIntro onClick={onSkipIntro}>Skip intro</SkipIntro> : null} 
+                </> : 
+                <Button fullWidth={true} onClick={handleEnd} variant="contained" color="primary">End</Button> }
             </ControlWrapBottom>
         </ControlsWrapper>
     )
