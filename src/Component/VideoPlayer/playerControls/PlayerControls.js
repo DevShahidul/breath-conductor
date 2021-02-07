@@ -29,7 +29,6 @@ const PrettoSlider = withStyles({
     opacity: 0,
     height: 16,
     width: 16,
-    //border: '2px solid currentColor',
     marginTop: -6,
     marginLeft: -8,
     '&:focus, &:hover, &$active': {
@@ -115,9 +114,7 @@ const useStyles = makeStyles((theme, iconColor) => ({
 
 export const PlayerControls = ({
     onPlayPause, 
-    playing, 
-    // onRewind,
-    // onForward, 
+    playing,
     muted, 
     onMute, 
     onVolumeChange,
@@ -143,19 +140,12 @@ export const PlayerControls = ({
         endVideo();
     }
 
-
     return (
         <ControlsWrapper>
             <ControlWrapMiddle onClick={onPlayPause} className={playing ? 'middle-control played' : 'middle-control paused'}>
-                {/* <IconButton onClick={onRewind} className={`${classes.controlIcons} ${classes.skipPreviousIcon}`} aria-label="reqind">
-                    <SkipPrevious fontSize="inherit"/>
-                </IconButton> */}
                 <IconButton className={classes.controlIconsPlay} aria-label="reqind">
                     {playing ? <Pause fontSize="inherit" /> : <PlayArrow fontSize="inherit"/>}
                 </IconButton>
-                {/* <IconButton onClick={onForward} className={classes.controlIcons} aria-label="reqind">
-                    <SkipNext fontSize="inherit"/>
-                </IconButton> */}
             </ControlWrapMiddle>
             <ControlWrapBottom>
                 { timeId !== "9" ?
@@ -203,7 +193,7 @@ export const PlayerControls = ({
                 </Grid>
                 {!hideIntroSkipBtn ? <SkipIntro onClick={onSkipIntro}>Skip intro</SkipIntro> : null} 
                 </> : 
-                <Button fullWidth={true} onClick={handleEnd} variant="contained" color="primary">End</Button> }
+                <button onClick={handleEnd} className="btn btn-primary">End</button> }
             </ControlWrapBottom>
         </ControlsWrapper>
     )

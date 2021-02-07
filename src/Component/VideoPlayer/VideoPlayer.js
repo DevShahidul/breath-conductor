@@ -2,11 +2,9 @@ import React, { useState, useRef, useContext } from 'react';
 import {BreathContext} from '../../context'
 import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
-import { PlayerWrap} from './VideoPlayer.elements';
+import {PlayerWrap} from './VideoPlayer.elements';
 import PlayerControls from './playerControls';
 import Loader from '../loader/Loader';
-//import LoadingGif from '../../Assets/Image/gif/loading-circle.gif';
-
 
 const formate = (seconds) => {
   if(isNaN(seconds)){
