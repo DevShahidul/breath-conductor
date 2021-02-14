@@ -16,10 +16,13 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 //firebase.analytics();
 
-const messaging = firebase.messaging();
+let messaging = null;
 
 // Get token file exported
 export const getToken = (setTokenFound) => {
+  if (firebase.messaging.isSupported()){
+  messaging = firebase.messaging();
+    //console.log('Firebase messaging 2: ', messaging);
   return messaging.getToken({vapidKey: 'BNoVCZo3FVm3SuwRAqouApnjCkTQ3pImOv_0JPfZfTVtHa3Qd-L8sUlzkIbsmSpL8HOO8U08kkVwJE5Sb3hhk-k'}).then((currentToken) => {
     if (currentToken) {
         console.log('current token for client: ', currentToken);
@@ -35,13 +38,20 @@ export const getToken = (setTokenFound) => {
         console.log('An error occurred while retrieving token. ', err);
         // catch error while creating client token
     });
+  }
 }
+
 
 // onMessageListener function exported
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    messaging.onMessage((payload) => {
-      resolve(payload);
-      console.log("payload from firebase: ", payload);
-    });
+    if (firebase.messaging.isSupported()) {
+      messaging = firebase.messaging();
+
+      //console.log('Firebase messaging 3: ', messaging);
+      messaging.onMessage((payload) => {
+        resolve(payload);
+        console.log("payload from firebase: ", payload);
+      });
+    }
 });

@@ -7,7 +7,6 @@ import {BrowserRouter as Router} from "react-router-dom";
 import { BreathProvider } from './context';
 import { getToken, onMessageListener } from './firebase';
 import {Toast} from 'react-bootstrap';
-//import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
