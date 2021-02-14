@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import './Assets/CSS/style.css';
 import './Assets/CSS/responsive.css';
