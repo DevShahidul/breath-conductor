@@ -1,4 +1,4 @@
-/* // Scripts for firebase and firebase messaging
+// Scripts for firebase and firebase messaging
 importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
 
@@ -34,4 +34,4 @@ messaging.onBackgroundMessage(function(payload) {
 self.addEventListener('notificationclick', event => {
   console.log(event)
   return event;
-}); */
+});
